@@ -50,6 +50,13 @@ void mips_token::append_raw_tok(wchar_t chr){
 	m_raw_tok += chr;
 }
 
+void mips_token::set_formatted_prefix(std::wstring prefix){
+	m_formatted_prefix = prefix;
+}
+wstring mips_token::set_formatted_prefix(){
+	return m_formatted_prefix;
+}
+
 std::wstring mips_token::get_formatted_token(){
 	return m_formatted_prefix + m_raw_tok;
 }

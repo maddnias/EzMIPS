@@ -2,10 +2,10 @@
 #include "..\token.h"
 
 enum INSTRUCTION_TYPE{
-	INSTRUCTION_R = 0,
-	INSTRUCTION_I = 1,
-	INSTRUCTION_J = 2,
-	INSTRUCTION_PSEUDO = 4
+	INSTRUCTION_I = 0x1,
+	INSTRUCTION_J = 0x2,
+	INSTRUCTION_PSEUDO = 0x4,
+	INSTRUCTION_R = 0x8,
 };
 
 class instr_base_tok :

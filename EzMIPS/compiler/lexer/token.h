@@ -33,6 +33,9 @@ public:
 	std::wstring get_raw_tok();
 	void append_raw_tok(wchar_t chr);
 
+	void set_formatted_prefix(std::wstring prefix);
+	std::wstring set_formatted_prefix();
+
 	std::wstring get_formatted_token();
 
 	mips_token operator+(const mips_token& rhs);

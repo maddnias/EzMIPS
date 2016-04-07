@@ -8,7 +8,7 @@ public:
 	reg_handler(void);
 	~reg_handler(void);
 	
-	virtual mips_token_ptr parse_token(parser_ctx &ctx) override;
+	virtual mips_token_ptr parse_token(parser_ctx &ctx, std::wstring buff) override;
 
 private:
 	std::wstring read_int(int peek_start, parser_context &ctx);

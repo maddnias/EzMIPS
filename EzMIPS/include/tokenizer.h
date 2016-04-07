@@ -5,6 +5,8 @@
 #include "..\compiler\lexer\token_handlers\asm_directives_handler.h"
 #include "..\compiler\lexer\token_handlers\r_instr_handler.h"
 #include "..\compiler\lexer\token_handlers\j_instr_handler.h"
+#include "..\compiler\lexer\token_handlers\i_instr_handler.h"
+#include "..\compiler\lexer\token_handlers\pseudo_instr_handler.h"
 #include "..\compiler\lexer\token_handlers\reg_handler.h"
 
 #include <vector>
@@ -45,6 +47,8 @@ private:
 	parser_ctx *m_ctx;
 	asm_directives_handler m_asm_directives_handler;
 	r_instr_handler m_r_instr_handler;
-	j_instr_handler j_r_instr_handler;
+	j_instr_handler m_j_instr_handler;
+	i_instr_handler m_i_instr_handler;
+	pseudo_instr_handler m_pseudo_instr_handler;
 	reg_handler m_reg_handler;
 };

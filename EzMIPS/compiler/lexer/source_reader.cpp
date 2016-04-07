@@ -75,26 +75,16 @@ bool SourceReader::matches(wstring str){
 	return true;
 }
 
+// TODO: fixa med peek() istället...
 bool SourceReader::matches_unique(wstring str){
-	bool flag = true;
-	wstreampos before = m_input->tellg();
-	m_input->seekg(-1, wistream::cur);
-
-	for(wstring::iterator it = str.begin();it != str.end();it++){
-		wchar_t lol = peek();
-		if(read() != *it){
-			flag = false;
-			decrement_col();
-			break;
+	for(int i = 0;i < str.length();i++){
+		if(peek(i) != str.at(i)){
+			return false;
 		}
-		decrement_col();
 	}
-
-	bool isUnique = iswspace(peek()) || peek() == 65535;
-	m_input->seekg(before - (wstreampos)1);
-	wchar_t lol = peek();
-	return flag && isUnique;
+	return iswspace(peek(str.length()));
 }
+
 
 void SourceReader::reset(){
 	m_current_col = 0;

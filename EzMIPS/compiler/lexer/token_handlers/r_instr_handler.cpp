@@ -1,6 +1,7 @@
 #include "r_instr_handler.h"
 #include "..\tokens\r_instr_tok.h"
 
+using namespace std;
 
 r_instr_handler::r_instr_handler()
 {
@@ -11,7 +12,7 @@ r_instr_handler::~r_instr_handler(void)
 {
 }
 
-mips_token_ptr r_instr_handler::parse_token(parser_ctx &ctx){
+mips_token_ptr r_instr_handler::parse_token(parser_ctx &ctx, wstring buff){
 		bool successFlag = true;
 		
 		int curCol = ctx.get_src_reader()->get_current_col();

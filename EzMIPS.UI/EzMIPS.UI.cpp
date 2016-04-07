@@ -9,7 +9,7 @@
 #include <sstream>
 #include <fstream>
 #include <codecvt>
-
+#include <chrono>
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -17,12 +17,17 @@ int _tmain(int argc, _TCHAR* argv[])
 	std::wifstream ws;
 	ws.open("C:\\TestScript.txt", std::wifstream::binary);
 	mips_tokenizer t = mips_tokenizer();
-	
-	mips_tok_vector toks = t.parse_tokens(ws);
 
-	for(mips_tok_vector::iterator it = toks.begin();it != toks.end();it++){
+	//auto start_time = std::chrono::high_resolution_clock::now();
+	mips_tok_vector toks = t.parse_tokens(ws);
+	//auto current_time = std::chrono::high_resolution_clock::now();
+
+	//auto duration = std::chrono::duration_cast<std::chrono::duration<float>>(current_time - start_time).count();
+	//std::cout<<"Tokens parsed per second: "<< toks.size()/duration <<'\n';
+
+	/*for(mips_tok_vector::iterator it = toks.begin();it != toks.end();it++){
 		std::wcout << (*it)->get_formatted_token() << std::endl;
-	}
+	}*/
 
 	//while(true){
 	//	std::wstring s;
