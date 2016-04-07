@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{0ca5487a-c06f-41b3-8259-a79206b08087}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{afea6def-ea1a-4d48-85c9-1a160f686429}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\compiler">
+      <UniqueIdentifier>{faed117f-dbac-4738-8382-eec5f5a69ec2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\compiler\lexer">
+      <UniqueIdentifier>{a2bae06c-e2d2-470b-8883-9d7c862933c3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\tokenizer.h" />
+    <ClInclude Include="compiler\lexer\parser_context.h" />
+    <ClInclude Include="compiler\lexer\parser_error.h" />
+    <ClInclude Include="compiler\lexer\source_reader.h" />
+    <ClInclude Include="compiler\lexer\token.h" />
+    <ClInclude Include="compiler\lexer\tokens\undefined_tok.h" />
+    <ClInclude Include="compiler\lexer\tokens\asm_directive_tok.h" />
+    <ClInclude Include="compiler\lexer\tokens\instr_base_tok.h" />
+    <ClInclude Include="compiler\lexer\tokens\r_instr_tok.h" />
+    <ClInclude Include="compiler\lexer\instr_sets.h" />
+    <ClInclude Include="compiler\lexer\tokens\i_instr_tok.h" />
+    <ClInclude Include="compiler\lexer\tokens\j_instr_tok.h" />
+    <ClInclude Include="compiler\lexer\tokens\pseudo_instr_tok.h" />
+    <ClInclude Include="compiler\lexer\token_handlers\asm_directives_handler.h" />
+    <ClInclude Include="compiler\lexer\token_handlers\r_instr_handler.h" />
+    <ClInclude Include="compiler\lexer\token_handlers\token_handler.h" />
+    <ClInclude Include="compiler\lexer\token_handlers\j_instr_handler.h" />
+    <ClInclude Include="compiler\lexer\tokens\label_decl_tok.h" />
+    <ClInclude Include="compiler\lexer\tokens\label_ref_tok.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="compiler\lexer\parser_context.cpp" />
+    <ClCompile Include="compiler\lexer\parser_error.cpp" />
+    <ClCompile Include="compiler\lexer\source_reader.cpp" />
+    <ClCompile Include="compiler\lexer\token.cpp" />
+    <ClCompile Include="compiler\lexer\tokenizer.cpp" />
+    <ClCompile Include="compiler\lexer\tokens\undefined_tok.cpp" />
+    <ClCompile Include="compiler\lexer\tokens\asm_directive_tok.cpp" />
+    <ClCompile Include="compiler\lexer\tokens\instr_base_tok.cpp" />
+    <ClCompile Include="compiler\lexer\tokens\r_instr_tok.cpp" />
+    <ClCompile Include="compiler\lexer\tokens\i_instr_tok.cpp" />
+    <ClCompile Include="compiler\lexer\tokens\j_instr_tok.cpp" />
+    <ClCompile Include="compiler\lexer\tokens\pseudo_instr_tok.cpp" />
+    <ClCompile Include="compiler\lexer\token_handlers\asm_directives_handler.cpp" />
+    <ClCompile Include="compiler\lexer\token_handlers\r_instr_handler.cpp" />
+    <ClCompile Include="compiler\lexer\token_handlers\token_handler.cpp" />
+    <ClCompile Include="compiler\lexer\token_handlers\j_instr_handler.cpp" />
+    <ClCompile Include="compiler\lexer\tokens\label_decl_tok.cpp" />
+    <ClCompile Include="compiler\lexer\tokens\label_ref_tok.cpp" />
+  </ItemGroup>
+</Project>

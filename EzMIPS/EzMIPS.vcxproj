@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="compiler\lexer\instr_sets.h" />
+    <ClInclude Include="compiler\lexer\tokens\asm_directive_tok.h" />
+    <ClInclude Include="compiler\lexer\tokens\label_ref_tok.h" />
+    <ClInclude Include="compiler\lexer\tokens\label_decl_tok.h" />
+    <ClInclude Include="compiler\lexer\token_handlers\j_instr_handler.h" />
+    <ClInclude Include="compiler\lexer\token_handlers\asm_directives_handler.h" />
+    <ClInclude Include="compiler\lexer\tokens\pseudo_instr_tok.h" />
+    <ClInclude Include="compiler\lexer\tokens\j_instr_tok.h" />
+    <ClInclude Include="compiler\lexer\tokens\i_instr_tok.h" />
+    <ClInclude Include="include\tokenizer.h" />
+    <ClInclude Include="compiler\lexer\parser_context.h" />
+    <ClInclude Include="compiler\lexer\parser_error.h" />
+    <ClInclude Include="compiler\lexer\source_reader.h" />
+    <ClInclude Include="compiler\lexer\token.h" />
+    <ClInclude Include="compiler\lexer\token_handlers\token_handler.h" />
+    <ClInclude Include="compiler\lexer\tokens\undefined_tok.h" />
+    <ClInclude Include="compiler\lexer\tokens\instr_base_tok.h" />
+    <ClInclude Include="compiler\lexer\tokens\r_instr_tok.h" />
+    <ClInclude Include="compiler\lexer\token_handlers\r_instr_handler.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="compiler\lexer\tokens\asm_directive_tok.cpp" />
+    <ClCompile Include="compiler\lexer\tokens\label_ref_tok.cpp" />
+    <ClCompile Include="compiler\lexer\tokens\label_decl_tok.cpp" />
+    <ClCompile Include="compiler\lexer\token_handlers\j_instr_handler.cpp" />
+    <ClCompile Include="compiler\lexer\token_handlers\asm_directives_handler.cpp" />
+    <ClCompile Include="compiler\lexer\parser_context.cpp" />
+    <ClCompile Include="compiler\lexer\parser_error.cpp" />
+    <ClCompile Include="compiler\lexer\source_reader.cpp" />
+    <ClCompile Include="compiler\lexer\token.cpp" />
+    <ClCompile Include="compiler\lexer\tokenizer.cpp" />
+    <ClCompile Include="compiler\lexer\tokens\pseudo_instr_tok.cpp" />
+    <ClCompile Include="compiler\lexer\tokens\j_instr_tok.cpp" />
+    <ClCompile Include="compiler\lexer\tokens\i_instr_tok.cpp" />
+    <ClCompile Include="compiler\lexer\token_handlers\token_handler.cpp" />
+    <ClCompile Include="compiler\lexer\tokens\undefined_tok.cpp" />
+    <ClCompile Include="compiler\lexer\tokens\instr_base_tok.cpp" />
+    <ClCompile Include="compiler\lexer\tokens\r_instr_tok.cpp" />
+    <ClCompile Include="compiler\lexer\token_handlers\r_instr_handler.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{98BB9001-E271-43AB-83DA-B26A546650E7}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>EzMIPS</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
