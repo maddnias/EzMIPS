@@ -9,6 +9,7 @@
 
 class parser_context{
 public:
+	parser_context(void);
 	parser_context(std::wistream &input);
 	~parser_context(void);
 

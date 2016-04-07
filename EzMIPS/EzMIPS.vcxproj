@@ -13,8 +13,10 @@
   <ItemGroup>
     <ClInclude Include="compiler\lexer\instr_sets.h" />
     <ClInclude Include="compiler\lexer\tokens\asm_directive_tok.h" />
+    <ClInclude Include="compiler\lexer\tokens\reg_tok.h" />
     <ClInclude Include="compiler\lexer\tokens\label_ref_tok.h" />
     <ClInclude Include="compiler\lexer\tokens\label_decl_tok.h" />
+    <ClInclude Include="compiler\lexer\token_handlers\reg_handler.h" />
     <ClInclude Include="compiler\lexer\token_handlers\j_instr_handler.h" />
     <ClInclude Include="compiler\lexer\token_handlers\asm_directives_handler.h" />
     <ClInclude Include="compiler\lexer\tokens\pseudo_instr_tok.h" />
@@ -33,8 +35,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="compiler\lexer\tokens\asm_directive_tok.cpp" />
+    <ClCompile Include="compiler\lexer\tokens\reg_tok.cpp" />
     <ClCompile Include="compiler\lexer\tokens\label_ref_tok.cpp" />
     <ClCompile Include="compiler\lexer\tokens\label_decl_tok.cpp" />
+    <ClCompile Include="compiler\lexer\token_handlers\reg_handler.cpp" />
     <ClCompile Include="compiler\lexer\token_handlers\j_instr_handler.cpp" />
     <ClCompile Include="compiler\lexer\token_handlers\asm_directives_handler.cpp" />
     <ClCompile Include="compiler\lexer\parser_context.cpp" />

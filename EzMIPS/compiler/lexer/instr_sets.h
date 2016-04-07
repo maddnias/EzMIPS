@@ -25,3 +25,9 @@ const list<wstring> i_type_instructions(i_type_instr_set,
 const wchar_t *pseudo_type_instr_set[] = {L"blt", L"bgt", L"ble", L"neg", L"not", L"bge", L"li", L"la", L"move", L"sge", L"sgt"};
 const list<wstring> pseudo_type_instructions(pseudo_type_instr_set,
 										pseudo_type_instr_set + sizeof(pseudo_type_instr_set) / sizeof(*pseudo_type_instr_set));
+
+const wchar_t *reg_name_set[] = {L"$zero", L"$at", L"$v0", L"$v1", L"$a0", L"$a1", L"$a2", L"$a3", L"$t0", L"$t1", L"$t2", L"$t3",
+	L"$t4", L"$t5", L"$t6", L"$t7", L"$s0", L"$s1", L"$s2", L"$s3", L"$s4", L"$s5", L"$s6", L"$s7", L"$t8", L"$t9", L"$k0", L"$k1",
+	L"$gp", L"$sp", L"$fp", L"$ra"};
+const list<wstring> reg_names(reg_name_set,
+										reg_name_set + sizeof(reg_name_set) / sizeof(*reg_name_set));

@@ -1,11 +1,9 @@
 #include "instr_base_tok.h"
 
 
-instr_base_tok::instr_base_tok(INSTRUCTION_TYPE type, unsigned int tok_row,
-									 unsigned int tok_col, unsigned int op, unsigned int funct):
-	mips_token(INSTR_TOK, tok_row, tok_col, L"INSTRUCTION: "),
-		m_opcode(op),
-		m_funct(funct)
+instr_base_tok::instr_base_tok(INSTRUCTION_TYPE type, 
+							   unsigned int tok_row, unsigned int tok_col):
+	mips_token(INSTR_TOK, tok_row, tok_col, L"INSTRUCTION: ")
 {
 }
 

@@ -5,7 +5,7 @@ class r_instr_tok :
 {
 public:
 	r_instr_tok(INSTRUCTION_TYPE type, unsigned int tok_row, 
-		unsigned int tok_col, unsigned int op, unsigned int funct);
+		unsigned int tok_col);
 	~r_instr_tok(void);
 };
 

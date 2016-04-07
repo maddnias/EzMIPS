@@ -66,6 +66,15 @@ bool SourceReader::is_legal_identifier_start(wint_t val){
 	return iswalpha(val);
 }
 
+bool SourceReader::matches(wstring str){
+	for(int i = 0;i < str.length();i++){
+		if(peek(i) != str.at(i)){
+			return false;
+		}
+	}
+	return true;
+}
+
 bool SourceReader::matches_unique(wstring str){
 	bool flag = true;
 	wstreampos before = m_input->tellg();

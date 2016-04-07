@@ -2,6 +2,7 @@
 #include "tokens\undefined_tok.h"
 #include "tokens\label_decl_tok.h"
 #include "tokens\label_ref_tok.h"
+#include "tokens\reg_tok.h"
 #include "instr_sets.h"
 
 #include <cctype>
@@ -38,90 +39,111 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 		return NULL;
 	}
 
-
-	mips_token_ptr cur_tok;
+	mips_token_ptr curTok;
+	// TODO: till int för att läsa alla chars?
 	wchar_t curChar = get_src_reader()->peek();
 	
 
 	// Check if next token is an assembler directive
-	for(list<wstring>::const_iterator it = asm_directives.begin();it != asm_directives.end();it++){
-		if(get_src_reader()->matches_unique(*it)){
-			cur_tok = m_asm_directives_handler->parse_token(m_ctx);
-			if(has_lexer_flag(flags, LEXER_FLAG_DIRECTIVES) && cur_tok != NULL){
-				m_ctx->push_token(cur_tok);
+	// TODO: optimera
+	if(has_lexer_flag(flags, LEXER_FLAG_DIRECTIVES)){
+		for(list<wstring>::const_iterator it = asm_directives.begin();it != asm_directives.end();it++){
+			if(get_src_reader()->matches_unique(*it)){
+				curTok = m_asm_directives_handler.parse_token(*m_ctx);
+				if(curTok != NULL){
+					m_ctx->push_token(curTok);
+				}
+				return curTok;
 			}
-			return cur_tok;
 		}
 	}
 
 	// Check if next token is an R-type instruction
-	for(list<wstring>::const_iterator it = r_type_instructions.begin();it != r_type_instructions.end();it++){
-		if(get_src_reader()->matches_unique(*it)){
-			cur_tok = m_r_instr_handler->parse_token(m_ctx);
-			if(has_lexer_flag(flags, LEXER_FLAG_INSTR) && cur_tok != NULL){
-				m_ctx->push_token(cur_tok);
+	if(has_lexer_flag(flags, LEXER_FLAG_INSTR)){
+		for(list<wstring>::const_iterator it = r_type_instructions.begin();it != r_type_instructions.end();it++){
+			if(get_src_reader()->matches_unique(*it)){
+				curTok = m_r_instr_handler.parse_token(*m_ctx);
+				if(curTok != NULL){
+					m_ctx->push_token(curTok);
+				}
+				return curTok;
 			}
-			return cur_tok;
 		}
 	}
 	
 
 	// Check if next token is a J-type instruction
-	for(list<wstring>::const_iterator it = j_type_instructions.begin();it != j_type_instructions.end();it++){
-		if(get_src_reader()->matches_unique(*it)){
-			cur_tok = j_r_instr_handler->parse_token(m_ctx);
-			if(has_lexer_flag(flags, LEXER_FLAG_INSTR) && cur_tok != NULL){
-				m_ctx->push_token(cur_tok);
+	if(has_lexer_flag(flags, LEXER_FLAG_INSTR)){
+		for(list<wstring>::const_iterator it = j_type_instructions.begin();it != j_type_instructions.end();it++){
+			if(get_src_reader()->matches_unique(*it)){
+				curTok = j_r_instr_handler.parse_token(*m_ctx);
+				if(curTok != NULL){
+					m_ctx->push_token(curTok);
+				}
+				return curTok;
 			}
-			return cur_tok;
+		}
+	}
+
+	// Check if next token is a register
+	if(has_lexer_flag(flags, LEXER_FLAG_OPERAND_REG)){
+		if(curChar == '$'){
+			if((curTok = m_reg_handler.parse_token(*m_ctx)) != NULL){
+				m_ctx->push_token(curTok);
+				return curTok;
+			}
 		}
 	}
 		
 	// No known token was found
-	cur_tok = mips_token_ptr(new undefined_tok(get_src_reader()->get_current_row(),
+	curTok = mips_token_ptr(new undefined_tok(get_src_reader()->get_current_row(),
 		get_src_reader()->get_current_col()));
 
 	char curChar2;
 	while(!iswspace(curChar2 = get_src_reader()->read())){
+		// TODO: fix temporary , solution
+		if(curChar2 == ','){
+			return NULL;
+		}
 		// Potential label token
 		if(curChar2 == ':'){
 			if(has_lexer_flag(flags, LEXER_FLAG_LABEL_POOL)){
-				if(is_legal_label(cur_tok->get_raw_tok())){
-					m_ctx->push_label(cur_tok->get_raw_tok());
-					cur_tok = NULL;
-					return cur_tok;
+				if(is_legal_label(curTok->get_raw_tok())){
+					m_ctx->push_label(curTok->get_raw_tok());
+					curTok = NULL;
+					return curTok;
 				}
 			} else if(has_lexer_flag(flags, LEXER_FLAG_LABEL)){
-				if(is_legal_label(cur_tok->get_raw_tok())){
-					wstring lbl = cur_tok->get_raw_tok();
-					cur_tok = mips_token_ptr(new label_decl_tok(get_src_reader()->get_current_row(),
+				if(is_legal_label(curTok->get_raw_tok())){
+					wstring lbl = curTok->get_raw_tok();
+					curTok = mips_token_ptr(new label_decl_tok(get_src_reader()->get_current_row(),
 						get_src_reader()->get_current_col()));
-					cur_tok->set_raw_tok(lbl);
-					m_ctx->push_token(cur_tok);
-					return cur_tok;
+					curTok->set_raw_tok(lbl);
+					m_ctx->push_token(curTok);
+					return curTok;
 				}
 			}
 		}
-		cur_tok->append_raw_tok(curChar2);
+		curTok->append_raw_tok(curChar2);
 	}
 
 	// Detect label reference
 	if(get_src_reader()->is_legal_identifier_start(curChar)
 		&& has_lexer_flag(flags, LEXER_FLAG_LABEL)){
-			if(m_ctx->pool_contains_label(cur_tok->get_raw_tok())){
-				wstring lbl = cur_tok->get_raw_tok();
-				cur_tok = mips_token_ptr(new label_ref_tok(get_src_reader()->get_current_row(),
+			if(m_ctx->pool_contains_label(curTok->get_raw_tok())){
+				wstring lbl = curTok->get_raw_tok();
+				curTok = mips_token_ptr(new label_ref_tok(get_src_reader()->get_current_row(),
 					get_src_reader()->get_current_col()));
-				cur_tok->set_raw_tok(lbl);
-				m_ctx->push_token(cur_tok);
-				return cur_tok;
+				curTok->set_raw_tok(lbl);
+				m_ctx->push_token(curTok);
+				return curTok;
 			}
 	}
 
 	if(!has_lexer_flag(flags, LEXER_FLAG_LABEL_POOL)){
-		m_ctx->push_token(cur_tok);
+		m_ctx->push_token(curTok);
 	}
-	return cur_tok;
+	return curTok;
 }
 
 wstring mips_tokenizer::read_identifier(){
@@ -135,15 +157,10 @@ wstring mips_tokenizer::read_identifier(){
 }
 
 void mips_tokenizer::init_tokenizer(std::wistream &input){
-	m_ctx = ParserCtxPtr(new parser_ctx(input));
-	m_asm_directives_handler = make_shared<asm_directives_handler>(m_ctx);
-	m_r_instr_handler = make_shared<r_instr_handler>(m_ctx);
-	j_r_instr_handler = make_shared<j_instr_handler>(m_ctx);
+	m_ctx = new parser_ctx(input);
 }
 
 void mips_tokenizer::deinit_tokenizer(){
-	m_ctx = NULL;
-	m_asm_directives_handler = NULL;
 }
 
 bool mips_tokenizer::has_lexer_flag(LEXER_FLAGS input, LEXER_FLAGS tester){

@@ -6,7 +6,7 @@ class pseudo_instr_tok :
 {
 public:
 	pseudo_instr_tok(INSTRUCTION_TYPE type, unsigned int tok_row,
-		unsigned int tok_col, unsigned int op, unsigned int funct);
+		unsigned int tok_col);
 	~pseudo_instr_tok(void);
 };
 

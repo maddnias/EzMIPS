@@ -8,7 +8,8 @@ enum TOKEN_TYPE{
 	ASM_DIRECTIVE_TOK = 0x2,
 	INSTR_TOK = 0x4,
 	LABEL_DECL_TOK = 0x8,
-	LABEL_REF_TOK = 0x10
+	LABEL_REF_TOK = 0x10,
+	REG_TOK = 0x20
 };
 
 class mips_token

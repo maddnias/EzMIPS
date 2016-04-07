@@ -5,10 +5,10 @@ class asm_directives_handler
 	: public mips_token_handler
 {
 public:
-	asm_directives_handler(ParserCtxPtr ctx);
+	asm_directives_handler(void);
 	~asm_directives_handler(void);
 	
-	virtual mips_token_ptr parse_token(ParserCtxPtr ctx) override;
+	virtual mips_token_ptr parse_token(parser_ctx &ctx) override;
 	
 };
 

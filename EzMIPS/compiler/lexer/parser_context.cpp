@@ -3,6 +3,12 @@
 
 using namespace std;
 
+parser_context::parser_context():
+m_current_col(0),
+m_current_row(0){
+
+}
+
 parser_context::parser_context(std::wistream &input):
 	m_current_col(0),
 	m_current_row(0),

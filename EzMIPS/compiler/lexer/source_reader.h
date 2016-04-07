@@ -11,12 +11,12 @@ public:
 	bool is_eof();
 	void eat_whitespace();
 	int read();
-	int read_no_advance();
 	int peek();		
 	int peek(int forward_count);
 	void advance(int forward_count);
 	bool is_integer(wint_t val);
 	bool is_legal_identifier_start(wint_t val);
+	bool matches(std::wstring str);
 	bool matches_unique(std::wstring str);
 	void reset();
 
