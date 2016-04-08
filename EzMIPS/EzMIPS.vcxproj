@@ -11,11 +11,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="simulator\instructions\mips_operand_container.h" />
+    <ClInclude Include="runtime_context.h" />
+    <ClInclude Include="simulator\instructions\mips_instr_add.h" />
+    <ClInclude Include="simulator\instructions\mips_instr.h" />
     <ClInclude Include="parser\lexer\instr_sets.h" />
+    <ClInclude Include="parser\lexer\tokens\literal_tok.h" />
     <ClInclude Include="parser\lexer\tokens\asm_directive_tok.h" />
     <ClInclude Include="parser\lexer\tokens\reg_tok.h" />
     <ClInclude Include="parser\lexer\tokens\label_ref_tok.h" />
     <ClInclude Include="parser\lexer\tokens\label_decl_tok.h" />
+    <ClInclude Include="parser\lexer\token_handlers\literal_handler.h" />
     <ClInclude Include="parser\lexer\token_handlers\pseudo_instr_handler.h" />
     <ClInclude Include="parser\lexer\token_handlers\i_instr_handler.h" />
     <ClInclude Include="parser\lexer\token_handlers\reg_handler.h" />
@@ -37,10 +43,16 @@
     <ClInclude Include="include\source_file.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="simulator\instructions\mips_operand_container.cpp" />
+    <ClCompile Include="runtime_context.cpp" />
+    <ClCompile Include="simulator\instructions\mips_instr_add.cpp" />
+    <ClCompile Include="simulator\instructions\mips_instr.cpp" />
+    <ClCompile Include="parser\lexer\tokens\literal_tok.cpp" />
     <ClCompile Include="parser\lexer\tokens\asm_directive_tok.cpp" />
     <ClCompile Include="parser\lexer\tokens\reg_tok.cpp" />
     <ClCompile Include="parser\lexer\tokens\label_ref_tok.cpp" />
     <ClCompile Include="parser\lexer\tokens\label_decl_tok.cpp" />
+    <ClCompile Include="parser\lexer\token_handlers\literal_handler.cpp" />
     <ClCompile Include="parser\lexer\token_handlers\pseudo_instr_handler.cpp" />
     <ClCompile Include="parser\lexer\token_handlers\i_instr_handler.cpp" />
     <ClCompile Include="parser\lexer\token_handlers\reg_handler.cpp" />

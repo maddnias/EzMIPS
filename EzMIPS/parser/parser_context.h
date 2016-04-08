@@ -19,14 +19,14 @@ public:
 	
 	bool pool_contains_label(std::wstring label);
 
-	SourceReader* get_src_reader();
+	source_reader* get_src_reader();
 	mips_tok_vector* get_parsed_tokens();
 
 private:
 	unsigned int m_current_row;
 	unsigned int m_current_col;
 	ParserErrorVector m_parser_errors;
-	SourceReader *m_src_reader;
+	source_reader *m_src_reader;
 	mips_tok_vector *m_parsed_tokens;
 	std::vector<std::wstring> m_label_pool;
 };

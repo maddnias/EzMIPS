@@ -39,22 +39,4 @@ mips_token_ptr j_instr_handler::parse_token(parser_ctx &ctx, wstring buff){
 	}
 
 	return mips_token_ptr(tok);
-
-	//if(ctx.get_src_reader()->matches_unique(L"j")){
-	//	tok = new j_instr_tok(ctx.get_src_reader()->get_current_row(),
-	//		ctx.get_src_reader()->get_current_col());
-	//	tok->set_raw_tok(L"j");
-	//	ctx.get_src_reader()->advance(1);
-	//} else if(ctx.get_src_reader()->matches_unique(L"jal")){
-	//	tok = new j_instr_tok(ctx.get_src_reader()->get_current_row(),
-	//		ctx.get_src_reader()->get_current_col());
-	//	tok->set_raw_tok(L"jal");
-	//	ctx.get_src_reader()->advance(3);
-	//}
-
-	//successFlag = tok != NULL;
-	//if(successFlag){
-	//	return mips_token_ptr(tok);
-	//} 
-	//return NULL;
 }

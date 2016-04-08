@@ -8,6 +8,7 @@
 #include "..\parser\lexer\token_handlers\i_instr_handler.h"
 #include "..\parser\lexer\token_handlers\pseudo_instr_handler.h"
 #include "..\parser\lexer\token_handlers\reg_handler.h"
+#include "..\parser\lexer\token_handlers\literal_handler.h"
 
 #include <vector>
 #include <fstream>
@@ -19,7 +20,8 @@ enum LEXER_FLAGS{
 	LEXER_FLAG_DIRECTIVES = 0x4,
 	LEXER_FLAG_INSTR = 0x8,
 	LEXER_FLAG_LABEL_POOL = 0x10,
-	LEXER_FLAG_OPERAND_REG = 0x20
+	LEXER_FLAG_OPERAND_REG = 0x20,
+	LEXER_FLAG_LITERAL = 0x40
 };
 
 inline LEXER_FLAGS operator|(LEXER_FLAGS a, LEXER_FLAGS b){
@@ -54,4 +56,5 @@ private:
 	i_instr_handler m_i_instr_handler;
 	pseudo_instr_handler m_pseudo_instr_handler;
 	reg_handler m_reg_handler;
+	literal_handler m_literal_handler;
 };

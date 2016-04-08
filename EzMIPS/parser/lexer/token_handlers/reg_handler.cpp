@@ -22,7 +22,7 @@ mips_token_ptr reg_handler::parse_token(parser_ctx &ctx, std::wstring buff){
 	reg_tok *tok = NULL;
 
 	if(ctx.get_src_reader()->is_integer(nextChar)){
-		finalBuff += read_int(1, ctx);
+		finalBuff += ctx.get_src_reader()->read_int();
 
 		// Only accept within range 0-31
 		int regNumber = 0;
@@ -150,19 +150,9 @@ mips_token_ptr reg_handler::parse_token(parser_ctx &ctx, std::wstring buff){
 	return NULL;
 }
 
-wstring reg_handler::read_int(int peek_start, parser_context &ctx){
-	int counter = peek_start;
-	wstring finalBuff;
-	while(ctx.get_src_reader()->is_integer(
-		ctx.get_src_reader()->peek(counter))){
-		finalBuff += ctx.get_src_reader()->peek(counter++);
-	}
-	return finalBuff;
-}
-
 int reg_handler::parse_reg_number(wstring &finalBuff, parser_ctx &ctx){
 	finalBuff += ctx.get_src_reader()->peek(1);
-	finalBuff += read_int(2, ctx);
+	finalBuff += ctx.get_src_reader()->read_int(2);
 	int regNumber = 0;
 	try {
 		regNumber = stoi(finalBuff.substr(2, finalBuff.length() -2), 0, 10);

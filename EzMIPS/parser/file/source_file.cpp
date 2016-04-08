@@ -31,11 +31,6 @@ bool source_file::load(){
 	} catch(...){
 		return false;
 	}
-
-	wstring test;
-	while(!eof()){
-		test += get();
-	}
 	return true;
 }
 
@@ -51,7 +46,7 @@ wchar_t source_file::peek(){
 	if(!is_in_range()){
 		return -1;
 	}
-	return m_src[m_pos+1];
+	return m_src[m_pos];
 }
 
 wchar_t source_file::peek(int forward_count){

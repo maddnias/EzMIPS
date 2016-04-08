@@ -41,7 +41,6 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 	}
 
 	mips_token_ptr curTok;
-	// TODO: till int för att läsa alla chars?
 	wchar_t curChar = get_src_reader()->peek();
 
 	// Check if next token is an assembler directive
@@ -50,8 +49,7 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 		&& curChar == '.'){
 		for(list<wstring>::const_iterator it = asm_directives.begin();it != asm_directives.end();it++){
 			if(get_src_reader()->matches_unique(*it)){
-				curTok = m_asm_directives_handler.parse_token(*m_ctx, *it);
-				if(curTok != NULL){
+				if((curTok = m_asm_directives_handler.parse_token(*m_ctx, *it)) != NULL){
 					m_ctx->push_token(curTok);
 				}
 				return curTok;
@@ -64,8 +62,7 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 		&& get_src_reader()->is_legal_identifier_start(curChar)){
 		for(list<wstring>::const_iterator it = r_type_instructions.begin();it != r_type_instructions.end();it++){
 			if(get_src_reader()->matches_unique(*it)){
-				curTok = m_r_instr_handler.parse_token(*m_ctx, *it);
-				if(curTok != NULL){
+				if((curTok = m_r_instr_handler.parse_token(*m_ctx, *it)) != NULL){
 					m_ctx->push_token(curTok);
 				}
 				return curTok;
@@ -79,8 +76,7 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 		&& get_src_reader()->is_legal_identifier_start(curChar)){
 		for(list<wstring>::const_iterator it = j_type_instructions.begin();it != j_type_instructions.end();it++){
 			if(get_src_reader()->matches_unique(*it)){
-				curTok = m_j_instr_handler.parse_token(*m_ctx, *it);
-				if(curTok != NULL){
+				if((curTok = m_j_instr_handler.parse_token(*m_ctx, *it)) != NULL){
 					m_ctx->push_token(curTok);
 				}
 				return curTok;
@@ -93,8 +89,7 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 		&& get_src_reader()->is_legal_identifier_start(curChar)){
 		for(list<wstring>::const_iterator it = i_type_instructions.begin();it != i_type_instructions.end();it++){
 			if(get_src_reader()->matches_unique(*it)){
-				curTok = m_i_instr_handler.parse_token(*m_ctx, *it);
-				if(curTok != NULL){
+				if((curTok = m_i_instr_handler.parse_token(*m_ctx, *it)) != NULL){
 					m_ctx->push_token(curTok);
 				}
 				return curTok;
@@ -123,6 +118,19 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 				m_ctx->push_token(curTok);
 				return curTok;
 			}
+		}
+	}
+
+	// Check if next token is a literal
+	if(has_lexer_flag(flags, LEXER_FLAG_LITERAL)){
+		if(curChar == '#'
+			|| curChar == '"'
+			|| get_src_reader()->is_integer(curChar)
+			|| curChar == '-'){
+				if((curTok = m_literal_handler.parse_token(*m_ctx, L"")) != NULL){
+					m_ctx->push_token(curTok);
+					return curTok;
+				}
 		}
 	}
 		

@@ -9,7 +9,8 @@ enum TOKEN_TYPE{
 	INSTR_TOK = 0x4,
 	LABEL_DECL_TOK = 0x8,
 	LABEL_REF_TOK = 0x10,
-	REG_TOK = 0x20
+	REG_TOK = 0x20,
+	LITERAL_TOK = 0x40
 };
 
 class mips_token

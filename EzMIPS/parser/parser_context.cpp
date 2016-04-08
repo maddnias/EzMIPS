@@ -12,7 +12,7 @@ m_current_row(0){
 parser_context::parser_context(source_file *input):
 	m_current_col(0),
 	m_current_row(0),
-	m_src_reader(new SourceReader(input)),
+	m_src_reader(new source_reader(input)),
 	m_parsed_tokens(new mips_tok_vector()){
 }
 
@@ -43,7 +43,7 @@ bool parser_context::pool_contains_label(std::wstring label){
 	return false;
 }
 
-SourceReader* parser_context::get_src_reader(){
+source_reader* parser_context::get_src_reader(){
 	return m_src_reader;
 }
 
