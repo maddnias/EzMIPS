@@ -1,7 +1,7 @@
 #pragma once
 
-#include "..\parser_context.h"
-#include "..\source_reader.h"
+#include "..\..\parser_context.h"
+#include "..\..\file\source_reader.h"
 
 #include <memory>
 

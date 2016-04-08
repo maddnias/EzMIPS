@@ -10,34 +10,22 @@
 #include <fstream>
 #include <codecvt>
 #include <chrono>
+#include "source_file.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	source_file *t = new source_file(L"C:\\TestScript.txt");
+	t->load();
 
-	std::wifstream ws;
-	ws.open("C:\\TestScript.txt", std::wifstream::binary);
-	mips_tokenizer t = mips_tokenizer();
+	mips_tokenizer t2;
+	auto start_time = std::chrono::high_resolution_clock::now();
 
-	//auto start_time = std::chrono::high_resolution_clock::now();
-	mips_tok_vector toks = t.parse_tokens(ws);
-	//auto current_time = std::chrono::high_resolution_clock::now();
+	auto tokens = t2.parse_tokens(t);
 
-	//auto duration = std::chrono::duration_cast<std::chrono::duration<float>>(current_time - start_time).count();
-	//std::cout<<"Tokens parsed per second: "<< toks.size()/duration <<'\n';
-
-	/*for(mips_tok_vector::iterator it = toks.begin();it != toks.end();it++){
-		std::wcout << (*it)->get_formatted_token() << std::endl;
-	}*/
-
-	//while(true){
-	//	std::wstring s;
-	//	std::wstringstream ws;
-	//	mips_tokenizer t(ws);
-	//	std::wcin >> s;
-	//	ws << s;
-	//	t.parse_tokens();
-	//}
-
+	auto current_time = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::duration<float>>(current_time - start_time).count();
+	std::cout<<"Tokens parsed per second: "<< tokens.size()/duration <<'\n';
+	
 	return 0;
 }
 

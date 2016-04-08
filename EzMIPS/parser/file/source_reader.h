@@ -1,11 +1,12 @@
 #pragma once
 #include <memory>
 #include <fstream>
+#include "..\..\include\source_file.h"
 
 class SourceReader
 {
 public:
-	SourceReader(std::wistream &input);
+	SourceReader(source_file *input);
 	~SourceReader();
 
 	bool is_eof();
@@ -32,5 +33,5 @@ public:
 private:
 	unsigned int m_current_row;
 	unsigned int m_current_col;
-	std::wistream *m_input;
+	source_file *m_input;
 };

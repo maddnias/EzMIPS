@@ -1,13 +1,13 @@
 #pragma once
-#include "..\compiler\lexer\token.h"
-#include "..\compiler\lexer\parser_context.h"
-#include "..\compiler\lexer\source_reader.h"
-#include "..\compiler\lexer\token_handlers\asm_directives_handler.h"
-#include "..\compiler\lexer\token_handlers\r_instr_handler.h"
-#include "..\compiler\lexer\token_handlers\j_instr_handler.h"
-#include "..\compiler\lexer\token_handlers\i_instr_handler.h"
-#include "..\compiler\lexer\token_handlers\pseudo_instr_handler.h"
-#include "..\compiler\lexer\token_handlers\reg_handler.h"
+#include "..\parser\lexer\token.h"
+#include "..\parser\parser_context.h"
+#include "..\parser\file\source_reader.h"
+#include "..\parser\lexer\token_handlers\asm_directives_handler.h"
+#include "..\parser\lexer\token_handlers\r_instr_handler.h"
+#include "..\parser\lexer\token_handlers\j_instr_handler.h"
+#include "..\parser\lexer\token_handlers\i_instr_handler.h"
+#include "..\parser\lexer\token_handlers\pseudo_instr_handler.h"
+#include "..\parser\lexer\token_handlers\reg_handler.h"
 
 #include <vector>
 #include <fstream>
@@ -30,20 +30,23 @@ class mips_tokenizer
 {
 public:
 	mips_tokenizer(void);
-	mips_tok_vector parse_tokens(std::wistream &input);
+
+	mips_tok_vector parse_tokens(source_file *input);
 private:
 	/* functions */
 	mips_token_ptr next_token(LEXER_FLAGS flags);
 
 	std::wstring read_identifier();
 
-	void init_tokenizer(std::wistream &input);
+	void init_tokenizer(source_file *input);
 	void deinit_tokenizer();
 
 	bool has_lexer_flag(LEXER_FLAGS input, LEXER_FLAGS tester);
 	bool is_legal_label(std::wstring input);
 
 	/* members */
+	std::vector<source_file*> m_src_files;
+
 	parser_ctx *m_ctx;
 	asm_directives_handler m_asm_directives_handler;
 	r_instr_handler m_r_instr_handler;

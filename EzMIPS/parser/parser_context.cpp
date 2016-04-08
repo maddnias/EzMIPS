@@ -9,7 +9,7 @@ m_current_row(0){
 
 }
 
-parser_context::parser_context(std::wistream &input):
+parser_context::parser_context(source_file *input):
 	m_current_col(0),
 	m_current_row(0),
 	m_src_reader(new SourceReader(input)),

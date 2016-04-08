@@ -16,7 +16,8 @@ using namespace std;
 mips_tokenizer::mips_tokenizer(){
 }
 
-mips_tok_vector mips_tokenizer::parse_tokens(std::wistream &input){
+
+mips_tok_vector mips_tokenizer::parse_tokens(source_file *input){
 	init_tokenizer(input);
 	// First pass to create label pool
 	while(!get_src_reader()->is_eof()){
@@ -130,7 +131,7 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 		get_src_reader()->get_current_col()));
 
 	char curChar2;
-	while(!iswspace(curChar2 = get_src_reader()->read())){
+	while(!iswspace(curChar2 = get_src_reader()->read()) && !get_src_reader()->is_eof()){
 		// TODO: fix temporary , solution
 		if(curChar2 == ','){
 			return NULL;
@@ -186,7 +187,7 @@ wstring mips_tokenizer::read_identifier(){
 	return outStr;
 }
 
-void mips_tokenizer::init_tokenizer(std::wistream &input){
+void mips_tokenizer::init_tokenizer(source_file *input){
 	m_ctx = new parser_ctx(input);
 }
 

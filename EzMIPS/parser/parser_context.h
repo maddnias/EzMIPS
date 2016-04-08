@@ -1,16 +1,16 @@
 #pragma once
 
-#include "token.h"
+#include "lexer\token.h"
 #include "parser_error.h"
-#include "source_reader.h"
-
+#include "file\source_reader.h"
+#include "..\include\source_file.h"
 #include <vector>
 #include <string>
 
 class parser_context{
 public:
 	parser_context(void);
-	parser_context(std::wistream &input);
+	parser_context(source_file *input);
 	~parser_context(void);
 
 	void push_err(std::wstring err_desc);

@@ -2,8 +2,8 @@
 
 using namespace std;
 
-SourceReader::SourceReader(std::wistream &input):
-m_input(&input),
+SourceReader::SourceReader(source_file *input):
+m_input(input),
 m_current_col(0),
 m_current_row(0){
 }
@@ -14,12 +14,6 @@ SourceReader::~SourceReader(){
 
 bool SourceReader::is_eof(){
 	return m_input->eof() || m_input->fail();
-	wchar_t l = read();
-	bool flag = m_input->eof();
-	if(!flag){
-		m_input->seekg(-1, ios::cur);
-	}
-	return flag;
 }
 
 void SourceReader::eat_whitespace(){
@@ -31,7 +25,7 @@ void SourceReader::eat_whitespace(){
 		}
 	};
 	decrement_col();
-	m_input->seekg(-1, ios::cur);
+	m_input->move_to(-1, STREAM_POS_CUR);
 }
 
 int SourceReader::read(){
@@ -44,12 +38,7 @@ int SourceReader::peek(){
 }
 
 int SourceReader::peek(int forward_count){
-	for(int i = 0;i < forward_count;i++){
-		read();
-	}
-	int tmpChar = peek();
-	m_input->seekg(-(forward_count+1), ios::cur);
-	return tmpChar;
+	return m_input->peek(forward_count);
 }
 
 void SourceReader::advance(int forward_count){
@@ -75,8 +64,8 @@ bool SourceReader::matches(wstring str){
 	return true;
 }
 
-// TODO: fixa med peek() istället...
 bool SourceReader::matches_unique(wstring str){
+	wchar_t test = peek(0);
 	for(int i = 0;i < str.length();i++){
 		if(peek(i) != str.at(i)){
 			return false;
@@ -89,8 +78,7 @@ bool SourceReader::matches_unique(wstring str){
 void SourceReader::reset(){
 	m_current_col = 0;
 	m_current_row = 0;
-	m_input->clear();
-	m_input->seekg((wstreampos)0);
+	m_input->move_to(0, STREAM_POS_START);
 }
 
 void SourceReader::advance_row(){
