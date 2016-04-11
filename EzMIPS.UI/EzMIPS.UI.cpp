@@ -10,6 +10,7 @@
 #include <fstream>
 #include <codecvt>
 #include <chrono>
+#include "executor.h"
 
 #include "source_file.h"
 
@@ -27,9 +28,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	auto duration = std::chrono::duration_cast<std::chrono::duration<float>>(current_time - start_time).count();
 	std::cout<<"Tokens parsed per second: "<< tokens.size()/duration <<'\n';
 
-	for(auto it = tokens.begin();it != tokens.end();it++){
-		std::wcout << (*it)->get_formatted_token() << std::endl;
-	}
+	//for(auto it = tokens.begin();it != tokens.end();it++){
+	//	std::wcout << (*it)->get_formatted_token() << std::endl;
+	//}
+
+	executor e;
+	e.init_executor(tokens);
 
 	delete t;
 	return 0;

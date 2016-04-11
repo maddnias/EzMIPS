@@ -11,8 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\executor.h" />
+    <ClInclude Include="simulator\assembler\mips_instr_writer.h" />
+    <ClInclude Include="simulator\mem_segment.h" />
     <ClInclude Include="simulator\instructions\mips_operand_container.h" />
-    <ClInclude Include="runtime_context.h" />
+    <ClInclude Include="simulator\runtime_context.h" />
     <ClInclude Include="simulator\instructions\mips_instr_add.h" />
     <ClInclude Include="simulator\instructions\mips_instr.h" />
     <ClInclude Include="parser\lexer\instr_sets.h" />
@@ -43,8 +46,11 @@
     <ClInclude Include="include\source_file.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="simulator\executor.cpp" />
+    <ClCompile Include="simulator\assembler\mips_instr_writer.cpp" />
+    <ClCompile Include="simulator\mem_segment.cpp" />
     <ClCompile Include="simulator\instructions\mips_operand_container.cpp" />
-    <ClCompile Include="runtime_context.cpp" />
+    <ClCompile Include="simulator\runtime_context.cpp" />
     <ClCompile Include="simulator\instructions\mips_instr_add.cpp" />
     <ClCompile Include="simulator\instructions\mips_instr.cpp" />
     <ClCompile Include="parser\lexer\tokens\literal_tok.cpp" />

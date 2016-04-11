@@ -100,15 +100,15 @@ void source_reader::advance(int forward_count){
 }
 
 bool source_reader::is_integer(wint_t val){
-	return iswdigit(val);
+	return iswdigit(val) != 0;
 }
 
 bool source_reader::is_legal_identifier_start(wint_t val){
-	return iswalpha(val);
+	return iswalpha(val) != 0;
 }
 
 bool source_reader::matches(wstring str){
-	for(int i = 0;i < str.length();i++){
+	for(unsigned int i = 0;i < str.length();i++){
 		if(peek(i) != str.at(i)){
 			return false;
 		}
@@ -118,12 +118,12 @@ bool source_reader::matches(wstring str){
 
 bool source_reader::matches_unique(wstring str){
 	wchar_t test = peek(0);
-	for(int i = 0;i < str.length();i++){
+	for(unsigned int i = 0;i < str.length();i++){
 		if(peek(i) != str.at(i)){
 			return false;
 		}
 	}
-	return iswspace(peek(str.length()));
+	return iswspace(peek(str.length())) != 0;
 }
 
 

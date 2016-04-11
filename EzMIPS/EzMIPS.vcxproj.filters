@@ -47,8 +47,11 @@
     <ClInclude Include="parser\lexer\tokens\literal_tok.h" />
     <ClInclude Include="simulator\instructions\mips_instr.h" />
     <ClInclude Include="simulator\instructions\mips_instr_add.h" />
-    <ClInclude Include="runtime_context.h" />
     <ClInclude Include="simulator\instructions\mips_operand_container.h" />
+    <ClInclude Include="simulator\mem_segment.h" />
+    <ClInclude Include="simulator\runtime_context.h" />
+    <ClInclude Include="simulator\assembler\mips_instr_writer.h" />
+    <ClInclude Include="include\executor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="parser\lexer\token_handlers\asm_directives_handler.cpp" />
@@ -78,7 +81,10 @@
     <ClCompile Include="parser\lexer\tokens\literal_tok.cpp" />
     <ClCompile Include="simulator\instructions\mips_instr.cpp" />
     <ClCompile Include="simulator\instructions\mips_instr_add.cpp" />
-    <ClCompile Include="runtime_context.cpp" />
     <ClCompile Include="simulator\instructions\mips_operand_container.cpp" />
+    <ClCompile Include="simulator\mem_segment.cpp" />
+    <ClCompile Include="simulator\runtime_context.cpp" />
+    <ClCompile Include="simulator\assembler\mips_instr_writer.cpp" />
+    <ClCompile Include="simulator\executor.cpp" />
   </ItemGroup>
 </Project>

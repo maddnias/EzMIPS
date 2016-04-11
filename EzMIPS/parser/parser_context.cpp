@@ -1,5 +1,6 @@
 #pragma once
 #include "parser_context.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -35,12 +36,13 @@ void parser_context::push_label(std::wstring label){
 }
 	
 bool parser_context::pool_contains_label(std::wstring label){
-	for(vector<wstring>::iterator it = m_label_pool.begin();it != m_label_pool.end();it++){
-		if(*it == label){
-			return true;
-		}
-	}
-	return false;
+	return std::find(m_label_pool.begin(), m_label_pool.end(), label) != m_label_pool.end();
+	//for(vector<wstring>::iterator it = m_label_pool.begin();it != m_label_pool.end();it++){
+	//	if(*it == label){
+	//		return true;
+	//	}
+	//}
+	//return false;
 }
 
 source_reader* parser_context::get_src_reader(){

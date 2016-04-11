@@ -32,6 +32,7 @@ class mips_tokenizer
 {
 public:
 	mips_tokenizer(void);
+	~mips_tokenizer(void);
 
 	mips_tok_vector parse_tokens(source_file *input);
 private:

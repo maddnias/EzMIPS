@@ -16,6 +16,10 @@ using namespace std;
 mips_tokenizer::mips_tokenizer(){
 }
 
+mips_tokenizer::~mips_tokenizer(){
+	delete m_ctx;
+}
+
 
 mips_tok_vector mips_tokenizer::parse_tokens(source_file *input){
 	init_tokenizer(input);
