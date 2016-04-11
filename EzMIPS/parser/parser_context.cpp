@@ -22,7 +22,7 @@ parser_context::~parser_context(void){
 	delete m_parsed_tokens;
 }
 
-void parser_context::push_err(wstring err_desc){
+void parser_context::push_err(mips_str err_desc){
 	m_parser_errors.push_back(ParserErrorPtr(new ParserError(err_desc,
 		m_current_row, m_current_col)));
 }
@@ -31,13 +31,13 @@ void parser_context::push_token(mips_token_ptr token){
 	m_parsed_tokens->push_back(token);
 }
 
-void parser_context::push_label(std::wstring label){
+void parser_context::push_label(mips_str label){
 	m_label_pool.push_back(label);
 }
 	
-bool parser_context::pool_contains_label(std::wstring label){
+bool parser_context::pool_contains_label(mips_str label){
 	return std::find(m_label_pool.begin(), m_label_pool.end(), label) != m_label_pool.end();
-	//for(vector<wstring>::iterator it = m_label_pool.begin();it != m_label_pool.end();it++){
+	//for(vector<mips_str>::iterator it = m_label_pool.begin();it != m_label_pool.end();it++){
 	//	if(*it == label){
 	//		return true;
 	//	}

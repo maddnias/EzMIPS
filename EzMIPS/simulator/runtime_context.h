@@ -1,6 +1,8 @@
 #pragma once
+#include "platform_dependencies.h"
+
 #include <vector>
-#include "..\simulator\instructions\mips_instr.h"
+#include "../simulator/instructions/mips_instr.h"
 #include "mem_segment.h"
 
 class runtime_context
@@ -9,7 +11,7 @@ public:
 	runtime_context(void);
 	~runtime_context(void);
 
-	mem_segment* get_segment(std::wstring identifier);
+	mem_segment* get_segment(mips_str identifier);
 	mem_segment* get_segment(unsigned int addr);
 
 	void init_context();

@@ -8,8 +8,8 @@ public:
 	~mips_instr_add(void);
 
 	INSTR_TYPE get_instr_type() override;
-	std::wstring get_expanded_name() override;
-	std::wstring get_mnemonic() override;
+	mips_str get_expanded_name() override;
+	mips_str get_mnemonic() override;
 	int get_opcode() override;
 	int get_funct() override;
 };

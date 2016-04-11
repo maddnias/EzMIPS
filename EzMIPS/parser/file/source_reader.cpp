@@ -33,25 +33,25 @@ int source_reader::read(){
 	return m_input->get();
 }
 
-wstring source_reader::read_int(){
+mips_str source_reader::read_int(){
 	return read_int(0);
 }
 
-wstring source_reader::read_int(int peek_start){
+mips_str source_reader::read_int(int peek_start){
 	int counter = peek_start;
-	wstring finalBuff;
+	mips_str finalBuff;
 	while(is_integer(peek(counter))){
 		finalBuff += peek(counter++);
 	}
 	return finalBuff;
 }
 
-std::wstring source_reader::read_hex_int(){
+mips_str source_reader::read_hex_int(){
 	return read_hex_int(0);
 }
 
-std::wstring source_reader::read_hex_int(int peek_start){
-	wstring finalBuff;
+mips_str source_reader::read_hex_int(int peek_start){
+	mips_str finalBuff;
 	int counter = peek_start;
 	while(is_integer(peek(counter)) 
 		|| is_legal_identifier_start(peek(counter))){
@@ -72,18 +72,18 @@ void source_reader::move_to(int count, STREAM_POS pos){
 	return m_input->move_to(count, pos);
 }
 
-wstring source_reader::read_until(wchar_t ender){
-	vector<wchar_t> v;
+mips_str source_reader::read_until(mips_char ender){
+	vector<mips_char> v;
 	v.push_back(ender);
 	return read_until(v);
 }
 
-wstring source_reader::read_until(vector<wchar_t> enders){
+mips_str source_reader::read_until(vector<mips_char> enders){
 	bool flag = true;
-	wstring outBuff;
+	mips_str outBuff;
 	for(int i = 0;flag;i++){
 		outBuff += peek(i);
-		for(vector<wchar_t>::iterator it = enders.begin();it != enders.end();it++){
+		for(vector<mips_char>::iterator it = enders.begin();it != enders.end();it++){
 			if(*it == peek(i)){
 				flag = false;
 				break;
@@ -107,7 +107,7 @@ bool source_reader::is_legal_identifier_start(wint_t val){
 	return iswalpha(val) != 0;
 }
 
-bool source_reader::matches(wstring str){
+bool source_reader::matches(mips_str str){
 	for(unsigned int i = 0;i < str.length();i++){
 		if(peek(i) != str.at(i)){
 			return false;
@@ -116,8 +116,8 @@ bool source_reader::matches(wstring str){
 	return true;
 }
 
-bool source_reader::matches_unique(wstring str){
-	wchar_t test = peek(0);
+bool source_reader::matches_unique(mips_str str){
+	mips_char test = peek(0);
 	for(unsigned int i = 0;i < str.length();i++){
 		if(peek(i) != str.at(i)){
 			return false;

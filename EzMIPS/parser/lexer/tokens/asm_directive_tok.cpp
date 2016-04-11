@@ -3,7 +3,7 @@
 
 
 asm_directive_tok::asm_directive_tok(unsigned int tok_row, unsigned int tok_col):
-	mips_token(ASM_DIRECTIVE_TOK, tok_row, tok_col, L"ASM_DIRECTIVE: "){
+    mips_token(ASM_DIRECTIVE_TOK, tok_row, tok_col, identifier){
 }
 
 

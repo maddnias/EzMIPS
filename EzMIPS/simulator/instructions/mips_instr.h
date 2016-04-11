@@ -16,14 +16,14 @@ public:
 	~mips_instr(void);
 
 	virtual INSTR_TYPE get_instr_type() = 0;
-	virtual std::wstring get_expanded_name() = 0;
-	virtual std::wstring get_mnemonic() = 0;
+	virtual mips_str get_expanded_name() = 0;
+	virtual mips_str get_mnemonic() = 0;
 	virtual int get_opcode() = 0;
 	virtual int get_funct() = 0;
 
 protected:
-	mips_operand m_operand1;
-	mips_operand m_operand2;
-	mips_operand m_operand3;
+//	mips_operand m_operand1;
+//	mips_operand m_operand2;
+//	mips_operand m_operand3;
 };
 

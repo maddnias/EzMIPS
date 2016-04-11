@@ -1,14 +1,14 @@
 #pragma once
-#include "..\parser\lexer\token.h"
-#include "..\parser\parser_context.h"
-#include "..\parser\file\source_reader.h"
-#include "..\parser\lexer\token_handlers\asm_directives_handler.h"
-#include "..\parser\lexer\token_handlers\r_instr_handler.h"
-#include "..\parser\lexer\token_handlers\j_instr_handler.h"
-#include "..\parser\lexer\token_handlers\i_instr_handler.h"
-#include "..\parser\lexer\token_handlers\pseudo_instr_handler.h"
-#include "..\parser\lexer\token_handlers\reg_handler.h"
-#include "..\parser\lexer\token_handlers\literal_handler.h"
+#include "../parser/lexer/token.h"
+#include "../parser/parser_context.h"
+#include "../parser/file/source_reader.h"
+#include "../parser/lexer/token_handlers/asm_directives_handler.h"
+#include "../parser/lexer/token_handlers/r_instr_handler.h"
+#include "../parser/lexer/token_handlers/j_instr_handler.h"
+#include "../parser/lexer/token_handlers/i_instr_handler.h"
+#include "../parser/lexer/token_handlers/pseudo_instr_handler.h"
+#include "../parser/lexer/token_handlers/reg_handler.h"
+#include "../parser/lexer/token_handlers/literal_handler.h"
 
 #include <vector>
 #include <fstream>
@@ -39,13 +39,13 @@ private:
 	/* functions */
 	mips_token_ptr next_token(LEXER_FLAGS flags);
 
-	std::wstring read_identifier();
+    mips_str read_identifier();
 
 	void init_tokenizer(source_file *input);
 	void deinit_tokenizer();
 
 	bool has_lexer_flag(LEXER_FLAGS input, LEXER_FLAGS tester);
-	bool is_legal_label(std::wstring input);
+    bool is_legal_label(mips_str input);
 
 	/* members */
 	std::vector<source_file*> m_src_files;

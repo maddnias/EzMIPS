@@ -2,7 +2,7 @@
 #include <memory>
 #include <fstream>
 #include <vector>
-#include "..\..\include\source_file.h"
+#include "source_file.h"
 
 class source_reader
 {
@@ -13,20 +13,20 @@ public:
 	bool is_eof();
 	void eat_whitespace();
 	int read();
-	std::wstring read_int();
-	std::wstring read_int(int peek_start);
-	std::wstring read_hex_int();
-	std::wstring read_hex_int(int peek_start);
+    mips_str read_int();
+    mips_str read_int(int peek_start);
+    mips_str read_hex_int();
+    mips_str read_hex_int(int peek_start);
 	int peek();		
 	int peek(int forward_count);
 	void move_to(int count, STREAM_POS pos);
-	std::wstring read_until(wchar_t ender);
-	std::wstring read_until(std::vector<wchar_t> enders);
+    mips_str read_until(mips_char ender);
+    mips_str read_until(std::vector<mips_char> enders);
 	void advance(int forward_count);
 	bool is_integer(wint_t val);
 	bool is_legal_identifier_start(wint_t val);
-	bool matches(std::wstring str);
-	bool matches_unique(std::wstring str);
+    bool matches(mips_str str);
+    bool matches_unique(mips_str str);
 	void reset();
 
 	void advance_row();

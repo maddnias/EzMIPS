@@ -1,5 +1,5 @@
 #include "asm_directives_handler.h"
-#include "..\tokens\asm_directive_tok.h"
+#include "../tokens/asm_directive_tok.h"
 
 #include <list>
 
@@ -13,7 +13,7 @@ asm_directives_handler::asm_directives_handler(){
 asm_directives_handler::~asm_directives_handler(void) {
 }
 
-mips_token_ptr asm_directives_handler::parse_token(parser_ctx &ctx, wstring buff){
+mips_token_ptr asm_directives_handler::parse_token(parser_ctx &ctx, mips_str buff){
 	if(ctx.get_src_reader()->peek() != '.'){
 		return false;
 	}
@@ -27,38 +27,38 @@ mips_token_ptr asm_directives_handler::parse_token(parser_ctx &ctx, wstring buff
 	
 	asm_directive_tok *tok = NULL;
 
-	if(buff == L".align"){
+    if(buff == align_directive){
 		tok = new asm_directive_tok(ctx.get_src_reader()->get_current_row(),
 			ctx.get_src_reader()->get_current_col());
-		tok->set_raw_tok(L".align");
+        tok->set_raw_tok(align_directive);
 		tok->set_directive(DIRECTIVE_ALIGN);
 		ctx.get_src_reader()->advance(5);
 
-	} else if(buff == L".asciiz"){
+    } else if(buff == asciiz_directive){
 		tok = new asm_directive_tok(ctx.get_src_reader()->get_current_row(),
 			ctx.get_src_reader()->get_current_col());
-		tok->set_raw_tok(L".asciiz");
+        tok->set_raw_tok(asciiz_directive);
 		tok->set_directive(DIRECTIVE_ASCIIZ);
 		ctx.get_src_reader()->advance(6);
 
-	} else if(buff == L".ascii"){
+    } else if(buff == ascii_directive){
 		tok = new asm_directive_tok(ctx.get_src_reader()->get_current_row(),
 			ctx.get_src_reader()->get_current_col());
-		tok->set_raw_tok(L".ascii");
+        tok->set_raw_tok(ascii_directive);
 		tok->set_directive(DIRECTIVE_ASCII);
 		ctx.get_src_reader()->advance(5);
 
-	} else if(buff == L".data"){
+    } else if(buff == data_directive){
 		tok = new asm_directive_tok(ctx.get_src_reader()->get_current_row(),
 			ctx.get_src_reader()->get_current_col());
-		tok->set_raw_tok(L".data");
+        tok->set_raw_tok(data_directive);
 		tok->set_directive(DIRECTIVE_DATA);
 		ctx.get_src_reader()->advance(4);
 
-	} else if(buff == L".text"){
+    } else if(buff == text_directive){
 		tok = new asm_directive_tok(ctx.get_src_reader()->get_current_row(),
 			ctx.get_src_reader()->get_current_col());
-		tok->set_raw_tok(L".text");
+        tok->set_raw_tok(text_directive);
 		tok->set_directive(DIRECTIVE_TEXT);
 		ctx.get_src_reader()->advance(4);
 	} else {
@@ -66,67 +66,4 @@ mips_token_ptr asm_directives_handler::parse_token(parser_ctx &ctx, wstring buff
 	}
 
 	return mips_token_ptr(tok);
-
-	//switch(firstChar){
-	//case 'a':
-	//	if(ctx.get_src_reader()->matches_unique(L"align")){
-	//		tok = new asm_directive_tok(ctx.get_src_reader()->get_current_row(),
-	//			ctx.get_src_reader()->get_current_col());
-	//		tok->set_raw_tok(L".align");
-	//		tok->set_directive(DIRECTIVE_ALIGN);
-	//		ctx.get_src_reader()->advance(5);
-	//		break;
-
-	//	} else if(ctx.get_src_reader()->matches_unique(L"asciiz")){
-	//		tok = new asm_directive_tok(ctx.get_src_reader()->get_current_row(),
-	//			ctx.get_src_reader()->get_current_col());
-	//		tok->set_raw_tok(L".asciiz");
-	//		tok->set_directive(DIRECTIVE_ASCIIZ);
-	//		ctx.get_src_reader()->advance(6);
-	//		break;
-	//	} else if(ctx.get_src_reader()->matches_unique(L"ascii")){
-	//		tok = new asm_directive_tok(ctx.get_src_reader()->get_current_row(),
-	//			ctx.get_src_reader()->get_current_col());
-	//		tok->set_raw_tok(L".ascii");
-	//		tok->set_directive(DIRECTIVE_ASCII);
-	//		ctx.get_src_reader()->advance(5);
-	//		break;
-	//	} else {
-	//		// TODO: go back approtiate
-	//		successFlag = false;
-	//	}
-
-	//	break;
-	//case 'd':
-	//	if(ctx.get_src_reader()->matches_unique(L"data")){
-	//		tok = new asm_directive_tok(ctx.get_src_reader()->get_current_row(),
-	//			ctx.get_src_reader()->get_current_col());
-	//		tok->set_raw_tok(L".data");
-	//		tok->set_directive(DIRECTIVE_DATA);
-	//		ctx.get_src_reader()->advance(4);
-	//		break;
-	//	}
-	//	break;
-	//case 't':
-	//	if(ctx.get_src_reader()->matches_unique(L"text")){
-	//		tok = new asm_directive_tok(ctx.get_src_reader()->get_current_row(),
-	//			ctx.get_src_reader()->get_current_col());
-	//		tok->set_raw_tok(L".text");
-	//		tok->set_directive(DIRECTIVE_TEXT);
-	//		ctx.get_src_reader()->advance(4);
-	//		break;
-	//	}
-	//	break;
-
-	//default:
-
-	//	break;
-	//}
-
-	//successFlag = tok != NULL;
-	//if(successFlag){
-	//	return mips_token_ptr(tok);
-	//}
-
-	//return NULL;
 }

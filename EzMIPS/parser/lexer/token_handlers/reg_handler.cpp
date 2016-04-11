@@ -1,5 +1,5 @@
 #include "reg_handler.h"
-#include "..\tokens\reg_tok.h"
+#include "../tokens/reg_tok.h"
 
 #include <list>
 
@@ -13,10 +13,10 @@ reg_handler::reg_handler(){
 reg_handler::~reg_handler(void) {
 }
 
-mips_token_ptr reg_handler::parse_token(parser_ctx &ctx, std::wstring buff){
-	wchar_t firstChar = ctx.get_src_reader()->peek();
-	wchar_t nextChar = ctx.get_src_reader()->peek(1);
-	wstring finalBuff;
+mips_token_ptr reg_handler::parse_token(parser_ctx &ctx, mips_str buff){
+    mips_char firstChar = ctx.get_src_reader()->peek();
+    mips_char nextChar = ctx.get_src_reader()->peek(1);
+    mips_str finalBuff;
 	finalBuff += firstChar;
 
 	reg_tok *tok = NULL;
@@ -42,10 +42,10 @@ mips_token_ptr reg_handler::parse_token(parser_ctx &ctx, std::wstring buff){
 	// TODO: låt zero, at osv matcha unikt fast med , på slutet
 	switch(nextChar){
 	case 'a':
-		if(ctx.get_src_reader()->matches(L"$at")){
+        if(ctx.get_src_reader()->matches(reg_at)){
 			tok = new reg_tok(ctx.get_src_reader()->get_current_row(), 
 				ctx.get_src_reader()->get_current_col());
-			finalBuff = L"$at";
+            finalBuff = reg_at;
 		} else if(ctx.get_src_reader()->is_integer(ctx.get_src_reader()->peek(2))){
 			int regNumber = parse_reg_number(finalBuff, ctx);
 		
@@ -57,10 +57,10 @@ mips_token_ptr reg_handler::parse_token(parser_ctx &ctx, std::wstring buff){
 		}
 		break;
 	case 'z':
-		if(ctx.get_src_reader()->matches(L"$zero")){
+        if(ctx.get_src_reader()->matches(reg_zero)){
 			tok = new reg_tok(ctx.get_src_reader()->get_current_row(), 
 				ctx.get_src_reader()->get_current_col());
-			finalBuff = L"$zero";
+            finalBuff = reg_zero;
 		}
 		break;
 	case 't':
@@ -75,10 +75,10 @@ mips_token_ptr reg_handler::parse_token(parser_ctx &ctx, std::wstring buff){
 		}
 		break;
 	case 's':
-		if(ctx.get_src_reader()->matches(L"$sp")){
+        if(ctx.get_src_reader()->matches(reg_sp)){
 			tok = new reg_tok(ctx.get_src_reader()->get_current_row(), 
 				ctx.get_src_reader()->get_current_col());
-			finalBuff = L"$sp";
+            finalBuff =reg_sp;
 		} else if(ctx.get_src_reader()->is_integer(ctx.get_src_reader()->peek(2))){
 			int regNumber = parse_reg_number(finalBuff, ctx);
 
@@ -112,17 +112,17 @@ mips_token_ptr reg_handler::parse_token(parser_ctx &ctx, std::wstring buff){
 		}
 		break;
 	case 'g':
-		if(ctx.get_src_reader()->matches(L"$gp")){
+        if(ctx.get_src_reader()->matches(reg_gp)){
 			tok = new reg_tok(ctx.get_src_reader()->get_current_row(), 
 				ctx.get_src_reader()->get_current_col());
-			finalBuff = L"$gp";
+            finalBuff = reg_gp;
 		}
 		break;
 	case 'f':
-		if(ctx.get_src_reader()->matches(L"$fp")){
+        if(ctx.get_src_reader()->matches(reg_fp)){
 			tok = new reg_tok(ctx.get_src_reader()->get_current_row(), 
 				ctx.get_src_reader()->get_current_col());
-			finalBuff = L"$fp";
+            finalBuff = reg_fp;
 		} else if(ctx.get_src_reader()->is_integer(ctx.get_src_reader()->peek(2))){
 			int regNumber = parse_reg_number(finalBuff, ctx);
 
@@ -134,10 +134,10 @@ mips_token_ptr reg_handler::parse_token(parser_ctx &ctx, std::wstring buff){
 		}
 		break;
 	case 'r':
-		if(ctx.get_src_reader()->matches(L"$ra")){
+        if(ctx.get_src_reader()->matches(reg_ra)){
 			tok = new reg_tok(ctx.get_src_reader()->get_current_row(), 
 				ctx.get_src_reader()->get_current_col());
-			finalBuff = L"$ra";
+            finalBuff = reg_ra;
 		}
 		break;
 	}
@@ -150,7 +150,7 @@ mips_token_ptr reg_handler::parse_token(parser_ctx &ctx, std::wstring buff){
 	return NULL;
 }
 
-int reg_handler::parse_reg_number(wstring &finalBuff, parser_ctx &ctx){
+int reg_handler::parse_reg_number(mips_str &finalBuff, parser_ctx &ctx){
 	finalBuff += ctx.get_src_reader()->peek(1);
 	finalBuff += ctx.get_src_reader()->read_int(2);
 	int regNumber = 0;

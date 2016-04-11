@@ -1,5 +1,11 @@
 #pragma once
-#include "..\token.h"
+#include "../token.h"
+
+#ifdef _WIN32
+    #define identifier L"ASM_DIRECTIVE: "
+#elif __linux
+    #define identifier "ASM_DIRECTIVE: "
+#endif
 
 enum ASSEMBLER_DIRECTIVE{
 	DIRECTIVE_ALIGN = 0,

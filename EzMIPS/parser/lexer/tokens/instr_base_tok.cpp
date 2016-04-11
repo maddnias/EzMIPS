@@ -3,20 +3,20 @@
 
 instr_base_tok::instr_base_tok(INSTRUCTION_TYPE type, 
 							   unsigned int tok_row, unsigned int tok_col):
-	mips_token(INSTR_TOK, tok_row, tok_col, L"PLACEHOLDER: ")
+    mips_token(INSTR_TOK, tok_row, tok_col, mips_null_str)
 {
 	switch(type){
 	case INSTRUCTION_I:
-		this->set_formatted_prefix(L"INSTRUCTION_I: ");
+        this->set_formatted_prefix(identifier_i);
 		break;
 	case INSTRUCTION_J:
-		this->set_formatted_prefix(L"INSTRUCTION_J: ");
+        this->set_formatted_prefix(identifier_j);
 		break;
 	case INSTRUCTION_PSEUDO:
-		this->set_formatted_prefix(L"INSTRUCTION_PSEUDO: ");
+        this->set_formatted_prefix(identifier_pseudo);
 		break;
 	case INSTRUCTION_R:
-		this->set_formatted_prefix(L"INSTRUCTION_R: ");
+        this->set_formatted_prefix(identifier_r);
 		break;
 	}
 }

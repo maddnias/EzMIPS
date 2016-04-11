@@ -1,5 +1,15 @@
 #pragma once
-#include "..\token.h"
+#include "../token.h"
+
+#ifdef _WIN32
+    #define identifier_string   L"LITERAL_STRING: "
+    #define identifier_int      L"LITERAL_INT: "
+    #define identifier_comment  L"LITERAL_COMMENT: "
+#elif __linux__
+    #define identifier_string   "LITERAL_STRING: "
+    #define identifier_int      "LITERAL_INT: "
+    #define identifier_comment  "LITERAL_COMMENT: "
+#endif
 
 enum LITERAL_TYPE{
 	LITERAL_TYPE_STRING = 0x1,

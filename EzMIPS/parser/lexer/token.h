@@ -1,4 +1,5 @@
 #pragma once
+#include "../../platform_dependencies.h"
 #include <string>
 #include <memory>
 #include <vector>
@@ -17,7 +18,7 @@ class mips_token
 {
 public:
 	mips_token(TOKEN_TYPE type, unsigned int tok_row,
-		unsigned int tok_col, std::wstring formatted_prefix);
+		unsigned int tok_col, mips_str formatted_prefix);
 
 	~mips_token(void);
 	
@@ -30,22 +31,22 @@ public:
 	void set_tok_col(unsigned int tok_col);
 	unsigned int get_tok_col();
 
-	void set_raw_tok(std::wstring raw_tok);
-	std::wstring get_raw_tok();
-	void append_raw_tok(wchar_t chr);
+	void set_raw_tok(mips_str raw_tok);
+	mips_str get_raw_tok();
+	void append_raw_tok(mips_char chr);
 
-	void set_formatted_prefix(std::wstring prefix);
-	std::wstring set_formatted_prefix();
+	void set_formatted_prefix(mips_str prefix);
+	mips_str set_formatted_prefix();
 
-	std::wstring get_formatted_token();
+	mips_str get_formatted_token();
 
 	mips_token operator+(const mips_token& rhs);
 
 private:
 	unsigned int m_tok_row;
 	unsigned int m_tok_col;
-	std::wstring m_raw_tok;
-	std::wstring m_formatted_prefix;
+	mips_str m_raw_tok;
+	mips_str m_formatted_prefix;
 	TOKEN_TYPE m_tok_type;
 };
 

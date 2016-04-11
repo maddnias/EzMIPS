@@ -2,16 +2,16 @@
 
 
 literal_tok::literal_tok(LITERAL_TYPE type, unsigned int tok_row, unsigned int tok_col):
-	mips_token(LITERAL_TOK, tok_row, tok_col, L"PLACEHOLDER"){
+    mips_token(LITERAL_TOK, tok_row, tok_col, mips_null_str){
 		switch(type){
 		case LITERAL_TYPE_STRING:
-			set_formatted_prefix(L"LITERAL_STRING: ");
+            set_formatted_prefix(identifier_string);
 			break;
 		case LITERAL_TYPE_INT:
-			set_formatted_prefix(L"LITERAL_INT: ");
+            set_formatted_prefix(identifier_int);
 			break;
 		case LITERAL_TYPE_COMMENT:
-			set_formatted_prefix(L"LITERAL_COMMENT: ");
+            set_formatted_prefix(identifier_comment);
 			break;
 		}
 }

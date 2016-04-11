@@ -1,4 +1,6 @@
 #pragma once
+#include "platform_dependencies.h"
+
 #include <string>
 
 enum OPERAND_TYPE{
@@ -11,10 +13,10 @@ class mips_operand_container
 {
 public:
 	mips_operand_container(void);
-	mips_operand_container(std::wstring str_data, int int_data);
+	mips_operand_container(mips_str str_data, int int_data);
 	~mips_operand_container(void);
 
-	std::wstring m_str_data;
+	mips_str m_str_data;
 	int m_int_data;
 };
 

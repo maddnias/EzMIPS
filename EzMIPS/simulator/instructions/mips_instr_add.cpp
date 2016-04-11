@@ -15,12 +15,20 @@ INSTR_TYPE mips_instr_add::get_instr_type(){
 	return INSTR_TYPE_R;
 }
 
-wstring mips_instr_add::get_expanded_name(){
+mips_str mips_instr_add::get_expanded_name(){
+#if _WIN32
 	return L"add";
+#elif __linux__
+    return "add";
+#endif
 }
 
-wstring mips_instr_add::get_mnemonic(){
-	return L"add";
+mips_str mips_instr_add::get_mnemonic(){
+#if _WIN32
+    return L"add";
+#elif __linux__
+    return "add";
+#endif
 }
 
 int mips_instr_add::get_opcode(){

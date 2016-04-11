@@ -1,7 +1,12 @@
 #pragma once
-
-#include "..\token.h"
+#include "../token.h"
 #include <string>
+
+#ifdef _WIN32
+    #define identifier  L"UNDEFINED: "
+#elif __linux__
+    #define identifier  "UNDEFINED: "
+#endif
 
 class undefined_tok :
 	public mips_token

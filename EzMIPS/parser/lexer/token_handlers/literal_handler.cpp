@@ -1,5 +1,5 @@
 #include "literal_handler.h"
-#include "..\tokens\literal_tok.h"
+#include "../tokens/literal_tok.h"
 
 #include <list>
 
@@ -13,9 +13,9 @@ literal_handler::literal_handler(){
 literal_handler::~literal_handler(void) {
 }
 
-mips_token_ptr literal_handler::parse_token(parser_ctx &ctx, wstring buff){
-	wchar_t firstChar = ctx.get_src_reader()->peek();
-	wstring finalBuff;
+mips_token_ptr literal_handler::parse_token(parser_ctx &ctx, mips_str buff){
+	mips_char firstChar = ctx.get_src_reader()->peek();
+	mips_str finalBuff;
 	finalBuff += firstChar;
 
 	literal_tok *tok = NULL;
@@ -58,7 +58,7 @@ mips_token_ptr literal_handler::parse_token(parser_ctx &ctx, wstring buff){
 		finalBuff.pop_back();
 		int counter = 0;
 		bool endFlag = false;
-		for(wstring::iterator it = finalBuff.begin();it != finalBuff.end();it++,counter++){
+		for(mips_str::iterator it = finalBuff.begin();it != finalBuff.end();it++,counter++){
 			if(*it == '"'){
 				endFlag = true;
 				break;

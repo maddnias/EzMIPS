@@ -1,4 +1,7 @@
-#pragma once
+#ifndef SOURCE_FILE_H
+#define SOURCE_FILE_H
+
+#include "platform_dependencies.h"
 #include <string>
 #include <sstream>
 
@@ -13,25 +16,26 @@ const unsigned int BUFF_SIZE = 4096;
 class source_file
 {
 public:
-	source_file(std::wstring file);
+    source_file(mips_str file);
 	~source_file(void);
 
 	bool load();
 	bool eof();
 	bool fail();
-	wchar_t peek();
-	wchar_t peek(int forward_count);
-	wchar_t get();
+    mips_char peek();
+    mips_char peek(int forward_count);
+    mips_char get();
 	void move_to(int count, STREAM_POS pos);
 
 private:
 	bool is_in_range();
 	bool is_in_range(int count);
 
-	wchar_t *m_src;
+    mips_char *m_src;
 	unsigned int m_size;
 	unsigned int m_pos;
-	std::wstring m_filename;
-	std::wstringstream m_data;
+    mips_str m_filename;
+    mips_str_stream m_data;
 };
 
+#endif

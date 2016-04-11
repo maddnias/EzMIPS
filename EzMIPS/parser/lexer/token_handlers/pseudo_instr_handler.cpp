@@ -1,5 +1,5 @@
 #include "pseudo_instr_handler.h"
-#include "..\tokens\pseudo_instr_tok.h"
+#include "../tokens/pseudo_instr_tok.h"
 
 #include <list>
 
@@ -13,74 +13,74 @@ pseudo_instr_handler::pseudo_instr_handler(){
 pseudo_instr_handler::~pseudo_instr_handler(void) {
 }
 
-mips_token_ptr pseudo_instr_handler::parse_token(parser_ctx &ctx, wstring buff){	
+mips_token_ptr pseudo_instr_handler::parse_token(parser_ctx &ctx, mips_str buff){	
 	bool successFlag = true;	
 	pseudo_instr_tok *tok = NULL;
 
-	if(buff == L"blt"){
+    if(buff == instr_blt){
 		tok = new pseudo_instr_tok(ctx.get_src_reader()->get_current_row(),
 			ctx.get_src_reader()->get_current_col());
-		tok->set_raw_tok(L"blt");
+        tok->set_raw_tok(instr_blt);
 		ctx.get_src_reader()->advance(3);
 
-	} else if(buff == L"bgt"){
+    } else if(buff == instr_bgt){
 		tok = new pseudo_instr_tok(ctx.get_src_reader()->get_current_row(),
 			ctx.get_src_reader()->get_current_col());
-		tok->set_raw_tok(L"bgt");
+        tok->set_raw_tok(instr_bgt);
 		ctx.get_src_reader()->advance(3);
 
-	} else if(buff == L"ble"){
+    } else if(buff == instr_ble){
 		tok = new pseudo_instr_tok(ctx.get_src_reader()->get_current_row(),
 			ctx.get_src_reader()->get_current_col());
-		tok->set_raw_tok(L"ble");
+        tok->set_raw_tok(instr_ble);
 		ctx.get_src_reader()->advance(3);
 
-	} else if(buff == L"neg"){
+    } else if(buff == instr_neg){
 		tok = new pseudo_instr_tok(ctx.get_src_reader()->get_current_row(),
 			ctx.get_src_reader()->get_current_col());
-		tok->set_raw_tok(L"neg");
+        tok->set_raw_tok(instr_neg);
 		ctx.get_src_reader()->advance(3);
 
-	} else if(buff == L"not"){
+    } else if(buff == instr_not){
 		tok = new pseudo_instr_tok(ctx.get_src_reader()->get_current_row(),
 			ctx.get_src_reader()->get_current_col());
-		tok->set_raw_tok(L"not");
+        tok->set_raw_tok(instr_not);
 		ctx.get_src_reader()->advance(3);
 
-	} else if(buff == L"bge"){
+    } else if(buff == instr_bge){
 		tok = new pseudo_instr_tok(ctx.get_src_reader()->get_current_row(),
 			ctx.get_src_reader()->get_current_col());
-		tok->set_raw_tok(L"bge");
+        tok->set_raw_tok(instr_bge);
 		ctx.get_src_reader()->advance(3);
 
-	} else if(buff == L"li"){
+    } else if(buff == instr_li){
 		tok = new pseudo_instr_tok(ctx.get_src_reader()->get_current_row(),
 			ctx.get_src_reader()->get_current_col());
-		tok->set_raw_tok(L"li");
+        tok->set_raw_tok(instr_li);
 		ctx.get_src_reader()->advance(2);
 
-	} else if(buff == L"la"){
+    } else if(buff == instr_la){
 		tok = new pseudo_instr_tok(ctx.get_src_reader()->get_current_row(),
 			ctx.get_src_reader()->get_current_col());
-		tok->set_raw_tok(L"la");
+        tok->set_raw_tok(instr_la);
 		ctx.get_src_reader()->advance(2);
 
-	} else if(buff == L"move"){
+    } else if(buff == instr_move){
 		tok = new pseudo_instr_tok(ctx.get_src_reader()->get_current_row(),
 			ctx.get_src_reader()->get_current_col());
-		tok->set_raw_tok(L"move");
+        tok->set_raw_tok(instr_move);
 		ctx.get_src_reader()->advance(4);
 
-	} else if(buff == L"sge"){
+    } else if(buff == instr_sge){
 		tok = new pseudo_instr_tok(ctx.get_src_reader()->get_current_row(),
 			ctx.get_src_reader()->get_current_col());
-		tok->set_raw_tok(L"sge");
+        tok->set_raw_tok(instr_sge);
 		ctx.get_src_reader()->advance(3);
 
-	} else if(buff == L"sgt"){
+    } else if(buff == instr_sgt){
 		tok = new pseudo_instr_tok(ctx.get_src_reader()->get_current_row(),
 			ctx.get_src_reader()->get_current_col());
-		tok->set_raw_tok(L"sgt");
+        tok->set_raw_tok(instr_sgt);
 		ctx.get_src_reader()->advance(3);
 
 	} else {
