@@ -19,12 +19,7 @@ mips_token_ptr asm_directives_handler::parse_token(parser_ctx &ctx, mips_str buf
 	}
 
 	// Advance past '.'
-	ctx.get_src_reader()->advance(1);
-	
-	bool successFlag = true;
-	int curCol = ctx.get_src_reader()->get_current_col();
-	int firstChar = ctx.get_src_reader()->peek();
-	
+	ctx.get_src_reader()->advance(1);	
 	asm_directive_tok *tok = NULL;
 
     if(buff == align_directive){

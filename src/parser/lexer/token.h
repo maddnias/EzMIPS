@@ -1,5 +1,5 @@
 #pragma once
-#include "../../platform_dependencies.h"
+#include "platform_dependencies.h"
 #include <string>
 #include <memory>
 #include <vector>

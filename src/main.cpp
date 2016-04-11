@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "gui/mainwindow.h"
 #include "source_file.h"
 #include <chrono>
 #include <QMessageBox>
@@ -22,10 +22,6 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
-
-    QMessageBox m;
-    m.setText(QString::fromStdWString(test.at(0)->get_formatted_token()));
-    m.show();
 
     return a.exec();
 }
