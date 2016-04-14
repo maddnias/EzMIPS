@@ -1,11 +1,7 @@
 #pragma once
 #include "../token.h"
 
-#ifdef _WIN32
-    #define identifier "LABEL_REF: "
-#elif __linux__
-    #define identifier "LABEL_REF: "
-#endif
+#define identifier "LABEL_REF: "
 
 class label_ref_tok :
 	public mips_token

@@ -1,17 +1,10 @@
 #pragma once
 #include "../token.h"
 
-#ifdef _WIN32
-    #define identifier_i "INSTRUCTION_I: "
-    #define identifier_j "INSTRUCTION_J: "
-    #define identifier_pseudo "INSTRUCTION_PSEUDO: "
-    #define identifier_r "INSTRUCTION_R: "
-#elif __linux__
-    #define identifier_i "INSTRUCTION_I: "
-    #define identifier_j "INSTRUCTION_J: "
-    #define identifier_pseudo "INSTRUCTION_PSEUDO: "
-    #define identifier_r "INSTRUCTION_R: "
-#endif
+#define identifier_i "INSTRUCTION_I: "
+#define identifier_j "INSTRUCTION_J: "
+#define identifier_pseudo "INSTRUCTION_PSEUDO: "
+#define identifier_r "INSTRUCTION_R: "
 
 enum INSTRUCTION_TYPE{
 	INSTRUCTION_I = 0x1,

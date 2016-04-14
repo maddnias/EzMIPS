@@ -45,13 +45,13 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 	}
 
 	mips_token_ptr curTok;
-	mips_char curChar = get_src_reader()->peek();
+    char curChar = get_src_reader()->peek();
 
 	// Check if next token is an assembler directive
 	// TODO: optimera
 	if(has_lexer_flag(flags, LEXER_FLAG_DIRECTIVES) 
 		&& curChar == '.'){
-		for(list<mips_str>::const_iterator it = asm_directives.begin();it != asm_directives.end();it++){
+        for(list<std::string>::const_iterator it = asm_directives.begin();it != asm_directives.end();it++){
 			if(get_src_reader()->matches_unique(*it)){
 				if((curTok = m_asm_directives_handler.parse_token(*m_ctx, *it)) != NULL){
 					m_ctx->push_token(curTok);
@@ -64,7 +64,7 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 	// Check if next token is an R-type instruction
 	if(has_lexer_flag(flags, LEXER_FLAG_INSTR) 
 		&& get_src_reader()->is_legal_identifier_start(curChar)){
-		for(list<mips_str>::const_iterator it = r_type_instructions.begin();it != r_type_instructions.end();it++){
+        for(list<std::string>::const_iterator it = r_type_instructions.begin();it != r_type_instructions.end();it++){
 			if(get_src_reader()->matches_unique(*it)){
 				if((curTok = m_r_instr_handler.parse_token(*m_ctx, *it)) != NULL){
 					m_ctx->push_token(curTok);
@@ -78,7 +78,7 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 	// Check if next token is a J-type instruction
 	if(has_lexer_flag(flags, LEXER_FLAG_INSTR) 
 		&& get_src_reader()->is_legal_identifier_start(curChar)){
-		for(list<mips_str>::const_iterator it = j_type_instructions.begin();it != j_type_instructions.end();it++){
+        for(list<std::string>::const_iterator it = j_type_instructions.begin();it != j_type_instructions.end();it++){
 			if(get_src_reader()->matches_unique(*it)){
 				if((curTok = m_j_instr_handler.parse_token(*m_ctx, *it)) != NULL){
 					m_ctx->push_token(curTok);
@@ -91,7 +91,7 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 	// Check if next token is a I-type instruction
 	if(has_lexer_flag(flags, LEXER_FLAG_INSTR) 
 		&& get_src_reader()->is_legal_identifier_start(curChar)){
-		for(list<mips_str>::const_iterator it = i_type_instructions.begin();it != i_type_instructions.end();it++){
+        for(list<std::string>::const_iterator it = i_type_instructions.begin();it != i_type_instructions.end();it++){
 			if(get_src_reader()->matches_unique(*it)){
 				if((curTok = m_i_instr_handler.parse_token(*m_ctx, *it)) != NULL){
 					m_ctx->push_token(curTok);
@@ -104,7 +104,7 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 	// Check if next token is a pseudo instruction
 	if(has_lexer_flag(flags, LEXER_FLAG_INSTR) 
 		&& get_src_reader()->is_legal_identifier_start(curChar)){
-		for(list<mips_str>::const_iterator it = pseudo_type_instructions.begin();it != pseudo_type_instructions.end();it++){
+        for(list<std::string>::const_iterator it = pseudo_type_instructions.begin();it != pseudo_type_instructions.end();it++){
 			if(get_src_reader()->matches_unique(*it)){
 				curTok = m_pseudo_instr_handler.parse_token(*m_ctx, *it);
 				if(curTok != NULL){
@@ -119,11 +119,7 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 	if(has_lexer_flag(flags, LEXER_FLAG_OPERAND_REG)){
 		if(curChar == '$'){
             //TODO: better solution?
-#ifdef _WIN32
             if((curTok = m_reg_handler.parse_token(*m_ctx, "")) != NULL){
-#elif __linux__
-            if((curTok = m_reg_handler.parse_token(*m_ctx, "")) != NULL){
-#endif
 				m_ctx->push_token(curTok);
 				return curTok;
 			}
@@ -136,11 +132,7 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 			|| curChar == '"'
 			|| get_src_reader()->is_integer(curChar)
 			|| curChar == '-'){
-#ifdef _WIN32
                if((curTok = m_literal_handler.parse_token(*m_ctx, "")) != NULL){
-#elif __linux__
-               if((curTok = m_literal_handler.parse_token(*m_ctx, "")) != NULL){
-#endif
 					m_ctx->push_token(curTok);
 					return curTok;
 				}
@@ -152,7 +144,7 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 		get_src_reader()->get_current_col()));
 
 	char curChar2;
-    while(!mips_isspace(curChar2 = get_src_reader()->read()) && !get_src_reader()->is_eof()){
+    while(!isspace(curChar2 = get_src_reader()->read()) && !get_src_reader()->is_eof()){
 		// TODO: fix temporary , solution
         if(curChar2 == ','){
 			return NULL;
@@ -167,7 +159,7 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 				}
 			} else if(has_lexer_flag(flags, LEXER_FLAG_LABEL)){
 				if(is_legal_label(curTok->get_raw_tok())){
-					mips_str lbl = curTok->get_raw_tok();
+                    std::string lbl = curTok->get_raw_tok();
 					curTok = mips_token_ptr(new label_decl_tok(get_src_reader()->get_current_row(),
 						get_src_reader()->get_current_col()));
 					curTok->set_raw_tok(lbl);
@@ -183,7 +175,7 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 	if(get_src_reader()->is_legal_identifier_start(curChar)
 		&& has_lexer_flag(flags, LEXER_FLAG_LABEL)){
 			if(m_ctx->pool_contains_label(curTok->get_raw_tok())){
-				mips_str lbl = curTok->get_raw_tok();
+                std::string lbl = curTok->get_raw_tok();
 				curTok = mips_token_ptr(new label_ref_tok(get_src_reader()->get_current_row(),
 					get_src_reader()->get_current_col()));
 				curTok->set_raw_tok(lbl);
@@ -200,8 +192,8 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 	return curTok;
 }
 
-mips_str mips_tokenizer::read_identifier(){
-	mips_str outStr;
+std::string mips_tokenizer::read_identifier(){
+    std::string outStr;
 	/* we can do is_integer() since we know first char is a legal identifier start */
 	while(get_src_reader()->is_integer(get_src_reader()->peek()) 
 		|| get_src_reader()->is_legal_identifier_start(get_src_reader()->peek())){
@@ -227,14 +219,14 @@ bool mips_tokenizer::has_lexer_flag(LEXER_FLAGS input, LEXER_FLAGS tester){
 	return (input & tester) == tester;
 }
 
-bool mips_tokenizer::is_legal_label(mips_str input){
+bool mips_tokenizer::is_legal_label(std::string input){
     if(input.length() == 0){
         return false;
     }
 	if(!get_src_reader()->is_legal_identifier_start(input.at(0))){
 		return false;
 	}
-	for(mips_str::iterator it = input.begin()+1;it != input.end();it++){
+    for(std::string::iterator it = input.begin()+1;it != input.end();it++){
 		if(!get_src_reader()->is_legal_identifier_start(*it)
 			&& !get_src_reader()->is_integer(*it)){
 				return false;

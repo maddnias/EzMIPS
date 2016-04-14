@@ -14,20 +14,20 @@ public:
     bool is_eof(int look_ahead);
 	void eat_whitespace();
 	int read();
-    mips_str read_int();
-    mips_str read_int(int peek_start);
-    mips_str read_hex_int();
-    mips_str read_hex_int(int peek_start);
+    std::string read_int();
+    std::string read_int(int peek_start);
+    std::string read_hex_int();
+    std::string read_hex_int(int peek_start);
 	int peek();		
 	int peek(int forward_count);
 	void move_to(int count, STREAM_POS pos);
-    mips_str read_until(mips_char ender);
-    mips_str read_until(std::vector<mips_char> enders);
+    std::string read_until(char ender);
+    std::string read_until(std::vector<char> enders);
 	void advance(int forward_count);
 	bool is_integer(wint_t val);
 	bool is_legal_identifier_start(wint_t val);
-    bool matches(mips_str str);
-    bool matches_unique(mips_str str);
+    bool matches(std::string str);
+    bool matches_unique(std::string str);
 	void reset();
 
 	void advance_row();

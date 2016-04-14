@@ -2,7 +2,7 @@
 
 using namespace std;
 
-mem_segment::mem_segment(mips_str identifier, unsigned int size, unsigned int base_addr):
+mem_segment::mem_segment(std::string identifier, unsigned int size, unsigned int base_addr):
 	m_segment_identifier(identifier),
 	m_segment_size(size),
 	m_segment_base_addr(base_addr)
@@ -14,7 +14,7 @@ mem_segment::~mem_segment(void)
 {
 }
 
-mips_str mem_segment::get_segment_identifier(){
+std::string mem_segment::get_segment_identifier(){
 	return m_segment_identifier;
 }
 

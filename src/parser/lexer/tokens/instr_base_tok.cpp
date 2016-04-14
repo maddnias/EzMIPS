@@ -3,7 +3,7 @@
 
 instr_base_tok::instr_base_tok(INSTRUCTION_TYPE type, 
 							   unsigned int tok_row, unsigned int tok_col):
-    mips_token(INSTR_TOK, tok_row, tok_col, mips_null_str)
+    mips_token(INSTR_TOK, tok_row, tok_col, "")
 {
 	switch(type){
 	case INSTRUCTION_I:

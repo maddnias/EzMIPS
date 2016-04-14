@@ -13,7 +13,7 @@ i_instr_handler::i_instr_handler(){
 i_instr_handler::~i_instr_handler(void) {
 }
 
-mips_token_ptr i_instr_handler::parse_token(parser_ctx &ctx, mips_str buff){	
+mips_token_ptr i_instr_handler::parse_token(parser_ctx &ctx, std::string buff){	
 	bool successFlag = true;	
 	i_instr_tok *tok = NULL;
 

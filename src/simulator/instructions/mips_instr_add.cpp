@@ -15,7 +15,7 @@ INSTR_TYPE mips_instr_add::get_instr_type(){
 	return INSTR_TYPE_R;
 }
 
-mips_str mips_instr_add::get_expanded_name(){
+std::string mips_instr_add::get_expanded_name(){
 #if _WIN32
 	return "add";
 #elif __linux__
@@ -23,7 +23,7 @@ mips_str mips_instr_add::get_expanded_name(){
 #endif
 }
 
-mips_str mips_instr_add::get_mnemonic(){
+std::string mips_instr_add::get_mnemonic(){
 #if _WIN32
     return "add";
 #elif __linux__

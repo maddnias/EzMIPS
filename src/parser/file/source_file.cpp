@@ -6,7 +6,7 @@
 
 using namespace std;
 
-source_file::source_file(mips_str file):
+source_file::source_file(std::string file):
 	m_filename(file),
     m_pos(0),
     m_size(0),
@@ -37,9 +37,9 @@ bool source_file::load(){
 
 #if _WIN32
     string filename(m_filename.begin(), m_filename.end());
-    mips_f_stream fin(filename, mips_f_stream::in|mips_f_stream::binary);
+    std::ifstream fin(filename, std::ifstream::in|std::ifstream::binary);
 #elif __linux__
-    mips_f_stream fin(m_filename, mips_f_stream::in|mips_f_stream::binary);
+    std::ifstream fin(m_filename, std::ifstream::in|std::ifstream::binary);
 #endif
 
 
@@ -47,7 +47,7 @@ bool source_file::load(){
 	m_size = fin.tellg();
 	fin.seekg(0, ios::beg);
 
-    m_src = new mips_char[m_size];
+    m_src = new char[m_size];
 
 	try{
 		fin.read(m_src, m_size);
@@ -57,11 +57,11 @@ bool source_file::load(){
 	return true;
 }
 
-void source_file::set_data(int size, mips_char *data){
+void source_file::set_data(int size, char *data){
     src_sanity_check();
     m_pos = 0;
     m_size = size;
-    m_src = new mips_char[size];
+    m_src = new char[size];
     memcpy(m_src, data, size);
 }
 
@@ -77,21 +77,21 @@ bool source_file::fail(){
 	return false;
 }
 
-mips_char source_file::peek(){
+char source_file::peek(){
 	if(!is_in_range()){
 		return -1;
 	}
 	return m_src[m_pos];
 }
 
-mips_char source_file::peek(int forward_count){
+char source_file::peek(int forward_count){
 	if(!is_in_range(forward_count)){
 		return -1;
 	}
 	return m_src[m_pos+forward_count];
 }
 
-mips_char source_file::get(){
+char source_file::get(){
 	if(!is_in_range()){
 		return -1;
 	}

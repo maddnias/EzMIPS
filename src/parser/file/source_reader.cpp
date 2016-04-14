@@ -1,5 +1,5 @@
 #include "source_reader.h"
-#include "platform_dependencies.h"
+
 
 using namespace std;
 
@@ -23,7 +23,7 @@ bool source_reader::is_eof(int look_ahead){
 
 void source_reader::eat_whitespace(){
 	int curChar;
-    while(mips_isspace(curChar = read())){
+    while(isspace(curChar = read())){
 		if(curChar == '\n'){
 			advance_row();
 			reset_col();
@@ -38,25 +38,25 @@ int source_reader::read(){
 	return m_input->get();
 }
 
-mips_str source_reader::read_int(){
+std::string source_reader::read_int(){
 	return read_int(0);
 }
 
-mips_str source_reader::read_int(int peek_start){
+std::string source_reader::read_int(int peek_start){
 	int counter = peek_start;
-	mips_str finalBuff;
+    std::string finalBuff;
 	while(is_integer(peek(counter))){
 		finalBuff += peek(counter++);
 	}
 	return finalBuff;
 }
 
-mips_str source_reader::read_hex_int(){
+std::string source_reader::read_hex_int(){
 	return read_hex_int(0);
 }
 
-mips_str source_reader::read_hex_int(int peek_start){
-	mips_str finalBuff;
+std::string source_reader::read_hex_int(int peek_start){
+    std::string finalBuff;
 	int counter = peek_start;
 	while(is_integer(peek(counter)) 
 		|| is_legal_identifier_start(peek(counter))){
@@ -77,21 +77,21 @@ void source_reader::move_to(int count, STREAM_POS pos){
 	return m_input->move_to(count, pos);
 }
 
-mips_str source_reader::read_until(mips_char ender){
-	vector<mips_char> v;
+std::string source_reader::read_until(char ender){
+    vector<char> v;
 	v.push_back(ender);
 	return read_until(v);
 }
 
-mips_str source_reader::read_until(vector<mips_char> enders){
+std::string source_reader::read_until(vector<char> enders){
 	bool flag = true;
-	mips_str outBuff;
+    std::string outBuff;
 	for(int i = 0;flag;i++){
         if(is_eof(i)){
             return outBuff;
         }
 		outBuff += peek(i);
-		for(vector<mips_char>::iterator it = enders.begin();it != enders.end();it++){
+        for(vector<char>::iterator it = enders.begin();it != enders.end();it++){
             if(*it == peek(i) || is_eof()){
 				flag = false;
 				break;
@@ -112,10 +112,10 @@ bool source_reader::is_integer(wint_t val){
 }
 
 bool source_reader::is_legal_identifier_start(wint_t val){
-    return mips_isalpha(val) != 0;
+    return isalpha(val) != 0;
 }
 
-bool source_reader::matches(mips_str str){
+bool source_reader::matches(std::string str){
 	for(unsigned int i = 0;i < str.length();i++){
 		if(peek(i) != str.at(i)){
 			return false;
@@ -124,14 +124,14 @@ bool source_reader::matches(mips_str str){
 	return true;
 }
 
-bool source_reader::matches_unique(mips_str str){
-	mips_char test = peek(0);
+bool source_reader::matches_unique(std::string str){
+    char test = peek(0);
 	for(unsigned int i = 0;i < str.length();i++){
 		if(peek(i) != str.at(i)){
 			return false;
 		}
 	}
-    return mips_isspace(peek(str.length())) != 0;
+    return isspace(peek(str.length())) != 0;
 }
 
 

@@ -102,7 +102,6 @@ HEADERS  += \
     src/simulator/instructions/mips_operand_container.h \
     src/simulator/mem_segment.h \
     src/simulator/runtime_context.h \
-    src/include/platform_dependencies.h \
     src/gui/mips_highlighter.h \
     src/gui/editor_window.h \
     src/gui/mainwindow.h

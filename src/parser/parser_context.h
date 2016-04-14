@@ -13,11 +13,11 @@ public:
 	parser_context(source_file *input);
 	~parser_context(void);
 
-	void push_err(mips_str err_desc);
+	void push_err(std::string err_desc);
 	void push_token(mips_token_ptr token);
-	void push_label(mips_str label);
+	void push_label(std::string label);
 	
-	bool pool_contains_label(mips_str label);
+	bool pool_contains_label(std::string label);
 
 	source_reader* get_src_reader();
 	mips_tok_vector* get_parsed_tokens();
@@ -28,7 +28,7 @@ private:
 	ParserErrorVector m_parser_errors;
 	source_reader *m_src_reader;
 	mips_tok_vector *m_parsed_tokens;
-	std::vector<mips_str> m_label_pool;
+	std::vector<std::string> m_label_pool;
 };
 
 typedef parser_context parser_ctx;

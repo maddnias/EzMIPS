@@ -1,11 +1,7 @@
 #pragma once
 #include "../token.h"
 
-#ifdef _WIN32
-    #define identifier  "OPERAND_REG: "
-#elif __linux__
-    #define identifier  "OPERAND_REG: "
-#endif
+#define identifier  "OPERAND_REG: "
 
 class reg_tok :
 	public mips_token

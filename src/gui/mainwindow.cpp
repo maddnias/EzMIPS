@@ -72,6 +72,9 @@ void MainWindow::setup_error_table(){
 }
 
 void MainWindow::update_title(){
+    if(m_src_file == NULL){
+        return;
+    }
     QString title;
     title += QString::fromStdString(m_src_file->m_filename);
     if(m_is_changed){
@@ -96,12 +99,8 @@ void MainWindow::on_actionNew_triggered()
     if(m_src_file != NULL){
         delete m_src_file;
     }
-#if _WIN32
-    m_src_file = new source_file("mips1.asm");
-#elif __linux__
-    m_src_file = new source_file("mips1.asm");
-#endif
 
+    m_src_file = new source_file("mips1.asm");
     m_is_changed = true;
     update_title();
 }
@@ -111,8 +110,8 @@ void MainWindow::on_actionSave_triggered()
     if(m_src_file == NULL){
         save_with_dialog();
     }
-    mips_str dat = FROM_QSTRING(ui->textEdit->toPlainText());
-    m_src_file->set_data(dat.length(), (mips_char*)dat.c_str());
+    std::string dat = ui->textEdit->toPlainText().toStdString();
+    m_src_file->set_data(dat.length(), (char*)dat.c_str());
     m_src_file->save();
     m_is_changed = false;
     update_title();
@@ -137,6 +136,9 @@ void MainWindow::on_actionRun_triggered()
     m_src_file->set_data(dat.length(), (char*)dat.c_str());
     m_src_file->save();
 
+    m_is_changed = false;
+    update_title();
+
     mips_tokenizer t;
     auto test = t.parse_tokens(m_src_file);
 
@@ -153,4 +155,10 @@ void MainWindow::on_actionRun_triggered()
              ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 3, col_test4);
         }
     }
+}
+
+void MainWindow::on_textEdit_textChanged()
+{
+    m_is_changed = true;
+    update_title();
 }

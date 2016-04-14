@@ -1,5 +1,5 @@
 #pragma once
-#include "platform_dependencies.h"
+
 
 #include <string>
 
@@ -13,10 +13,10 @@ class mips_operand_container
 {
 public:
 	mips_operand_container(void);
-	mips_operand_container(mips_str str_data, int int_data);
+	mips_operand_container(std::string str_data, int int_data);
 	~mips_operand_container(void);
 
-	mips_str m_str_data;
+	std::string m_str_data;
 	int m_int_data;
 };
 

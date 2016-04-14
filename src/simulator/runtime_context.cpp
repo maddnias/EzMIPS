@@ -16,7 +16,7 @@ runtime_context::~runtime_context(void)
 	}
 }
 
-mem_segment* runtime_context::get_segment(mips_str identifier){
+mem_segment* runtime_context::get_segment(std::string identifier){
 	for(vector<mem_segment*>::iterator it = m_mem_segments.begin();
 		it != m_mem_segments.end();it++){
 			if((*it)->get_segment_identifier() == identifier){

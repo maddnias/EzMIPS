@@ -39,13 +39,13 @@ private:
 	/* functions */
 	mips_token_ptr next_token(LEXER_FLAGS flags);
 
-    mips_str read_identifier();
+    std::string read_identifier();
 
 	void init_tokenizer(source_file *input);
 	void deinit_tokenizer();
 
 	bool has_lexer_flag(LEXER_FLAGS input, LEXER_FLAGS tester);
-    bool is_legal_label(mips_str input);
+    bool is_legal_label(std::string input);
 
 	/* members */
 	std::vector<source_file*> m_src_files;

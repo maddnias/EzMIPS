@@ -16,8 +16,8 @@ public:
 	~mips_instr(void);
 
 	virtual INSTR_TYPE get_instr_type() = 0;
-	virtual mips_str get_expanded_name() = 0;
-	virtual mips_str get_mnemonic() = 0;
+	virtual std::string get_expanded_name() = 0;
+	virtual std::string get_mnemonic() = 0;
 	virtual int get_opcode() = 0;
 	virtual int get_funct() = 0;
 

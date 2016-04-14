@@ -1,6 +1,5 @@
 #include "literal_handler.h"
 #include "../tokens/literal_tok.h"
-#include <QDebug>
 #include <list>
 
 using namespace std;
@@ -13,9 +12,9 @@ literal_handler::literal_handler(){
 literal_handler::~literal_handler(void) {
 }
 
-mips_token_ptr literal_handler::parse_token(parser_ctx &ctx, mips_str buff){
-	mips_char firstChar = ctx.get_src_reader()->peek();
-	mips_str finalBuff;
+mips_token_ptr literal_handler::parse_token(parser_ctx &ctx, std::string buff){
+    char firstChar = ctx.get_src_reader()->peek();
+    std::string finalBuff;
 	finalBuff += firstChar;
 
 	literal_tok *tok = NULL;
@@ -62,7 +61,7 @@ mips_token_ptr literal_handler::parse_token(parser_ctx &ctx, mips_str buff){
         //finalBuff.pop_back();
 		int counter = 0;
 		bool endFlag = false;
-        for(mips_str::iterator it = finalBuff.begin()+1;it != finalBuff.end();it++,counter++){
+        for(std::string::iterator it = finalBuff.begin()+1;it != finalBuff.end();it++,counter++){
 			if(*it == '"'){
 				endFlag = true;
 				break;

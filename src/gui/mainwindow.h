@@ -35,6 +35,7 @@ private slots:
     void on_actionSave_triggered();
     void on_actionAssemble_triggered();
     void on_actionRun_triggered();
+    void on_textEdit_textChanged();
 };
 
 #endif // MAINWINDOW_H
