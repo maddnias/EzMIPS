@@ -39,8 +39,8 @@ mem_segment* runtime_context::get_segment(unsigned int addr){
 
 void runtime_context::init_context(){
 #if _WIN32
-	m_mem_segments.push_back(new mem_segment(L".text", 0, 0x00400000));
-	m_mem_segments.push_back(new mem_segment(L".data", 0, 0x10010000));
+	m_mem_segments.push_back(new mem_segment(".text", 0, 0x00400000));
+	m_mem_segments.push_back(new mem_segment(".data", 0, 0x10010000));
 #elif __linux__
     m_mem_segments.push_back(new mem_segment(".text", 0, 0x00400000));
     m_mem_segments.push_back(new mem_segment(".data", 0, 0x10010000));

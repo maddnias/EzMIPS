@@ -17,7 +17,7 @@ INSTR_TYPE mips_instr_add::get_instr_type(){
 
 mips_str mips_instr_add::get_expanded_name(){
 #if _WIN32
-	return L"add";
+	return "add";
 #elif __linux__
     return "add";
 #endif
@@ -25,7 +25,7 @@ mips_str mips_instr_add::get_expanded_name(){
 
 mips_str mips_instr_add::get_mnemonic(){
 #if _WIN32
-    return L"add";
+    return "add";
 #elif __linux__
     return "add";
 #endif

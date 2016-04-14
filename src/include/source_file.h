@@ -36,9 +36,6 @@ private:
 	bool is_in_range(int count);
     void src_sanity_check();
 
-    std::string to_utf8(const wchar_t* buffer, int len);
-    std::string to_utf8(const std::wstring& str);
-
     mips_char *m_src;
 	unsigned int m_size;
 	unsigned int m_pos;

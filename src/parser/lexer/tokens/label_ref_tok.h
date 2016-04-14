@@ -2,7 +2,7 @@
 #include "../token.h"
 
 #ifdef _WIN32
-    #define identifier L"LABEL_REF: "
+    #define identifier "LABEL_REF: "
 #elif __linux__
     #define identifier "LABEL_REF: "
 #endif

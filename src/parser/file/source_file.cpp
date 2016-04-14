@@ -24,7 +24,7 @@ bool source_file::save(){
     std::locale::global(std::locale(""));
 #if _WIN32
     string filename(m_filename.begin(), m_filename.end());
-    wofstream fout(filename, ios::out|ios::binary);
+    ofstream fout(filename, ios::out|ios::binary);
 #elif __linux__
     ofstream fout(filename, ios::out);
 #endif
@@ -130,35 +130,3 @@ void source_file::src_sanity_check(){
     }
 }
 
-std::string source_file::to_utf8(const wchar_t* buffer, int len)
-{
-        int nChars = ::WideCharToMultiByte(
-                CP_UTF8,
-                0,
-                buffer,
-                len,
-                NULL,
-                0,
-                NULL,
-                NULL);
-        if (nChars == 0) return "";
-
-        string newbuffer;
-        newbuffer.resize(nChars) ;
-        ::WideCharToMultiByte(
-                CP_UTF8,
-                0,
-                buffer,
-                len,
-                const_cast< char* >(newbuffer.c_str()),
-                nChars,
-                NULL,
-                NULL);
-
-        return newbuffer;
-}
-
-std::string source_file::to_utf8(const std::wstring& str)
-{
-        return to_utf8(str.c_str(), (int)str.size());
-}

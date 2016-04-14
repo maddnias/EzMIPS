@@ -3,7 +3,7 @@
 #include <string>
 
 #ifdef _WIN32
-    #define identifier  L"UNDEFINED: "
+    #define identifier  "UNDEFINED: "
 #elif __linux__
     #define identifier  "UNDEFINED: "
 #endif

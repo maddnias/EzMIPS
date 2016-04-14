@@ -2,11 +2,11 @@
 #include "token_handler.h"
 
 #ifdef _WIN32
-    #define instr_j L"j"
-    #define instr_jal L"jal"
+    #define instr_j "j"
+    #define instr_jal "ja"
 #elif __linux__
     #define instr_j "j"
-    #define instr_jal "jal"
+    #define instr_jal "ja"
 #endif
 
 class j_instr_handler

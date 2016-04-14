@@ -19,11 +19,45 @@ mips_highlighter::mips_highlighter(QTextDocument *parent)
                     << "\\bsb\\b" << "\\bslt\\b" << "\\bslti\\b"
                     << "\\bsltiu\\b" << "\\bsltu\\b" << "\\bsll\\b"
                     << "\\bsrl\\b" << "\\bsra\\b" << "\\bsub\\b"
-                    << "\\bsubu\\b" << "\\bsw\\b";
+                    << "\\bsubu\\b" << "\\bsw\\b" << "\\bblt\\b"
+                    << "\\bbgt\\b" << "\\bble\\b" << "\\bneg\\b"
+                    << "\\bnot\\b" << "\\bge\\b" << "\\bli\\b"
+                    << "\\bla\\b" << "\\bmove\\b" << "\\bsge\b"
+                    << "\\bsgt\\b";
 
     foreach (const QString &pattern, keywordPatterns) {
         rule.pattern = QRegExp(pattern);
         rule.format = keywordFormat;
+        highlightingRules.append(rule);
+    }
+
+    registerFormat.setForeground(Qt::darkRed);
+    QStringList registerPatterns;
+    registerPatterns << "\\$1" << "\\$2" << "\\$3"
+                     << "\\$4" << "\\$5" << "\\$6"
+                     << "\\$7" << "\\$8" << "\\$9"
+                     << "\\$10" << "\\$11" << "\\$12"
+                     << "\\$13" << "\\$14" << "\\$15"
+                     << "\\$16" << "\\$17" << "\\$18"
+                     << "\\$19" << "\\$20" << "\\$21"
+                     << "\\$22" << "\\$23" << "\\$24"
+                     << "\\$25" << "\\$26" << "\\$27"
+                     << "\\$28" << "\\$29" << "\\$30"
+                     << "\\$31" << "\\$zero" << "\\$at"
+                     << "\\$v0" << "\\$v1" << "\\$a0"
+                     << "\\$a1" << "\\$a2" << "\\$a3"
+                     << "\\$t0" << "\\$t1" << "\\$t2"
+                     << "\\$t3" << "\\$t4" << "\\$t5"
+                     << "\\$t6" << "\\$t7" << "\\$s0"
+                     << "\\$s1" << "\\$s2" << "\\$s3"
+                     << "\\$s4" << "\\$s5" << "\\$s6"
+                     << "\\$s7" << "\\$t8" << "\\$t9"
+                     << "\\$k0" << "\\$k1" << "\\$gp"
+                     << "\\$sp" << "\\$fp" << "\\$ra";
+
+    foreach (const QString &pattern, registerPatterns) {
+        rule.pattern = QRegExp(pattern);
+        rule.format = registerFormat;
         highlightingRules.append(rule);
     }
 

@@ -2,10 +2,10 @@
 #include "../token.h"
 
 #ifdef _WIN32
-    #define identifier_i L"INSTRUCTION_I: "
-    #define identifier_j L"INSTRUCTION_J: "
-    #define identifier_pseudo L"INSTRUCTION_PSEUDO: "
-    #define identifier_r L"INSTRUCTION_R: "
+    #define identifier_i "INSTRUCTION_I: "
+    #define identifier_j "INSTRUCTION_J: "
+    #define identifier_pseudo "INSTRUCTION_PSEUDO: "
+    #define identifier_r "INSTRUCTION_R: "
 #elif __linux__
     #define identifier_i "INSTRUCTION_I: "
     #define identifier_j "INSTRUCTION_J: "

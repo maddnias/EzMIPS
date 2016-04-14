@@ -77,7 +77,7 @@ void EditorWindow::on_tableWidget_itemDoubleClicked(QTableWidgetItem *item)
 void EditorWindow::on_pushButton_clicked()
 {
 #if _WIN32
-    source_file f(L"C:\\TestScript.txt");
+    source_file f("C:\\TestScript.txt");
 #elif __linux__
     source_file f("TestScript.txt");
 #endif
@@ -90,7 +90,7 @@ void EditorWindow::on_pushButton_clicked()
              QTableWidgetItem* col_test1 = new QTableWidgetItem(QString::number(ui->tableWidget->rowCount()),QTableWidgetItem::Type);
              QTableWidgetItem* col_test2 = new QTableWidgetItem(QString::number((*it)->get_tok_row()+1),QTableWidgetItem::Type);
              QTableWidgetItem* col_test3 = new QTableWidgetItem(QString::number((*it)->get_tok_col()),QTableWidgetItem::Type);
-             QTableWidgetItem* col_test4 = new QTableWidgetItem(QString("Undefined token: ") + QString::fromStdWString((*it)->get_raw_tok()),QTableWidgetItem::Type);
+             QTableWidgetItem* col_test4 = new QTableWidgetItem(QString("Undefined token: ") + QString::fromStdString((*it)->get_raw_tok()),QTableWidgetItem::Type);
              ui->tableWidget->insertRow(ui->tableWidget->rowCount());
              ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, col_test1);
              ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 1, col_test2);

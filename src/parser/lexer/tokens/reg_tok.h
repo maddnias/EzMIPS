@@ -2,7 +2,7 @@
 #include "../token.h"
 
 #ifdef _WIN32
-    #define identifier  L"OPERAND_REG: "
+    #define identifier  "OPERAND_REG: "
 #elif __linux__
     #define identifier  "OPERAND_REG: "
 #endif

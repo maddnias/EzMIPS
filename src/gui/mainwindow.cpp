@@ -2,6 +2,9 @@
 #include "ui_mainwindow.h"
 #include "mips_highlighter.h"
 #include "tokenizer.h"
+#include <QFileDialog>
+
+using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -95,7 +98,7 @@ void MainWindow::on_actionNew_triggered()
         delete m_src_file;
     }
 #if _WIN32
-    m_src_file = new source_file(L"mips1.asm");
+    m_src_file = new source_file("mips1.asm");
 #elif __linux__
     m_src_file = new source_file("mips1.asm");
 #endif
@@ -108,7 +111,7 @@ void MainWindow::on_actionSave_triggered()
 {
     mips_str dat = FROM_QSTRING(ui->textEdit->toPlainText());
     m_src_file->set_data(dat.length(), (mips_char*)dat.c_str());
-   // m_src_file->save();
+    m_src_file->save();
     m_is_changed = false;
     update_title();
 }
@@ -120,6 +123,16 @@ void MainWindow::on_actionAssemble_triggered()
 
 void MainWindow::on_actionRun_triggered()
 {
+    if(m_src_file == NULL){
+        QString filename = QFileDialog::getSaveFileName(this, QString("Save file..."),
+                                                        QString(""), QString("MIPS assembly file (*.s *.asm)"));
+        m_src_file = new source_file(filename.toStdString());
+        string dat = ui->textEdit->toPlainText().toStdString();
+        m_src_file->set_data(dat.length(), (char*)dat.c_str());
+    }
+
+    m_src_file->save();
+
     mips_tokenizer t;
     auto test = t.parse_tokens(m_src_file);
 
@@ -128,7 +141,7 @@ void MainWindow::on_actionRun_triggered()
              QTableWidgetItem* col_test1 = new QTableWidgetItem(QString::number(ui->tableWidget->rowCount()),QTableWidgetItem::Type);
              QTableWidgetItem* col_test2 = new QTableWidgetItem(QString::number((*it)->get_tok_row()+1),QTableWidgetItem::Type);
              QTableWidgetItem* col_test3 = new QTableWidgetItem(QString::number((*it)->get_tok_col()),QTableWidgetItem::Type);
-             QTableWidgetItem* col_test4 = new QTableWidgetItem(QString("Undefined token: ") + QString::fromStdWString((*it)->get_raw_tok()),QTableWidgetItem::Type);
+             QTableWidgetItem* col_test4 = new QTableWidgetItem(QString("Undefined token: ") + QString::fromStdString((*it)->get_raw_tok()),QTableWidgetItem::Type);
              ui->tableWidget->insertRow(ui->tableWidget->rowCount());
              ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, col_test1);
              ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 1, col_test2);

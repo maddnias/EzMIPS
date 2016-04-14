@@ -11,15 +11,6 @@
 
 int main(int argc, char *argv[])
 {
-#if _WIN32
-    source_file f(L"C:\\TestScript.txt");
-#elif __linux__
-    source_file f("TestScript.txt");
-#endif
-    f.load();
-    mips_tokenizer t;
-    auto test = t.parse_tokens(&f);
-
     QApplication a(argc, argv);
     MainWindow w;
     w.show();

@@ -120,7 +120,7 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 		if(curChar == '$'){
             //TODO: better solution?
 #ifdef _WIN32
-			if((curTok = m_reg_handler.parse_token(*m_ctx, L"")) != NULL){
+            if((curTok = m_reg_handler.parse_token(*m_ctx, "")) != NULL){
 #elif __linux__
             if((curTok = m_reg_handler.parse_token(*m_ctx, "")) != NULL){
 #endif
@@ -137,7 +137,7 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 			|| get_src_reader()->is_integer(curChar)
 			|| curChar == '-'){
 #ifdef _WIN32
-               if((curTok = m_literal_handler.parse_token(*m_ctx, L"")) != NULL){
+               if((curTok = m_literal_handler.parse_token(*m_ctx, "")) != NULL){
 #elif __linux__
                if((curTok = m_literal_handler.parse_token(*m_ctx, "")) != NULL){
 #endif
