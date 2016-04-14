@@ -55,6 +55,7 @@ void MainWindow::setup_text_editor(){
 
 void MainWindow::setup_error_table(){
     ui->tableWidget->setColumnCount(4);
+    ui->tableWidget->verticalHeader()->setVisible(false);
 
     ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
 
