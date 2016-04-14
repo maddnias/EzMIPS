@@ -3,8 +3,6 @@
 #include <locale>
 #include <qdebug.h>
 #include <fstream>
-#include "windows.h"
-#include <locale>
 
 using namespace std;
 
@@ -12,7 +10,7 @@ source_file::source_file(mips_str file):
 	m_filename(file),
     m_pos(0),
     m_size(0),
-    m_src(nullptr)
+    m_src(NULL)
 {
 }
 
@@ -22,13 +20,7 @@ source_file::~source_file(void)
 }
 
 bool source_file::save(){
-    std::locale::global(std::locale(""));
-#if _WIN32
-    string filename(m_filename.begin(), m_filename.end());
-    ofstream fout(filename, ios::out|ios::binary);
-#elif __linux__
-    ofstream fout(filename, ios::out);
-#endif
+    ofstream fout(m_filename, ios::out);
 
     try {
         fout.write(m_src, m_size);

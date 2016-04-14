@@ -71,16 +71,9 @@ void MainWindow::setup_error_table(){
     //ui->tableWidget->setItem(0, 0, col_test);
 }
 
-void MainWindow::setup_actions(){
-    m_newAct = new QAction(tr("&New"), this);
-    m_newAct->setShortcuts(QKeySequence::New);
-    m_newAct->setStatusTip(tr("Create a new file"));
-    connect(m_newAct, &QAction::triggered, this, &MainWindow::newFile);
-}
-
 void MainWindow::update_title(){
     QString title;
-    title += MAKE_QSTRING(m_src_file->m_filename);
+    title += QString::fromStdString(m_src_file->m_filename);
     if(m_is_changed){
         title += QString(" *");
     }

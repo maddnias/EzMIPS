@@ -19,7 +19,6 @@ public:
 private:
     void setup_text_editor();
     void setup_error_table();
-    void setup_actions();
 
     void update_title();
     void save_with_dialog();

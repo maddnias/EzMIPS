@@ -23,7 +23,7 @@
     #define mips_of_stream std::ofstream
     #define mips_isspace std::isspace
     #define mips_isalpha std::isalpha
-    #define MAKE_QSTRING(str) QString(str)
+  //  #define MAKE_QSTRING(str) QString(str)
     #define FROM_QSTRING(str) std::string(str.toStdString())
 #endif
 

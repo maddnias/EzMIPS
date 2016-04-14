@@ -158,7 +158,7 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 			return NULL;
 		}
 		// Potential label token
-		if(curChar2 == ':'){
+        if(curChar2 == ':'){
 			if(has_lexer_flag(flags, LEXER_FLAG_LABEL_POOL)){
 				if(is_legal_label(curTok->get_raw_tok())){
 					m_ctx->push_label(curTok->get_raw_tok());
@@ -226,6 +226,9 @@ bool mips_tokenizer::has_lexer_flag(LEXER_FLAGS input, LEXER_FLAGS tester){
 }
 
 bool mips_tokenizer::is_legal_label(mips_str input){
+    if(input.length() == 0){
+        return false;
+    }
 	if(!get_src_reader()->is_legal_identifier_start(input.at(0))){
 		return false;
 	}
