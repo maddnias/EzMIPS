@@ -18,8 +18,9 @@ OBJECTS_DIR = $$DESTDIR/.obj
 MOC_DIR = $$DESTDIR/.moc
 RCC_DIR = $$DESTDIR/.qrc
 UI_DIR = $$DESTDIR/.u
-
+                                                                       ^
 QMAKE_CXXFLAGS_WARN_ON += -Wno-reorder
+QMAKE_CXXFLAGS_WARN_ON += -Wunused-parameter
 
 INCLUDEPATH += "src/"\
             "src/include/"
@@ -31,7 +32,6 @@ TEMPLATE = app
 
 
 SOURCES += src/main.cpp\
-        src/gui/mainwindow.cpp \
     src/parser/file/source_file.cpp \
     src/parser/file/source_reader.cpp \
     src/parser/lexer/token_handlers/asm_directives_handler.cpp \
@@ -64,8 +64,10 @@ SOURCES += src/main.cpp\
     src/simulator/executor.cpp \
     src/simulator/mem_segment.cpp \
     src/simulator/runtime_context.cpp \
+    src/gui/mips_highlighter.cpp \
+    src/gui/editor_window.cpp
 
-HEADERS  += src/gui/mainwindow.h \
+HEADERS  += \
     src/include/executor.h \
     src/include/source_file.h \
     src/include/tokenizer.h \
@@ -99,6 +101,9 @@ HEADERS  += src/gui/mainwindow.h \
     src/simulator/instructions/mips_operand_container.h \
     src/simulator/mem_segment.h \
     src/simulator/runtime_context.h \
-    src/include/platform_dependencies.h
+    src/include/platform_dependencies.h \
+    src/gui/mips_highlighter.h \
+    src/gui/editor_window.h
 
-FORMS    += src/gui/mainwindow.ui
+FORMS    += \
+    src/gui/editor_window.ui

@@ -152,9 +152,9 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 		get_src_reader()->get_current_col()));
 
 	char curChar2;
-	while(!iswspace(curChar2 = get_src_reader()->read()) && !get_src_reader()->is_eof()){
+    while(!mips_isspace(curChar2 = get_src_reader()->read()) && !get_src_reader()->is_eof()){
 		// TODO: fix temporary , solution
-		if(curChar2 == ','){
+        if(curChar2 == ','){
 			return NULL;
 		}
 		// Potential label token

@@ -1,4 +1,3 @@
-#include "gui/mainwindow.h"
 #include "source_file.h"
 #include <chrono>
 #include <QMessageBox>
@@ -6,6 +5,7 @@
 #include <QDebug>
 #include "tokenizer.h"
 #include <iostream>
+#include "gui/editor_window.h"
 
 
 int main(int argc, char *argv[])
@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     auto test = t.parse_tokens(&f);
 
     QApplication a(argc, argv);
-    MainWindow w;
+    EditorWindow w;
     w.show();
 
     return a.exec();

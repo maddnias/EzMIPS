@@ -1,4 +1,5 @@
 #include "source_reader.h"
+#include "platform_dependencies.h"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ bool source_reader::is_eof(){
 
 void source_reader::eat_whitespace(){
 	int curChar;
-	while(iswspace(curChar = read())){
+    while(mips_isspace(curChar = read())){
 		if(curChar == '\n'){
 			advance_row();
 			reset_col();
@@ -104,7 +105,7 @@ bool source_reader::is_integer(wint_t val){
 }
 
 bool source_reader::is_legal_identifier_start(wint_t val){
-	return iswalpha(val) != 0;
+    return mips_isalpha(val) != 0;
 }
 
 bool source_reader::matches(mips_str str){
@@ -123,7 +124,7 @@ bool source_reader::matches_unique(mips_str str){
 			return false;
 		}
 	}
-	return iswspace(peek(str.length())) != 0;
+    return mips_isspace(peek(str.length())) != 0;
 }
 
 
