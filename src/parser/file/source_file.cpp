@@ -11,7 +11,8 @@ using namespace std;
 source_file::source_file(mips_str file):
 	m_filename(file),
     m_pos(0),
-    m_size(0)
+    m_size(0),
+    m_src(nullptr)
 {
 }
 

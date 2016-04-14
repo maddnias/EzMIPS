@@ -22,6 +22,7 @@ private:
     void setup_actions();
 
     void update_title();
+    void save_with_dialog();
 
     QAction *m_newAct;
 

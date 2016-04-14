@@ -88,6 +88,12 @@ void MainWindow::update_title(){
     this->setWindowTitle(title);
 }
 
+void MainWindow::save_with_dialog(){
+    QString filename = QFileDialog::getSaveFileName(this, QString("Save file..."),
+                                                    QString(""), QString("MIPS assembly file (*.s *.asm)"));
+    m_src_file = new source_file(filename.toStdString());
+}
+
 void MainWindow::newFile(){
 
 }
@@ -109,6 +115,9 @@ void MainWindow::on_actionNew_triggered()
 
 void MainWindow::on_actionSave_triggered()
 {
+    if(m_src_file == NULL){
+        save_with_dialog();
+    }
     mips_str dat = FROM_QSTRING(ui->textEdit->toPlainText());
     m_src_file->set_data(dat.length(), (mips_char*)dat.c_str());
     m_src_file->save();
@@ -123,14 +132,16 @@ void MainWindow::on_actionAssemble_triggered()
 
 void MainWindow::on_actionRun_triggered()
 {
+    // TODO:
+    // clear all rows
+    ui->tableWidget->setRowCount(0);
+
     if(m_src_file == NULL){
-        QString filename = QFileDialog::getSaveFileName(this, QString("Save file..."),
-                                                        QString(""), QString("MIPS assembly file (*.s *.asm)"));
-        m_src_file = new source_file(filename.toStdString());
-        string dat = ui->textEdit->toPlainText().toStdString();
-        m_src_file->set_data(dat.length(), (char*)dat.c_str());
+        save_with_dialog();
     }
 
+    string dat = ui->textEdit->toPlainText().toStdString();
+    m_src_file->set_data(dat.length(), (char*)dat.c_str());
     m_src_file->save();
 
     mips_tokenizer t;
