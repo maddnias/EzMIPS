@@ -19,7 +19,9 @@ public:
     source_file(mips_str file);
 	~source_file(void);
 
-	bool load();
+    bool save();
+    bool load();
+    void set_data(int size, mips_char *data);
 	bool eof();
 	bool fail();
     mips_char peek();
@@ -27,15 +29,19 @@ public:
     mips_char get();
 	void move_to(int count, STREAM_POS pos);
 
+    mips_str m_filename;
+
 private:
 	bool is_in_range();
 	bool is_in_range(int count);
+    void src_sanity_check();
+
+    std::string to_utf8(const wchar_t* buffer, int len);
+    std::string to_utf8(const std::wstring& str);
 
     mips_char *m_src;
 	unsigned int m_size;
 	unsigned int m_pos;
-    mips_str m_filename;
-    mips_str_stream m_data;
 };
 
 #endif

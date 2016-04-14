@@ -65,7 +65,8 @@ SOURCES += src/main.cpp\
     src/simulator/mem_segment.cpp \
     src/simulator/runtime_context.cpp \
     src/gui/mips_highlighter.cpp \
-    src/gui/editor_window.cpp
+    src/gui/editor_window.cpp \
+    src/gui/mainwindow.cpp
 
 HEADERS  += \
     src/include/executor.h \
@@ -103,7 +104,9 @@ HEADERS  += \
     src/simulator/runtime_context.h \
     src/include/platform_dependencies.h \
     src/gui/mips_highlighter.h \
-    src/gui/editor_window.h
+    src/gui/editor_window.h \
+    src/gui/mainwindow.h
 
 FORMS    += \
-    src/gui/editor_window.ui
+    src/gui/editor_window.ui \
+    src/gui/mainwindow.ui

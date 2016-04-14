@@ -6,6 +6,7 @@
 #include "tokenizer.h"
 #include <iostream>
 #include "gui/editor_window.h"
+#include "gui/mainwindow.h"
 
 
 int main(int argc, char *argv[])
@@ -20,7 +21,7 @@ int main(int argc, char *argv[])
     auto test = t.parse_tokens(&f);
 
     QApplication a(argc, argv);
-    EditorWindow w;
+    MainWindow w;
     w.show();
 
     return a.exec();
