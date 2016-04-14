@@ -17,6 +17,10 @@ bool source_reader::is_eof(){
 	return m_input->eof() || m_input->fail();
 }
 
+bool source_reader::is_eof(int look_ahead){
+    return m_input->eof(look_ahead);
+}
+
 void source_reader::eat_whitespace(){
 	int curChar;
     while(mips_isspace(curChar = read())){
@@ -83,9 +87,12 @@ mips_str source_reader::read_until(vector<mips_char> enders){
 	bool flag = true;
 	mips_str outBuff;
 	for(int i = 0;flag;i++){
+        if(is_eof(i)){
+            return outBuff;
+        }
 		outBuff += peek(i);
 		for(vector<mips_char>::iterator it = enders.begin();it != enders.end();it++){
-			if(*it == peek(i)){
+            if(*it == peek(i) || is_eof()){
 				flag = false;
 				break;
 			}

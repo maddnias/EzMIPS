@@ -66,7 +66,11 @@ void source_file::set_data(int size, mips_char *data){
 }
 
 bool source_file::eof(){
-	return m_pos > m_size;
+    return m_pos > m_size;
+}
+
+bool source_file::eof(int look_ahead){
+    return m_pos+look_ahead > m_size;
 }
 
 bool source_file::fail(){

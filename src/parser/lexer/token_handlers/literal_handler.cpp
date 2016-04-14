@@ -1,6 +1,6 @@
 #include "literal_handler.h"
 #include "../tokens/literal_tok.h"
-
+#include <QDebug>
 #include <list>
 
 using namespace std;
@@ -54,11 +54,15 @@ mips_token_ptr literal_handler::parse_token(parser_ctx &ctx, mips_str buff){
 	// Read strings
 	if(firstChar == '"'){
 		ctx.get_src_reader()->advance(1);
-		finalBuff += ctx.get_src_reader()->read_until('\n');
-		finalBuff.pop_back();
+        vector<char> enders;
+        enders.push_back('"');
+        enders.push_back('\n');
+        finalBuff += ctx.get_src_reader()->read_until(enders);
+
+        //finalBuff.pop_back();
 		int counter = 0;
 		bool endFlag = false;
-		for(mips_str::iterator it = finalBuff.begin();it != finalBuff.end();it++,counter++){
+        for(mips_str::iterator it = finalBuff.begin()+1;it != finalBuff.end();it++,counter++){
 			if(*it == '"'){
 				endFlag = true;
 				break;
@@ -68,10 +72,11 @@ mips_token_ptr literal_handler::parse_token(parser_ctx &ctx, mips_str buff){
 		if(endFlag){
 			tok = new literal_tok(LITERAL_TYPE_STRING, ctx.get_src_reader()->get_current_row(),
 				ctx.get_src_reader()->get_current_col());
-			finalBuff = finalBuff.substr(counter);
+            finalBuff = finalBuff.substr(1, counter);
+            ctx.get_src_reader()->advance(1);
 		} else {
 			ctx.get_src_reader()->move_to(-1, STREAM_POS_CUR);
-		}
+        }
 	}
 
 	if(tok != NULL){

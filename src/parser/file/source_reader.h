@@ -11,6 +11,7 @@ public:
 	~source_reader();
 
 	bool is_eof();
+    bool is_eof(int look_ahead);
 	void eat_whitespace();
 	int read();
     mips_str read_int();

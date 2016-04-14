@@ -192,8 +192,10 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 			}
 	}
 
-	if(!has_lexer_flag(flags, LEXER_FLAG_LABEL_POOL)){
-		m_ctx->push_token(curTok);
+    if(!has_lexer_flag(flags, LEXER_FLAG_LABEL_POOL)){
+        if(curTok->get_raw_tok().length() > 0){
+            m_ctx->push_token(curTok);
+        }
 	}
 	return curTok;
 }

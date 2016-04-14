@@ -23,6 +23,7 @@ public:
     bool load();
     void set_data(int size, mips_char *data);
 	bool eof();
+    bool eof(int look_ahead);
 	bool fail();
     mips_char peek();
     mips_char peek(int forward_count);
