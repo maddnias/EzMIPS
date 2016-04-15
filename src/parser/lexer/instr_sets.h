@@ -1,4 +1,5 @@
-#pragma once
+#ifndef INSTR_SETS_H
+#define INSTR_SETS_H
 
 #include <list>
 #include <string>
@@ -33,3 +34,4 @@ const list<std::string> pseudo_type_instructions(pseudo_type_instr_set,
 
 const list<std::string> reg_names(reg_name_set,
 										reg_name_set + sizeof(reg_name_set) / sizeof(*reg_name_set));
+#endif

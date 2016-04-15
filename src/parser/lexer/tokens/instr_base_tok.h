@@ -1,4 +1,6 @@
-#pragma once
+#ifndef INSTR_BASE_TOK_H
+#define INSTR_BASE_TOK_H
+
 #include "../token.h"
 
 #define identifier_i "INSTRUCTION_I: "
@@ -28,3 +30,4 @@ private:
 	INSTRUCTION_TYPE m_instr_type;
 };
 
+#endif

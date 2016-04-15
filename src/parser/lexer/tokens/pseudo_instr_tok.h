@@ -1,4 +1,6 @@
-#pragma once
+#ifndef PSEUDO_INSTR_TOK_H
+#define PSEUDO_INSTR_TOK_H
+
 #include "instr_base_tok.h"
 
 class pseudo_instr_tok :
@@ -9,3 +11,4 @@ public:
 	~pseudo_instr_tok(void);
 };
 
+#endif

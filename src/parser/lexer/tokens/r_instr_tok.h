@@ -1,4 +1,6 @@
-#pragma once
+#ifndef R_INSTR_TOK_H
+#define R_INSTR_TOK_H
+
 #include "instr_base_tok.h"
 class r_instr_tok :
 	public instr_base_tok
@@ -9,3 +11,4 @@ public:
 	~r_instr_tok(void);
 };
 
+#endif

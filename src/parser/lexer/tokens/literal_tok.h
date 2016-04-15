@@ -1,4 +1,6 @@
-#pragma once
+#ifndef LITERAL_TOK_H
+#define LITERAL_TOK_H
+
 #include "../token.h"
 
 #define identifier_string   "LITERAL_STRING: "
@@ -25,3 +27,4 @@ private:
 	LITERAL_TYPE m_type;
 };
 
+#endif

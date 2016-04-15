@@ -1,4 +1,5 @@
-#pragma once
+#ifndef REG_HANDLER_H
+#define REG_HANDLER_H
 
 #include "token_handler.h"
 
@@ -22,3 +23,4 @@ private:
 	int parse_reg_number(std::string &buff, parser_context &ctx);
 };
 
+#endif

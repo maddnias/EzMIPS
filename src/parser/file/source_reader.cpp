@@ -35,6 +35,10 @@ void source_reader::eat_whitespace(){
 
 int source_reader::read(){
 	advance_col();
+    if(m_input->peek() == '\n'){
+        advance_row();
+        reset_col();
+    }
 	return m_input->get();
 }
 

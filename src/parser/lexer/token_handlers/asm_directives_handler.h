@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ASM_DIRECTIVES_HANDLER_H
+#define ASM_DIRECTIVES_HANDLER_H
+
 #include "token_handler.h"
 
 #define align_directive ".align"
@@ -18,3 +20,4 @@ public:
 	
 };
 
+#endif

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef R_INSTR_HANDLER_H
+#define R_INSTR_HANDLER_H
+
 #include "token_handler.h"
 
 #define instr_add   "add"
@@ -33,3 +35,4 @@ public:
 	virtual mips_token_ptr parse_token(parser_ctx &ctx, std::string buff) override;
 };
 
+#endif

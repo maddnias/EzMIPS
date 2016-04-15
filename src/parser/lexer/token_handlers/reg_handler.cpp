@@ -27,7 +27,7 @@ mips_token_ptr reg_handler::parse_token(parser_ctx &ctx, string buff){
 		// Only accept within range 0-31
 		int regNumber = 0;
 		try {
-			int regNumber = stoi(finalBuff.substr(1, finalBuff.length()-1), 0, 10);
+            regNumber = stoi(finalBuff.substr(1, finalBuff.length()-1), 0, 10);
 		} catch(...){
 			// Invalid number
 			return NULL;

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef EXECUTOR_H
+#define EXECUTOR_H
 
 #include "tokenizer.h"
 #include "../simulator/runtime_context.h"
@@ -21,3 +22,4 @@ private:
 	void assemble_instructions();	
 };
 
+#endif

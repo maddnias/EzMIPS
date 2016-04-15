@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MIPS_INSTR_ADD_H
+#define MIPS_INSTR_ADD_H
+
 #include "mips_instr.h"
 class mips_instr_add :
 	public mips_instr
@@ -14,3 +16,4 @@ public:
 	int get_funct() override;
 };
 
+#endif

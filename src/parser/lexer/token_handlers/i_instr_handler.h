@@ -1,4 +1,6 @@
-#pragma once
+#ifndef I_INSTR_HANDLER_H
+#define I_INSTR_HANDLER_H
+
 #include "token_handler.h"
 
 #define instr_addi  "addi"
@@ -28,3 +30,4 @@ public:
 	
 };
 
+#endif

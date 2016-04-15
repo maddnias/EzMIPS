@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SOURCE_READER_H
+#define SOURCE_READER_H
+
 #include <memory>
 #include <fstream>
 #include <vector>
@@ -44,3 +46,5 @@ private:
 	unsigned int m_current_col;
 	source_file *m_input;
 };
+
+#endif

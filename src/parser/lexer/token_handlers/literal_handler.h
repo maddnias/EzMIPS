@@ -1,4 +1,6 @@
-#pragma once
+#ifndef LITERAL_HANDLER_H
+#define LITERAL_HANDLER_H
+
 #include "token_handler.h"
 
 class literal_handler
@@ -12,3 +14,4 @@ public:
 	
 };
 
+#endif

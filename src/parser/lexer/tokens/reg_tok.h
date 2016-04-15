@@ -1,4 +1,6 @@
-#pragma once
+#ifndef REG_TOK_H
+#define REG_TOK_H
+
 #include "../token.h"
 
 #define identifier  "OPERAND_REG: "
@@ -11,3 +13,4 @@ public:
 	~reg_tok(void);
 };
 
+#endif

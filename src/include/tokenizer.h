@@ -1,4 +1,6 @@
-#pragma once
+#ifndef TOKENIZER_H
+#define TOKENIZER_H
+
 #include "../parser/lexer/token.h"
 #include "../parser/parser_context.h"
 #include "../parser/file/source_reader.h"
@@ -59,3 +61,5 @@ private:
 	reg_handler m_reg_handler;
 	literal_handler m_literal_handler;
 };
+
+#endif

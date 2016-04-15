@@ -1,4 +1,6 @@
-#pragma once
+#ifndef PSEUDO_INSTR_HANDLER_H
+#define PSEUDO_INSTR_HANDLER_H
+
 #include "token_handler.h"
 
 #define instr_blt   "blt"
@@ -24,3 +26,4 @@ public:
 	
 };
 
+#endif

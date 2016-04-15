@@ -19,7 +19,6 @@ mips_token_ptr j_instr_handler::parse_token(parser_ctx &ctx, std::string buff){
 		return false;
 	}
 	
-	bool successFlag = true;	
 	j_instr_tok *tok = NULL;
 
     if(buff == instr_j){

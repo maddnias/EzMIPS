@@ -1,4 +1,6 @@
-#pragma once
+#ifndef J_INSTR_TOK_H
+#define J_INSTR_TOK_H
+
 #include "instr_base_tok.h"
 
 class j_instr_tok :
@@ -9,3 +11,4 @@ public:
 	~j_instr_tok(void);
 };
 
+#endif

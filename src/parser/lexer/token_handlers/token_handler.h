@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TOKEN_HANDLER_H
+#define TOKEN_HANDLER_H
 
 #include "../../parser_context.h"
 #include "../../file/source_reader.h"
@@ -20,3 +21,4 @@ private:
 
 typedef std::shared_ptr<mips_token_handler> mips_token_handlerPtr;
 
+#endif

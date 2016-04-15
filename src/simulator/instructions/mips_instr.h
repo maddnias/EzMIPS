@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MIPS_INSTR_H
+#define MIPS_INSTR_H
+
 #include "mips_operand_container.h"
 #include <string>
 
@@ -27,3 +29,4 @@ protected:
 //	mips_operand m_operand3;
 };
 
+#endif

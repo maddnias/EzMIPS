@@ -46,7 +46,7 @@ mips_token_ptr literal_handler::parse_token(parser_ctx &ctx, std::string buff){
 		tok = new literal_tok(LITERAL_TYPE_COMMENT, ctx.get_src_reader()->get_current_row(),
 			ctx.get_src_reader()->get_current_col());
 		finalBuff += ctx.get_src_reader()->read_until('\n');
-		// Remove \n
+        // Remove potential \n
 		finalBuff.pop_back();
 	}
 

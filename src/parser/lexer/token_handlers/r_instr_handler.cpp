@@ -14,10 +14,6 @@ r_instr_handler::~r_instr_handler(void)
 
 mips_token_ptr r_instr_handler::parse_token(parser_ctx &ctx, std::string buff){
 		bool successFlag = true;
-		
-		int curCol = ctx.get_src_reader()->get_current_col();
-		int firstChar = ctx.get_src_reader()->peek();
-
 		r_instr_tok *tok = NULL;
 
         if(buff == instr_add){

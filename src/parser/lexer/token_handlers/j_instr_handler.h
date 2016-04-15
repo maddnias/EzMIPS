@@ -1,4 +1,6 @@
-#pragma once
+#ifndef J_INSTR_HANDLER_H
+#define J_INSTR_HANDLER_H
+
 #include "token_handler.h"
 
 #define instr_j "j"
@@ -15,3 +17,4 @@ public:
 	
 };
 
+#endif

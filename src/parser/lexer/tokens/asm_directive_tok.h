@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ASM_DIRECTIVE_TOK_H
+#define ASM_DIRECTIVE_TOK_H
+
 #include "../token.h"
 
 #define identifier "ASM_DIRECTIVE: "
@@ -25,3 +27,4 @@ private:
 	ASSEMBLER_DIRECTIVE m_directive;
 };
 
+#endif

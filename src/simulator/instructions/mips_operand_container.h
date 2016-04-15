@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef MIPS_OPERAND_CONTAINER_H
+#define MIPS_OPERAND_CONTAINER_H
 
 #include <string>
 
@@ -21,3 +21,5 @@ public:
 };
 
 typedef mips_operand_container mips_operand;
+
+#endif

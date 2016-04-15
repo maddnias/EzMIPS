@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef RUNTIME_CONTEXT_H
+#define RUNTIME_CONTEXT_H
 
 #include <vector>
 #include "../simulator/instructions/mips_instr.h"
@@ -24,3 +24,4 @@ private:
 	std::vector<mem_segment*> m_mem_segments;
 };
 
+#endif

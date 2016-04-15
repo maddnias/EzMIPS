@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MIPS_INSTR_WRITER_H
+#define MIPS_INSTR_WRITER_H
+
 #include "../runtime_context.h"
 
 
@@ -15,3 +17,4 @@ private:
 	runtime_context *ctx;
 };
 
+#endif

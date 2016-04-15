@@ -1,4 +1,6 @@
-#pragma once
+#ifndef LABEL_REF_TOK_H
+#define LABEL_REF_TOK_H
+
 #include "../token.h"
 
 #define identifier "LABEL_REF: "
@@ -11,3 +13,4 @@ public:
 	~label_ref_tok(void);
 };
 
+#endif

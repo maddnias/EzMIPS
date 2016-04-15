@@ -14,7 +14,6 @@ pseudo_instr_handler::~pseudo_instr_handler(void) {
 }
 
 mips_token_ptr pseudo_instr_handler::parse_token(parser_ctx &ctx, std::string buff){	
-	bool successFlag = true;	
 	pseudo_instr_tok *tok = NULL;
 
     if(buff == instr_blt){

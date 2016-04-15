@@ -1,4 +1,6 @@
-#pragma once
+#ifndef UNDEFINED_TOK_H
+#define UNDEFINED_TOK_H
+
 #include "../token.h"
 #include <string>
 
@@ -12,3 +14,4 @@ public:
 	~undefined_tok(void);
 };
 
+#endif

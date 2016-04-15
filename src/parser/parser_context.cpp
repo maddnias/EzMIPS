@@ -1,4 +1,3 @@
-#pragma once
 #include "parser_context.h"
 #include <algorithm>
 

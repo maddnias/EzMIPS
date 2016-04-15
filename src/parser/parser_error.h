@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef PARSER_ERROR_H
+#define PARSER_ERROR_H
 
 #include <string>
 #include <vector>
@@ -22,3 +22,5 @@ private:
 
 typedef std::shared_ptr<ParserError> ParserErrorPtr;
 typedef std::vector<ParserErrorPtr> ParserErrorVector;
+
+#endif

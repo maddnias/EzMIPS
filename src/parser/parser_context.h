@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PARSER_CONTEXT_H
+#define PARSER_CONTEXT_H
 
 #include "lexer/token.h"
 #include "parser_error.h"
@@ -33,3 +34,5 @@ private:
 
 typedef parser_context parser_ctx;
 typedef std::shared_ptr<parser_ctx> ParserCtxPtr;
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MEM_SEGMENT_H
+#define MEM_SEGMENT_H
 
 #include "stdint.h"
 
@@ -26,3 +27,4 @@ private:
 	bool is_in_range(unsigned int addr);
 };
 
+#endif
