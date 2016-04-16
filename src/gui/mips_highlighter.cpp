@@ -5,7 +5,7 @@ mips_highlighter::mips_highlighter(QTextDocument *parent)
 {
     HighlightingRule rule;
 
-    keywordFormat.setForeground(Qt::darkBlue);
+    keywordFormat.setForeground(Qt::blue);
     QStringList keywordPatterns;
     keywordPatterns << "\\badd\\b" << "\\baddi\\b" << "\\baddiu"
                     << "\\baddu\\b" << "\\band\\b" << "\\bandi\\b"
@@ -31,7 +31,7 @@ mips_highlighter::mips_highlighter(QTextDocument *parent)
         highlightingRules.append(rule);
     }
 
-    registerFormat.setForeground(Qt::darkRed);
+    registerFormat.setForeground(Qt::red);
     QStringList registerPatterns;
     registerPatterns << "\\$1" << "\\$2" << "\\$3"
                      << "\\$4" << "\\$5" << "\\$6"
@@ -62,7 +62,6 @@ mips_highlighter::mips_highlighter(QTextDocument *parent)
     }
 
     directiveFormat.setForeground(Qt::magenta);
-    directiveFormat.setFontWeight(QFont::Bold);
     QStringList directivePatterns;
     directivePatterns << "\\.data\\b" << "\\.kdata\\b" << "\\.ktext\\b"
                       << "\\.ktext\\b" << "\\.text\\b";

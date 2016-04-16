@@ -20,7 +20,6 @@ RCC_DIR = $$DESTDIR/.qrc
 UI_DIR = $$DESTDIR/.u
                                                                        ^
 QMAKE_CXXFLAGS_WARN_ON += -Wno-reorder
-QMAKE_CXXFLAGS_WARN_ON += -Wunused-parameter
 
 INCLUDEPATH += "src/"\
             "src/include/"

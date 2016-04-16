@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTableWidget>
 #include "source_file.h"
 
 namespace Ui {
@@ -36,6 +37,7 @@ private slots:
     void on_actionAssemble_triggered();
     void on_actionRun_triggered();
     void on_textEdit_textChanged();
+    void on_tableWidget_itemDoubleClicked(QTableWidgetItem *item);
 };
 
 #endif // MAINWINDOW_H
