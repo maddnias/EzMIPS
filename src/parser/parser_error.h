@@ -5,12 +5,12 @@
 #include <vector>
 #include <memory>
 
-class ParserError
+class parser_error
 {
 public:
-	ParserError(std::string err_desc, unsigned int err_row,
+    parser_error(std::string err_desc, unsigned int err_row,
 		unsigned int err_col);
-	~ParserError(void);
+    ~parser_error(void);
 
 	std::string get_err_desc();
 
@@ -19,8 +19,5 @@ private:
 	unsigned int m_err_row;
 	unsigned int m_err_col;
 };
-
-typedef std::shared_ptr<ParserError> ParserErrorPtr;
-typedef std::vector<ParserErrorPtr> ParserErrorVector;
 
 #endif

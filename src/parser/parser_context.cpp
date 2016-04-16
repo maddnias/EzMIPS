@@ -22,8 +22,13 @@ parser_context::~parser_context(void){
 }
 
 void parser_context::push_err(std::string err_desc){
-	m_parser_errors.push_back(ParserErrorPtr(new ParserError(err_desc,
-		m_current_row, m_current_col)));
+    m_parser_errors.push_back(new parser_error(err_desc,
+                                               m_current_row, m_current_col));
+}
+
+void parser_context::push_err(parser_error *err)
+{
+    m_parser_errors.push_back(err);
 }
 
 void parser_context::push_token(mips_token_ptr token){

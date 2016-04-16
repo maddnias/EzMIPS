@@ -66,7 +66,9 @@ SOURCES += src/main.cpp\
     src/gui/mips_highlighter.cpp \
     src/gui/editor_window.cpp \
     src/gui/mainwindow.cpp \
-    src/assembler/mips_assembler.cpp
+    src/assembler/mips_assembler.cpp \
+    src/assembler/token_rule.cpp \
+    src/assembler/r_instr_tok_rule.cpp
 
 HEADERS  += \
     src/include/executor.h \
@@ -105,7 +107,9 @@ HEADERS  += \
     src/gui/mips_highlighter.h \
     src/gui/editor_window.h \
     src/gui/mainwindow.h \
-    src/assembler/mips_assembler.h
+    src/assembler/mips_assembler.h \
+    src/assembler/token_rule.h \
+    src/assembler/r_instr_tok_rule.h
 
 FORMS    += \
     src/gui/editor_window.ui \
