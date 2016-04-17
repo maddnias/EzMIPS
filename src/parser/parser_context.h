@@ -16,7 +16,7 @@ public:
 
 	void push_err(std::string err_desc);
     void push_err(parser_error *err);
-	void push_token(mips_token_ptr token);
+    void push_token(mips_token *token);
 	void push_label(std::string label);
 	
 	bool pool_contains_label(std::string label);
@@ -32,8 +32,5 @@ private:
 	mips_tok_vector *m_parsed_tokens;
 	std::vector<std::string> m_label_pool;
 };
-
-typedef parser_context parser_ctx;
-typedef std::shared_ptr<parser_ctx> ParserCtxPtr;
 
 #endif

@@ -12,7 +12,7 @@ literal_handler::literal_handler(){
 literal_handler::~literal_handler(void) {
 }
 
-mips_token_ptr literal_handler::parse_token(parser_ctx &ctx, std::string buff){
+mips_token* literal_handler::parse_token(parser_context &ctx, std::string buff){
     char firstChar = ctx.get_src_reader()->peek();
     std::string finalBuff;
 	finalBuff += firstChar;
@@ -81,7 +81,7 @@ mips_token_ptr literal_handler::parse_token(parser_ctx &ctx, std::string buff){
 	if(tok != NULL){
 		tok->set_raw_tok(finalBuff);
 		ctx.get_src_reader()->advance(finalBuff.length());
-		return mips_token_ptr(tok);
+        return tok;
 	}
 	return NULL;
 }

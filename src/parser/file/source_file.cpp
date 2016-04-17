@@ -34,14 +34,7 @@ bool source_file::save(){
 
 bool source_file::load(){
     src_sanity_check();
-
-#if _WIN32
-    string filename(m_filename.begin(), m_filename.end());
-    std::ifstream fin(filename, std::ifstream::in|std::ifstream::binary);
-#elif __linux__
     std::ifstream fin(m_filename, std::ifstream::in|std::ifstream::binary);
-#endif
-
 
 	fin.seekg(0, ios::end);
 	m_size = fin.tellg();

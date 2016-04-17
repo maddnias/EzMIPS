@@ -21,7 +21,7 @@ mips_tokenizer::~mips_tokenizer(){
 }
 
 
-mips_tok_vector mips_tokenizer::parse_tokens(source_file *input){
+parser_context mips_tokenizer::parse_tokens(source_file *input){
 	init_tokenizer(input);
 	// First pass to create label pool
 	while(!get_src_reader()->is_eof()){
@@ -33,18 +33,18 @@ mips_tok_vector mips_tokenizer::parse_tokens(source_file *input){
 	while(!get_src_reader()->is_eof()){
 		next_token(LEXER_FLAG_ALL);
 	}
-	mips_tok_vector output = *m_ctx->get_parsed_tokens();
+    //mips_tok_vector output = *m_ctx->get_parsed_tokens();
 	deinit_tokenizer();
-	return output;
+    return *m_ctx;
 }
 
-mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
+mips_token* mips_tokenizer::next_token(LEXER_FLAGS flags){
 	get_src_reader()->eat_whitespace();
 	if(get_src_reader()->is_eof()){
 		return NULL;
 	}
 
-	mips_token_ptr curTok;
+    mips_token* curTok;
     char curChar = get_src_reader()->peek();
 
 	// Check if next token is an assembler directive
@@ -140,8 +140,8 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 	}
 		
 	// No known token was found
-	curTok = mips_token_ptr(new undefined_tok(get_src_reader()->get_current_row(),
-		get_src_reader()->get_current_col()));
+    curTok = new undefined_tok(get_src_reader()->get_current_row(),
+        get_src_reader()->get_current_col());
 
 	char curChar2;
     while(!isspace(curChar2 = get_src_reader()->read()) && !get_src_reader()->is_eof()){
@@ -160,8 +160,8 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 			} else if(has_lexer_flag(flags, LEXER_FLAG_LABEL)){
 				if(is_legal_label(curTok->get_raw_tok())){
                     std::string lbl = curTok->get_raw_tok();
-					curTok = mips_token_ptr(new label_decl_tok(get_src_reader()->get_current_row(),
-						get_src_reader()->get_current_col()));
+                    curTok = new label_decl_tok(get_src_reader()->get_current_row(),
+                                                get_src_reader()->get_current_col());
 					curTok->set_raw_tok(lbl);
 					m_ctx->push_token(curTok);
 					return curTok;
@@ -176,8 +176,8 @@ mips_token_ptr mips_tokenizer::next_token(LEXER_FLAGS flags){
 		&& has_lexer_flag(flags, LEXER_FLAG_LABEL)){
 			if(m_ctx->pool_contains_label(curTok->get_raw_tok())){
                 std::string lbl = curTok->get_raw_tok();
-				curTok = mips_token_ptr(new label_ref_tok(get_src_reader()->get_current_row(),
-					get_src_reader()->get_current_col()));
+                curTok = new label_ref_tok(get_src_reader()->get_current_row(),
+                                           get_src_reader()->get_current_col());
 				curTok->set_raw_tok(lbl);
 				m_ctx->push_token(curTok);
 				return curTok;
@@ -203,7 +203,7 @@ std::string mips_tokenizer::read_identifier(){
 }
 
 void mips_tokenizer::init_tokenizer(source_file *input){
-	m_ctx = new parser_ctx(input);
+    m_ctx = new parser_context(input);
 }
 
 void mips_tokenizer::deinit_tokenizer(){

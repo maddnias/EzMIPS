@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "../simulator/instructions/mips_instr.h"
-#include "mem_segment.h"
+#include "../simulator/mem_segment.h"
 
 class runtime_context
 {

@@ -76,7 +76,7 @@ void EditorWindow::on_tableWidget_itemDoubleClicked(QTableWidgetItem *item)
 
 void EditorWindow::on_pushButton_clicked()
 {
-#if _WIN32
+/*#if _WIN32
     source_file f("C:\\TestScript.txt");
 #elif __linux__
     source_file f("TestScript.txt");
@@ -98,5 +98,5 @@ void EditorWindow::on_pushButton_clicked()
              ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 3, col_test4);
         }
 
-    }
+    }*/
 }

@@ -36,10 +36,10 @@ public:
 	mips_tokenizer(void);
 	~mips_tokenizer(void);
 
-	mips_tok_vector parse_tokens(source_file *input);
+    parser_context parse_tokens(source_file *input);
 private:
 	/* functions */
-	mips_token_ptr next_token(LEXER_FLAGS flags);
+    mips_token* next_token(LEXER_FLAGS flags);
 
     std::string read_identifier();
 
@@ -52,7 +52,7 @@ private:
 	/* members */
 	std::vector<source_file*> m_src_files;
 
-	parser_ctx *m_ctx;
+    parser_context *m_ctx;
 	asm_directives_handler m_asm_directives_handler;
 	r_instr_handler m_r_instr_handler;
 	j_instr_handler m_j_instr_handler;

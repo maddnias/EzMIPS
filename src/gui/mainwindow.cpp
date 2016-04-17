@@ -3,6 +3,7 @@
 #include "mips_highlighter.h"
 #include "tokenizer.h"
 #include <QFileDialog>
+#include "../assembler/mips_assembler.h"
 
 using namespace std;
 
@@ -140,7 +141,11 @@ void MainWindow::on_actionRun_triggered()
     m_is_changed = false;
     update_title();
 
-    mips_tokenizer t;
+    mips_assembler a(m_src_file);
+    runtime_context c;
+    auto lol = a.assemble(c);
+
+    /*mips_tokenizer t;
     auto test = t.parse_tokens(m_src_file);
 
     for(auto it = test.begin();it != test.end();it++){
@@ -155,7 +160,7 @@ void MainWindow::on_actionRun_triggered()
              ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 2, col_test3);
              ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 3, col_test4);
         }
-    }
+    }*/
 }
 
 void MainWindow::on_textEdit_textChanged()

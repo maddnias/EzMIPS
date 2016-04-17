@@ -13,7 +13,7 @@ asm_directives_handler::asm_directives_handler(){
 asm_directives_handler::~asm_directives_handler(void) {
 }
 
-mips_token_ptr asm_directives_handler::parse_token(parser_ctx &ctx, std::string buff){
+mips_token* asm_directives_handler::parse_token(parser_context &ctx, std::string buff){
 	if(ctx.get_src_reader()->peek() != '.'){
 		return false;
 	}
@@ -60,5 +60,5 @@ mips_token_ptr asm_directives_handler::parse_token(parser_ctx &ctx, std::string 
 		return NULL;
 	}
 
-	return mips_token_ptr(tok);
+    return tok;
 }

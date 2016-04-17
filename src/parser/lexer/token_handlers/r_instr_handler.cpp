@@ -12,7 +12,7 @@ r_instr_handler::~r_instr_handler(void)
 {
 }
 
-mips_token_ptr r_instr_handler::parse_token(parser_ctx &ctx, std::string buff){
+mips_token* r_instr_handler::parse_token(parser_context &ctx, std::string buff){
 		bool successFlag = true;
 		r_instr_tok *tok = NULL;
 
@@ -147,7 +147,7 @@ mips_token_ptr r_instr_handler::parse_token(parser_ctx &ctx, std::string buff){
 		
 		successFlag = tok != NULL;
 		if(successFlag){
-			return mips_token_ptr(tok);
+            return tok;
 		}
 
 		return NULL;

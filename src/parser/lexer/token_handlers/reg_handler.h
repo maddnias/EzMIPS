@@ -17,7 +17,7 @@ public:
 	reg_handler(void);
 	~reg_handler(void);
 	
-	virtual mips_token_ptr parse_token(parser_ctx &ctx, std::string buff) override;
+    virtual mips_token* parse_token(parser_context &ctx, std::string buff) override;
 
 private:
 	int parse_reg_number(std::string &buff, parser_context &ctx);

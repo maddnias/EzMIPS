@@ -13,7 +13,7 @@ i_instr_handler::i_instr_handler(){
 i_instr_handler::~i_instr_handler(void) {
 }
 
-mips_token_ptr i_instr_handler::parse_token(parser_ctx &ctx, std::string buff){
+mips_token* i_instr_handler::parse_token(parser_context &ctx, std::string buff){
     i_instr_tok *tok = NULL;
 
     if(buff == instr_addi){
@@ -97,5 +97,5 @@ mips_token_ptr i_instr_handler::parse_token(parser_ctx &ctx, std::string buff){
 		return NULL;
 	}
 
-	return mips_token_ptr(tok);
+    return tok;
 }

@@ -1,19 +1,33 @@
 #include "r_instr_tok_rule.h"
 
-r_instr_tok_rule::r_instr_tok_rule()
-{
+using namespace std;
+
+r_instr_tok_rule::r_instr_tok_rule(){
 
 }
 
+r_instr_tok_rule::~r_instr_tok_rule(){
+
+}
+
+unsigned int r_instr_tok_rule::get_required_tok_count(){
+    return 3;
+}
+
 bool r_instr_tok_rule::follows_rule(mips_tok_vector &tokens,
-                                    unsigned int idx, parser_ctx &ctx){
-    if(idx + 3 < tokens.size()){
+                                    mips_tok_vector::iterator tok_it,
+                                    parser_context &ctx){
+    if(distance(tok_it, tokens.end()) < get_required_tok_count()){
+        ctx.push_err(new parser_error("R_INSTR_TOK_RULE: TODO", (*tok_it)->get_tok_row(),
+                                      (*tok_it)->get_tok_col()));
         return false;
     }
-    for(int i = 1;i <= 3;i++){
-        if(tokens.at(i+idx)->get_tok_type() != TOKEN_TYPE::REG_TOK){
-            ctx.push_err(new parser_error("", tokens.at(i+idx)->get_tok_row(),
-                                          tokens.at(i+idx)->get_tok_col()));
+
+    tok_it++;
+    for(unsigned int i = 0;i < get_required_tok_count();i++,tok_it++){
+        if((*tok_it)->get_tok_type() != TOKEN_TYPE::REG_TOK){
+            ctx.push_err(new parser_error("R_INSTR_TOK_RULE: TODO", (*tok_it)->get_tok_row(),
+                                          (*tok_it)->get_tok_col()));
             return false;
         }
     }

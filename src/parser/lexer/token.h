@@ -51,8 +51,7 @@ private:
 	TOKEN_TYPE m_tok_type;
 };
 
-typedef std::shared_ptr<mips_token> mips_token_ptr;
-typedef std::vector<mips_token_ptr> mips_tok_vector;
+typedef std::vector<mips_token*> mips_tok_vector;
 typedef std::shared_ptr<mips_tok_vector> mips_tok_vectorPtr;
 
 #endif

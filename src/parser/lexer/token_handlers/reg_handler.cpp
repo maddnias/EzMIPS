@@ -13,7 +13,7 @@ reg_handler::reg_handler(){
 reg_handler::~reg_handler(void) {
 }
 
-mips_token_ptr reg_handler::parse_token(parser_ctx &ctx, string buff){
+mips_token* reg_handler::parse_token(parser_context &ctx, string buff){
     char firstChar = ctx.get_src_reader()->peek();
     char nextChar = ctx.get_src_reader()->peek(1);
     string finalBuff;
@@ -144,12 +144,12 @@ mips_token_ptr reg_handler::parse_token(parser_ctx &ctx, string buff){
 	if(tok != NULL){
 		tok->set_raw_tok(finalBuff);
 		ctx.get_src_reader()->advance(finalBuff.length());
-		return mips_token_ptr(tok);
+        return tok;
 	}
 	return NULL;
 }
 
-int reg_handler::parse_reg_number(string &finalBuff, parser_ctx &ctx){
+int reg_handler::parse_reg_number(string &finalBuff, parser_context &ctx){
 	finalBuff += ctx.get_src_reader()->peek(1);
 	finalBuff += ctx.get_src_reader()->read_int(2);
 	int regNumber = 0;

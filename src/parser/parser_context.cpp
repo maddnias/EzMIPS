@@ -31,7 +31,7 @@ void parser_context::push_err(parser_error *err)
     m_parser_errors.push_back(err);
 }
 
-void parser_context::push_token(mips_token_ptr token){
+void parser_context::push_token(mips_token* token){
 	m_parsed_tokens->push_back(token);
 }
 

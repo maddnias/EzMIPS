@@ -2,7 +2,7 @@
 #define EXECUTOR_H
 
 #include "tokenizer.h"
-#include "../simulator/runtime_context.h"
+#include "runtime_context.h"
 
 class executor
 {

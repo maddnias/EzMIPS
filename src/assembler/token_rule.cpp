@@ -4,3 +4,8 @@ token_rule::token_rule()
 {
 
 }
+
+token_rule::~token_rule()
+{
+
+}

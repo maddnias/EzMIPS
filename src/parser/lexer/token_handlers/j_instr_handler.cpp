@@ -14,7 +14,7 @@ j_instr_handler::j_instr_handler(){
 j_instr_handler::~j_instr_handler(void) {
 }
 
-mips_token_ptr j_instr_handler::parse_token(parser_ctx &ctx, std::string buff){
+mips_token* j_instr_handler::parse_token(parser_context &ctx, std::string buff){
 	if(ctx.get_src_reader()->peek() != 'j'){
 		return false;
 	}
@@ -37,5 +37,5 @@ mips_token_ptr j_instr_handler::parse_token(parser_ctx &ctx, std::string buff){
 		return NULL;
 	}
 
-	return mips_token_ptr(tok);
+    return tok;
 }

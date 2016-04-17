@@ -109,7 +109,8 @@ HEADERS  += \
     src/gui/mainwindow.h \
     src/assembler/mips_assembler.h \
     src/assembler/token_rule.h \
-    src/assembler/r_instr_tok_rule.h
+    src/assembler/r_instr_tok_rule.h \
+    src/include/runtime_context.h
 
 FORMS    += \
     src/gui/editor_window.ui \

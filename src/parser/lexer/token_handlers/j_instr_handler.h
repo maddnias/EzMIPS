@@ -13,7 +13,7 @@ public:
 	j_instr_handler(void);
 	~j_instr_handler(void);
 	
-	virtual mips_token_ptr parse_token(parser_ctx &ctx, std::string buff) override;
+    virtual mips_token* parse_token(parser_context &ctx, std::string buff) override;
 	
 };
 
