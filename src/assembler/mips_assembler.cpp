@@ -20,6 +20,14 @@ parser_context mips_assembler::assemble(runtime_context &runtime_ctx)
     mips_tokenizer t;
     parser_context parserCtx = t.parse_tokens(m_file);
 
+    for(mips_tok_vector::iterator it = parserCtx.get_parsed_tokens()->begin();
+        it != parserCtx.get_parsed_tokens()->end();it++){
+        if((*it)->get_tok_type() == TOKEN_TYPE::UNDEFINED_TOK){
+            parserCtx.push_err(new parser_error("Undefined token", (*it)->get_tok_row(),
+                                                (*it)->get_tok_col()));
+        }
+    }
+
     ensure_rules(parserCtx);
 
     return parserCtx;
