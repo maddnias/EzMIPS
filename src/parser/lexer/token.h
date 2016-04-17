@@ -21,7 +21,7 @@ public:
 	mips_token(TOKEN_TYPE type, unsigned int tok_row,
 		unsigned int tok_col, std::string formatted_prefix);
 
-	~mips_token(void);
+    virtual ~mips_token(void);
 	
 	void set_tok_type(TOKEN_TYPE type);
 	TOKEN_TYPE get_tok_type();

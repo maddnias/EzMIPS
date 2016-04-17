@@ -107,11 +107,11 @@ void source_file::move_to(int count, STREAM_POS pos){
 }
 
 bool source_file::is_in_range(){
-	return is_in_range(1);
+    return is_in_range(1);
 }
 
 bool source_file::is_in_range(int count){
-	return m_pos + count >= 0 && m_pos + count <= m_size +1;
+    return m_pos + count <= m_size +1;
 }
 
 void source_file::src_sanity_check(){

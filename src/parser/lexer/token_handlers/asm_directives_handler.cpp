@@ -15,7 +15,7 @@ asm_directives_handler::~asm_directives_handler(void) {
 
 mips_token* asm_directives_handler::parse_token(parser_context &ctx, std::string buff){
 	if(ctx.get_src_reader()->peek() != '.'){
-		return false;
+        return NULL;
 	}
 
 	// Advance past '.'

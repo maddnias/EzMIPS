@@ -24,10 +24,10 @@ bool source_reader::is_eof(int look_ahead){
 void source_reader::eat_whitespace(){
 	int curChar;
     while(isspace(curChar = read())){
-		if(curChar == '\n'){
+        /*if(curChar == '\n'){
 			advance_row();
 			reset_col();
-		}
+        }*/
 	};
 	decrement_col();
 	m_input->move_to(-1, STREAM_POS_CUR);
@@ -77,6 +77,7 @@ int source_reader::peek(int forward_count){
 	return m_input->peek(forward_count);
 }
 
+//TODO: fix row detection with this
 void source_reader::move_to(int count, STREAM_POS pos){
 	return m_input->move_to(count, pos);
 }
@@ -112,7 +113,7 @@ void source_reader::advance(int forward_count){
 }
 
 bool source_reader::is_integer(wint_t val){
-	return iswdigit(val) != 0;
+    return isdigit(val) != 0;
 }
 
 bool source_reader::is_legal_identifier_start(wint_t val){
@@ -129,7 +130,6 @@ bool source_reader::matches(std::string str){
 }
 
 bool source_reader::matches_unique(std::string str){
-    char test = peek(0);
 	for(unsigned int i = 0;i < str.length();i++){
 		if(peek(i) != str.at(i)){
 			return false;

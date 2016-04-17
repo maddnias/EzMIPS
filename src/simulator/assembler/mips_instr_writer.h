@@ -1,7 +1,7 @@
 #ifndef MIPS_INSTR_WRITER_H
 #define MIPS_INSTR_WRITER_H
 
-#include "../runtime_context.h"
+#include "runtime_context.h"
 
 
 class mips_instr_writer
