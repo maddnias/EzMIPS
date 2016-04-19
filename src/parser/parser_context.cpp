@@ -18,6 +18,14 @@ parser_context::parser_context(source_file *input):
 
 parser_context::~parser_context(void){
 	delete m_src_reader;
+    for(mips_tok_vector::iterator it = m_parsed_tokens->begin();
+        it != m_parsed_tokens->end();it++){
+        delete *it;
+    }
+    for(vector<parser_error*>::iterator it = m_parser_errors.begin();
+        it != m_parser_errors.end();it++){
+        delete *it;
+    }
 	delete m_parsed_tokens;
 }
 
@@ -30,6 +38,7 @@ void parser_context::push_err(parser_error *err)
 {
     m_parser_errors.push_back(err);
 }
+
 
 void parser_context::push_token(mips_token* token){
 	m_parsed_tokens->push_back(token);
@@ -53,6 +62,11 @@ source_reader* parser_context::get_src_reader(){
 	return m_src_reader;
 }
 
+//TODO: make m_parsed_tokens non-pointer
 mips_tok_vector* parser_context::get_parsed_tokens(){
-	return m_parsed_tokens;
+    return m_parsed_tokens;
+}
+
+std::vector<parser_error *>* parser_context::get_parser_errors(){
+    return &m_parser_errors;
 }

@@ -12,7 +12,9 @@ public:
 		unsigned int err_col);
     ~parser_error(void);
 
-	std::string get_err_desc();
+    std::string get_error_desc();
+    unsigned int get_error_row();
+    unsigned int get_error_col();
 
 private:
 	std::string m_err_desc;

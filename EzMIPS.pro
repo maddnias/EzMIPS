@@ -68,9 +68,11 @@ SOURCES += src/main.cpp\
     src/gui/mainwindow.cpp \
     src/assembler/mips_assembler.cpp \
     src/assembler/token_rule.cpp \
-    src/assembler/r_instr_tok_rule.cpp
+    src/assembler/r_instr_tok_rule.cpp \
+    src/thirdparty/format.cpp
 
 HEADERS  += \
+    src/thirdparty/format.h \
     src/include/executor.h \
     src/include/source_file.h \
     src/include/tokenizer.h \

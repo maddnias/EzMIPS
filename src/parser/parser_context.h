@@ -7,6 +7,7 @@
 #include "source_file.h"
 #include <vector>
 #include <string>
+#include "thirdparty/format.h"
 
 class parser_context{
 public:
@@ -16,6 +17,14 @@ public:
 
 	void push_err(std::string err_desc);
     void push_err(parser_error *err);
+
+    template <typename... Args>
+    void push_err(unsigned int tok_row, unsigned int tok_col, const char *format,
+                     const Args & ... args) {
+      push_err(new parser_error(fmt::format(format, args...),
+                                tok_row, tok_col));
+    }
+
     void push_token(mips_token *token);
 	void push_label(std::string label);
 	
@@ -23,6 +32,7 @@ public:
 
 	source_reader* get_src_reader();
 	mips_tok_vector* get_parsed_tokens();
+    std::vector<parser_error*>* get_parser_errors();
 
 private:
 	unsigned int m_current_row;

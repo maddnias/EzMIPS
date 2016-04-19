@@ -36,7 +36,7 @@ public:
 	mips_tokenizer(void);
 	~mips_tokenizer(void);
 
-    parser_context parse_tokens(source_file *input);
+    parser_context* parse_tokens(source_file *input);
 private:
 	/* functions */
     mips_token* next_token(LEXER_FLAGS flags);

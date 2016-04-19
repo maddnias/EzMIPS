@@ -11,8 +11,8 @@ public:
     mips_assembler(source_file *file);
     ~mips_assembler();
 
-    parser_context assemble(runtime_context &runtime_ctx);
-    void ensure_rules(parser_context &ctx);
+    parser_context* assemble(runtime_context &runtime_ctx);
+    void ensure_rules(parser_context *ctx);
 
 private:
     source_file *m_file;

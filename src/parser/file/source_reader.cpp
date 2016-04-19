@@ -6,7 +6,7 @@ using namespace std;
 source_reader::source_reader(source_file *input):
 m_input(input),
 m_current_col(0),
-m_current_row(0){
+m_current_row(1){
 }
 
 source_reader::~source_reader(){
@@ -141,7 +141,7 @@ bool source_reader::matches_unique(std::string str){
 
 void source_reader::reset(){
 	m_current_col = 0;
-	m_current_row = 0;
+    m_current_row = 1;
 	m_input->move_to(0, STREAM_POS_START);
 }
 

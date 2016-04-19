@@ -70,7 +70,7 @@ void MainWindow::setup_error_table(){
     ui->tableWidget->setHorizontalHeaderItem(1, col_line);
     ui->tableWidget->setHorizontalHeaderItem(2, col_col);
     ui->tableWidget->setHorizontalHeaderItem(3, col_err);
-    //ui->tableWidget->setItem(0, 0, col_test);
+    //ui->tableWidget->setItem(0, 0, col_pCtx);
 }
 
 void MainWindow::update_title(){
@@ -143,24 +143,21 @@ void MainWindow::on_actionRun_triggered()
 
     mips_assembler a(m_src_file);
     runtime_context c;
-    auto lol = a.assemble(c);
+    parser_context *pCtx = a.assemble(c);
 
-    /*mips_tokenizer t;
-    auto test = t.parse_tokens(m_src_file);
+    for(auto it = pCtx->get_parser_errors()->begin();it != pCtx->get_parser_errors()->end();it++){
+        QTableWidgetItem* col_pCtx1 = new QTableWidgetItem(QString::number(ui->tableWidget->rowCount()),QTableWidgetItem::Type);
+        QTableWidgetItem* col_pCtx2 = new QTableWidgetItem(QString::number((*it)->get_error_row()),QTableWidgetItem::Type);
+        QTableWidgetItem* col_pCtx3 = new QTableWidgetItem(QString::number((*it)->get_error_col()),QTableWidgetItem::Type);
+        QTableWidgetItem* col_pCtx4 = new QTableWidgetItem(QString::fromStdString((*it)->get_error_desc()),QTableWidgetItem::Type);
+        ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, col_pCtx1);
+        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 1, col_pCtx2);
+        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 2, col_pCtx3);
+        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 3, col_pCtx4);
+    }
 
-    for(auto it = test.begin();it != test.end();it++){
-        if((*it)->get_tok_type() == TOKEN_TYPE::UNDEFINED_TOK){
-             QTableWidgetItem* col_test1 = new QTableWidgetItem(QString::number(ui->tableWidget->rowCount()),QTableWidgetItem::Type);
-             QTableWidgetItem* col_test2 = new QTableWidgetItem(QString::number((*it)->get_tok_row()+1),QTableWidgetItem::Type);
-             QTableWidgetItem* col_test3 = new QTableWidgetItem(QString::number((*it)->get_tok_col()),QTableWidgetItem::Type);
-             QTableWidgetItem* col_test4 = new QTableWidgetItem(QString("Undefined token: ") + QString::fromStdString((*it)->get_raw_tok()),QTableWidgetItem::Type);
-             ui->tableWidget->insertRow(ui->tableWidget->rowCount());
-             ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, col_test1);
-             ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 1, col_test2);
-             ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 2, col_test3);
-             ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 3, col_test4);
-        }
-    }*/
+    delete pCtx;
 }
 
 void MainWindow::on_textEdit_textChanged()

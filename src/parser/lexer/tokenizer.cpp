@@ -17,11 +17,11 @@ mips_tokenizer::mips_tokenizer(){
 }
 
 mips_tokenizer::~mips_tokenizer(){
-	delete m_ctx;
+    //delete m_ctx;
 }
 
 
-parser_context mips_tokenizer::parse_tokens(source_file *input){
+parser_context* mips_tokenizer::parse_tokens(source_file *input){
 	init_tokenizer(input);
 	// First pass to create label pool
 	while(!get_src_reader()->is_eof()){
@@ -35,7 +35,7 @@ parser_context mips_tokenizer::parse_tokens(source_file *input){
 	}
     //mips_tok_vector output = *m_ctx->get_parsed_tokens();
 	deinit_tokenizer();
-    return *m_ctx;
+    return m_ctx;
 }
 
 mips_token* mips_tokenizer::next_token(LEXER_FLAGS flags){
