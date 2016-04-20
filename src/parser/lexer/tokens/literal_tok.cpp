@@ -3,6 +3,7 @@
 
 literal_tok::literal_tok(LITERAL_TYPE type, unsigned int tok_row, unsigned int tok_col):
     mips_token(LITERAL_TOK, tok_row, tok_col, ""){
+    m_type = type;
 		switch(type){
 		case LITERAL_TYPE_STRING:
             set_formatted_prefix(identifier_string);

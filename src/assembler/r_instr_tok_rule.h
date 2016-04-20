@@ -12,7 +12,7 @@ public:
 
     unsigned int get_required_tok_count() override;
     bool follows_rule(mips_tok_vector &tokens,
-                      mips_tok_vector::iterator tok_it,
+                      mips_tok_vector::iterator &tok_it,
                       parser_context *ctx) override;
 };
 

@@ -2,6 +2,7 @@
 #include "r_instr_tok_rule.h"
 #include "parser/lexer/tokens/instr_base_tok.h"
 #include "thirdparty/format.h"
+#include "parser/lexer/tokens/literal_tok.h"
 
 using namespace std;
 
@@ -28,7 +29,7 @@ parser_context* mips_assembler::assemble(runtime_context &runtime_ctx)
 void mips_assembler::ensure_rules(parser_context *ctx)
 {
     for(mips_tok_vector::iterator it = ctx->get_parsed_tokens()->begin();
-        it != ctx->get_parsed_tokens()->end();it++){
+        it != ctx->get_parsed_tokens()->end();){
         switch((*it)->get_tok_type()){
         case TOKEN_TYPE::INSTR_TOK:
             switch(static_cast<instr_base_tok*>(*it)->get_instr_type()){
@@ -44,18 +45,30 @@ void mips_assembler::ensure_rules(parser_context *ctx)
             case INSTRUCTION_R:
                 // TODO: pointer instead of dereference
                 if(m_r_instr_tok_rule.follows_rule(*ctx->get_parsed_tokens(), it, ctx)){
-                    it += m_r_instr_tok_rule.get_required_tok_count();
+                    it += m_r_instr_tok_rule.get_required_tok_count() +1;
                 }
                 break;
             }
 
             break;
-        case TOKEN_TYPE::REG_TOK:
+        /*case TOKEN_TYPE::LITERAL_TOK:
+            switch(static_cast<literal_tok*>(*it)->get_type()){
+            case LITERAL_TYPE_COMMENT:
+                it++;
+                break;
+            }
+            it++;
 
-        break;
+            break;*/
         case TOKEN_TYPE::UNDEFINED_TOK:
             ctx->push_err((*it)->get_tok_row(), (*it)->get_tok_col(),
                                 "Undefined token: \"{}\"", (*it)->get_raw_tok());
+            it++;
+            break;
+        default:
+            ctx->push_err((*it)->get_tok_row(), (*it)->get_tok_col(),
+                          "Unexpected token: \"{}\"", (*it)->get_raw_tok());
+            it++;
             break;
         }
     }
