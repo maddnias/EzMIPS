@@ -29,8 +29,8 @@ parser_context::~parser_context(void){
 	delete m_parsed_tokens;
 }
 
-void parser_context::push_err(std::string err_desc){
-    m_parser_errors.push_back(new parser_error(err_desc,
+void parser_context::push_err(std::string err_desc, mips_token *tok){
+    m_parser_errors.push_back(new parser_error(err_desc, tok,
                                                m_current_row, m_current_col));
 }
 

@@ -15,14 +15,14 @@ public:
 	parser_context(source_file *input);
 	~parser_context(void);
 
-	void push_err(std::string err_desc);
+    void push_err(std::string err_desc, mips_token *tok);
     void push_err(parser_error *err);
 
     template <typename... Args>
-    void push_err(unsigned int tok_row, unsigned int tok_col, const char *format,
+    void push_err(mips_token *tok, const char *format,
                      const Args & ... args) {
-      push_err(new parser_error(fmt::format(format, args...),
-                                tok_row, tok_col));
+      push_err(new parser_error(fmt::format(format, args...), tok,
+                                tok->get_tok_row(), tok->get_tok_col()));
     }
 
     void push_token(mips_token *token);

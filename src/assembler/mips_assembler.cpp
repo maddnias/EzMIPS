@@ -61,13 +61,13 @@ void mips_assembler::ensure_rules(parser_context *ctx)
 
             break;*/
         case TOKEN_TYPE::UNDEFINED_TOK:
-            ctx->push_err((*it)->get_tok_row(), (*it)->get_tok_col(),
-                                "Undefined token: \"{}\"", (*it)->get_raw_tok());
+            ctx->push_err(*it, "Undefined token: \"{}\"",
+                          (*it)->get_raw_tok());
             it++;
             break;
         default:
-            ctx->push_err((*it)->get_tok_row(), (*it)->get_tok_col(),
-                          "Unexpected token: \"{}\"", (*it)->get_raw_tok());
+            ctx->push_err(*it, "Unexpected token: \"{}\"",
+                          (*it)->get_raw_tok());
             it++;
             break;
         }

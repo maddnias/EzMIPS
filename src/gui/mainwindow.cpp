@@ -15,6 +15,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     setup_text_editor();
     setup_error_table();
+
+    connect(ui->tableWidget, SIGNAL(itemClicked(QTableWidgetItem*)), this, SLOT(tableItemClicked(int,int)));
+
    // setup_actions();
     //ui->menubar->addAction(m_newAct);
 }
@@ -64,7 +67,6 @@ void MainWindow::setup_error_table(){
     QTableWidgetItem* col_line = new QTableWidgetItem(QString("Line"),QTableWidgetItem::Type);
     QTableWidgetItem* col_col = new QTableWidgetItem(QString("Column"),QTableWidgetItem::Type);
     QTableWidgetItem* col_err = new QTableWidgetItem(QString("Error"),QTableWidgetItem::Type);
-
 
     ui->tableWidget->setHorizontalHeaderItem(0,col_num);
     ui->tableWidget->setHorizontalHeaderItem(1, col_line);
@@ -145,16 +147,27 @@ void MainWindow::on_actionRun_triggered()
     runtime_context c;
     parser_context *pCtx = a.assemble(c);
 
-    for(auto it = pCtx->get_parser_errors()->begin();it != pCtx->get_parser_errors()->end();it++){
-        QTableWidgetItem* col_pCtx1 = new QTableWidgetItem(QString::number(ui->tableWidget->rowCount()),QTableWidgetItem::Type);
-        QTableWidgetItem* col_pCtx2 = new QTableWidgetItem(QString::number((*it)->get_error_row()),QTableWidgetItem::Type);
-        QTableWidgetItem* col_pCtx3 = new QTableWidgetItem(QString::number((*it)->get_error_col()),QTableWidgetItem::Type);
-        QTableWidgetItem* col_pCtx4 = new QTableWidgetItem(QString::fromStdString((*it)->get_error_desc()),QTableWidgetItem::Type);
+    m_tbl_len_map.clear();
+
+    for(vector<parser_error*>::iterator it = pCtx->get_parser_errors()->begin();
+        it != pCtx->get_parser_errors()->end();it++){
+        QTableWidgetItem* col_idx = new QTableWidgetItem(QString::number(ui->tableWidget->rowCount()),QTableWidgetItem::Type);
+        QTableWidgetItem* col_err_line = new QTableWidgetItem(QString::number((*it)->get_error_row()),QTableWidgetItem::Type);
+        QTableWidgetItem* col_err_col = new QTableWidgetItem(QString::number((*it)->get_error_col()),QTableWidgetItem::Type);
+        QTableWidgetItem* col_err_desc = new QTableWidgetItem(QString::fromStdString((*it)->get_error_desc()),QTableWidgetItem::Type);
+
+        col_idx->setFlags(col_idx->flags() & ~Qt::ItemIsEditable);
+        col_err_line->setFlags(col_err_line->flags() & ~Qt::ItemIsEditable);
+        col_err_col->setFlags(col_err_col->flags() & ~Qt::ItemIsEditable);
+        col_err_desc->setFlags(col_err_desc->flags() & ~Qt::ItemIsEditable);
+
+        m_tbl_len_map[ui->tableWidget->rowCount()] = (*it)->get_tok()->get_raw_tok().length();
+
         ui->tableWidget->insertRow(ui->tableWidget->rowCount());
-        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, col_pCtx1);
-        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 1, col_pCtx2);
-        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 2, col_pCtx3);
-        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 3, col_pCtx4);
+        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, col_idx);
+        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 1, col_err_line);
+        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 2, col_err_col);
+        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 3, col_err_desc);
     }
 
     delete pCtx;
@@ -164,4 +177,28 @@ void MainWindow::on_textEdit_textChanged()
 {
     m_is_changed = true;
     update_title();
+}
+
+void MainWindow::tableItemClicked(QTableWidgetItem* item)
+{
+   auto item2 = item;
+   item2->background();
+    /* do some stuff with item */
+}
+
+void MainWindow::on_tableWidget_cellDoubleClicked(int row, int column)
+{
+    int idx = stoi(ui->tableWidget->item(row, 0)->text().toStdString(), 0);
+    int line = stoi(ui->tableWidget->item(row, 1)->text().toStdString(), 0);
+    int col = stoi(ui->tableWidget->item(row, 2)->text().toStdString(), 0);
+
+    QTextBlock b = ui->textEdit->document()->findBlockByLineNumber(line-1);
+
+    if (b.isValid() && m_tbl_len_map.find(idx) != m_tbl_len_map.end()) {
+        QTextCursor c = QTextCursor(b);
+        c.setPosition(c.position() + col);
+        c.setPosition(c.position() + m_tbl_len_map[idx], QTextCursor::KeepAnchor);
+        ui->textEdit->setTextCursor(c);
+    }
+
 }

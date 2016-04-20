@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QTableWidget>
 #include "source_file.h"
+#include "../parser/parser_error.h"
+#include <map>
 
 namespace Ui {
 class MainWindow;
@@ -24,6 +26,10 @@ private:
     void update_title();
     void save_with_dialog();
 
+    void tableItemClicked(QTableWidgetItem* item);
+
+    std::map<int, int> m_tbl_len_map;
+
     QAction *m_newAct;
 
     source_file *m_src_file;
@@ -38,6 +44,7 @@ private slots:
     void on_actionRun_triggered();
     void on_textEdit_textChanged();
     void on_tableWidget_itemDoubleClicked(QTableWidgetItem *item);
+    void on_tableWidget_cellDoubleClicked(int row, int column);
 };
 
 #endif // MAINWINDOW_H
