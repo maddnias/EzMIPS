@@ -56,9 +56,7 @@ SOURCES += src/main.cpp\
     src/parser/lexer/tokenizer.cpp \
     src/parser/parser_context.cpp \
     src/parser/parser_error.cpp \
-    src/simulator/assembler/mips_instr_writer.cpp \
     src/simulator/instructions/mips_instr.cpp \
-    src/simulator/instructions/mips_instr_add.cpp \
     src/simulator/instructions/mips_operand_container.cpp \
     src/simulator/executor.cpp \
     src/simulator/mem_segment.cpp \
@@ -69,7 +67,8 @@ SOURCES += src/main.cpp\
     src/assembler/mips_assembler.cpp \
     src/assembler/token_rule.cpp \
     src/assembler/r_instr_tok_rule.cpp \
-    src/thirdparty/format.cpp
+    src/thirdparty/format.cpp \
+    src/assembler/mips_instr_writer.cpp
 
 HEADERS  += \
     src/thirdparty/format.h \
@@ -102,7 +101,6 @@ HEADERS  += \
     src/parser/parser_error.h \
     src/simulator/assembler/mips_instr_writer.h \
     src/simulator/instructions/mips_instr.h \
-    src/simulator/instructions/mips_instr_add.h \
     src/simulator/instructions/mips_operand_container.h \
     src/simulator/mem_segment.h \
     src/simulator/runtime_context.h \
@@ -112,7 +110,8 @@ HEADERS  += \
     src/assembler/mips_assembler.h \
     src/assembler/token_rule.h \
     src/assembler/r_instr_tok_rule.h \
-    src/include/runtime_context.h
+    src/include/runtime_context.h \
+    src/assembler/mips_instr_writer.h
 
 FORMS    += \
     src/gui/editor_window.ui \

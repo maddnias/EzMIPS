@@ -1,7 +1,8 @@
 #include "mips_instr_writer.h"
 
 
-mips_instr_writer::mips_instr_writer(void)
+mips_instr_writer::mips_instr_writer(void):
+    m_big_endian(false)
 {
 }
 

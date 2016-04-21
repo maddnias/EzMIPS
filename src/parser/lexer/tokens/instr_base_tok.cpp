@@ -1,11 +1,12 @@
 #include "instr_base_tok.h"
 
 
-instr_base_tok::instr_base_tok(INSTRUCTION_TYPE type, 
+instr_base_tok::instr_base_tok(INSTRUCTION_CODE code, INSTRUCTION_TYPE type,
 							   unsigned int tok_row, unsigned int tok_col):
     mips_token(INSTR_TOK, tok_row, tok_col, "")
 {
     m_instr_type = type;
+    m_instr_code = code;
 	switch(type){
 	case INSTRUCTION_I:
         this->set_formatted_prefix(identifier_i);
@@ -22,7 +23,6 @@ instr_base_tok::instr_base_tok(INSTRUCTION_TYPE type,
 	}
 }
 
-
 instr_base_tok::~instr_base_tok(void)
 {
 }
@@ -32,5 +32,9 @@ void instr_base_tok::set_instr_type(INSTRUCTION_TYPE type){
 }
 
 INSTRUCTION_TYPE instr_base_tok::get_instr_type(){
-	return m_instr_type;
+    return m_instr_type;
+}
+
+INSTRUCTION_CODE instr_base_tok::get_instr_code(){
+    return m_instr_code;
 }

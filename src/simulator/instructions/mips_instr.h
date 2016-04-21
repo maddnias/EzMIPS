@@ -14,14 +14,22 @@ enum INSTR_TYPE{
 class mips_instr
 {
 public:
-	mips_instr(void);
-	~mips_instr(void);
+    mips_instr(INSTR_TYPE type, std::string expanded_name,
+               std::string mnemonic, int opcode, int funct);
+    ~mips_instr(void);
 
-	virtual INSTR_TYPE get_instr_type() = 0;
-	virtual std::string get_expanded_name() = 0;
-	virtual std::string get_mnemonic() = 0;
-	virtual int get_opcode() = 0;
-	virtual int get_funct() = 0;
+    INSTR_TYPE get_instr_type();
+    std::string get_expanded_name();
+    std::string get_mnemonic();
+    int get_opcode();
+    int get_funct();
+
+private:
+    INSTR_TYPE m_instr_type;
+    std::string m_expanded_name;
+    std::string m_mnemonic;
+    int m_opcode;
+    int m_funct;
 
 protected:
 //	mips_operand m_operand1;

@@ -22,14 +22,16 @@ mips_token* j_instr_handler::parse_token(parser_context &ctx, std::string buff){
 	j_instr_tok *tok = NULL;
 
     if(buff == instr_j){
-		tok = new j_instr_tok(ctx.get_src_reader()->get_current_row(),
-			ctx.get_src_reader()->get_current_col());
+        tok = new j_instr_tok(INSTRUCTION_CODE::J,
+                              ctx.get_src_reader()->get_current_row(),
+                              ctx.get_src_reader()->get_current_col());
         tok->set_raw_tok(instr_j);
 		ctx.get_src_reader()->advance(1);
 
     } else if (buff == instr_jal){
-		tok = new j_instr_tok(ctx.get_src_reader()->get_current_row(),
-			ctx.get_src_reader()->get_current_col());
+        tok = new j_instr_tok(INSTRUCTION_CODE::JAL,
+                              ctx.get_src_reader()->get_current_row(),
+                              ctx.get_src_reader()->get_current_col());
         tok->set_raw_tok(instr_jal);
 		ctx.get_src_reader()->advance(3);
 

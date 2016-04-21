@@ -13,6 +13,8 @@ public:
 	void write_instr(const mips_instr &instr, mem_segment &segment,
 		unsigned int addr);
 
+
+    bool m_big_endian;
 private:
 	runtime_context *ctx;
 };
