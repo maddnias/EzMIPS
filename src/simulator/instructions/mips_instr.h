@@ -3,6 +3,8 @@
 
 #include "mips_operand_container.h"
 #include <string>
+#include "parser/lexer/tokens/instr_base_tok.h"
+#include <stdint.h>
 
 enum INSTR_TYPE{
 	INSTR_TYPE_I = 0x1,
@@ -14,27 +16,31 @@ enum INSTR_TYPE{
 class mips_instr
 {
 public:
-    mips_instr(INSTR_TYPE type, std::string expanded_name,
-               std::string mnemonic, int opcode, int funct);
+    mips_instr(void);
+    mips_instr(INSTRUCTION_TYPE type, std::string expanded_name,
+               std::string mnemonic, int opcode, int funct,
+               mips_operand &op1, mips_operand &op2, mips_operand &op3);
     ~mips_instr(void);
 
-    INSTR_TYPE get_instr_type();
+    INSTRUCTION_TYPE get_instr_type();
     std::string get_expanded_name();
     std::string get_mnemonic();
     int get_opcode();
     int get_funct();
 
+    int32_t m_dat;
+
 private:
-    INSTR_TYPE m_instr_type;
+    INSTRUCTION_TYPE m_instr_type;
     std::string m_expanded_name;
     std::string m_mnemonic;
     int m_opcode;
     int m_funct;
 
 protected:
-//	mips_operand m_operand1;
-//	mips_operand m_operand2;
-//	mips_operand m_operand3;
+    mips_operand m_operand1;
+    mips_operand m_operand2;
+    mips_operand m_operand3;
 };
 
 #endif

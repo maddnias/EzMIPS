@@ -1,5 +1,10 @@
 #include "mem_segment.h"
 
+// for memcpy
+#ifdef __linux__
+#include <string.h>
+#endif
+
 using namespace std;
 
 mem_segment::mem_segment(std::string identifier,

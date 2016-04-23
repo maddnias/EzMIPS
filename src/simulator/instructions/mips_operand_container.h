@@ -13,6 +13,8 @@ class mips_operand_container
 {
 public:
 	mips_operand_container(void);
+    mips_operand_container(std::string str_data);
+    mips_operand_container(int int_data);
 	mips_operand_container(std::string str_data, int int_data);
 	~mips_operand_container(void);
 

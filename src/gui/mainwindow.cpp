@@ -147,6 +147,7 @@ void MainWindow::on_actionRun_triggered()
     runtime_context c;
     parser_context *pCtx = a.assemble(c);
 
+
     m_tbl_len_map.clear();
 
     for(vector<parser_error*>::iterator it = pCtx->get_parser_errors()->begin();

@@ -5,6 +5,8 @@
 #include "token_rule.h"
 #include "r_instr_tok_rule.h"
 #include "simulator/instructions/mips_instr.h"
+#include "parser/lexer/tokens/reg_tok.h"
+#include <map>
 
 
 class mips_assembler
@@ -19,11 +21,14 @@ public:
 private:
     source_file *m_file;
     r_instr_tok_rule m_r_instr_tok_rule;
+    std::map<std::string, int> m_reg_map;
 
     void init_assembler();
     void write_segments(runtime_context &ctx, std::vector<mips_token*> *tokens);
     mips_instr parse_instr(std::vector<mips_token*> *tokens,
                            std::vector<mips_token*>::iterator &tok_it);
+    void read_registers(int count, reg_tok &tok1, reg_tok &tok2, reg_tok &tok3,
+                        std::vector<mips_token*>::iterator &tok_it);
 };
 
 #endif // MIPS_ASSEMBLER_H
