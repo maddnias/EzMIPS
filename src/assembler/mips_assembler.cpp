@@ -180,16 +180,10 @@ mips_instr mips_assembler::parse_instr(vector<mips_token*> *tokens,
 
     switch(bTok->get_instr_code()){
         case INSTRUCTION_CODE::ADD:
-            read_registers(3, rTok1, rTok2, rTok3, tok_it);
-            if(isalpha(rTok1.get_raw_tok()[1])){
-                op1 = mips_operand(m_reg_map[rTok1.get_raw_tok()]);
-            }
-            if(isalpha(rTok2.get_raw_tok()[1])){
-                op2 = mips_operand(m_reg_map[rTok2.get_raw_tok()]);
-            }
-            if(isalpha(rTok2.get_raw_tok()[1])){
-                op3 = mips_operand(m_reg_map[rTok3.get_raw_tok()]);
-            }
+            read_registers(rTok1, rTok2, rTok3, tok_it);
+            op1 = get_reg_operand(rTok1);
+            op2 = get_reg_operand(rTok2);
+            op3 = get_reg_operand(rTok3);
 
             instr = mips_instr(bTok->get_instr_type(), "Add", "add", 0x0, 0x20,
                               op1, op2, op3);
@@ -206,20 +200,31 @@ mips_instr mips_assembler::parse_instr(vector<mips_token*> *tokens,
     }
 }
 
-void mips_assembler::read_registers(int count, reg_tok &tok1, reg_tok &tok2,
+void mips_assembler::read_registers(reg_tok &tok1, vector<mips_token*>::iterator &tok_it)
+{
+    tok1 = *static_cast<reg_tok*>(*(tok_it+1));
+}
+
+void mips_assembler::read_registers(reg_tok &tok1, reg_tok &tok2, vector<mips_token*>::iterator &tok_it)
+{
+    tok1 = *static_cast<reg_tok*>(*(tok_it+1));
+    tok2 = *static_cast<reg_tok*>(*(tok_it+2));
+}
+
+void mips_assembler::read_registers(reg_tok &tok1, reg_tok &tok2,
                                     reg_tok &tok3, vector<mips_token*>::iterator &tok_it)
 {
-    if(count == 1){
-        tok1 = *static_cast<reg_tok*>(*(tok_it+1));
-    } else if(count == 2){
-        tok1 = *static_cast<reg_tok*>(*(tok_it+1));
-        tok2 = *static_cast<reg_tok*>(*(tok_it+2));
-    } else if(count == 3){
-        tok1 = *static_cast<reg_tok*>(*(tok_it+1));
-        tok2 = *static_cast<reg_tok*>(*(tok_it+2));
-        tok3 = *static_cast<reg_tok*>(*(tok_it+3));
+    tok1 = *static_cast<reg_tok*>(*(tok_it+1));
+    tok2 = *static_cast<reg_tok*>(*(tok_it+2));
+    tok3 = *static_cast<reg_tok*>(*(tok_it+3));
+}
+
+mips_operand mips_assembler::get_reg_operand(reg_tok &tok)
+{
+    if(isalpha(tok.get_raw_tok()[1])){
+        return mips_operand(m_reg_map[tok.get_raw_tok()]);
     } else {
-        // TODO: should never happen
+        return mips_operand(stoi(tok.get_raw_tok().substr(1, tok.get_raw_tok().length()-1)));
     }
 }
 

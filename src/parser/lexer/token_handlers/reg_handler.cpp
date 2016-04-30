@@ -22,14 +22,16 @@ mips_token* reg_handler::parse_token(parser_context &ctx, string buff){
 	reg_tok *tok = NULL;
 
 	if(ctx.get_src_reader()->is_integer(nextChar)){
+        ctx.get_src_reader()->advance(1);
 		finalBuff += ctx.get_src_reader()->read_int();
 
 		// Only accept within range 0-31
 		int regNumber = 0;
 		try {
-            regNumber = stoi(finalBuff.substr(1, finalBuff.length()-1), 0, 10);
+            regNumber = stoi(finalBuff.substr(1, finalBuff.length()-1), nullptr, 10);
 		} catch(...){
 			// Invalid number
+            ctx.get_src_reader()->move_to(-1, STREAM_POS::STREAM_POS_CUR);
 			return NULL;
 		}
 		
@@ -37,6 +39,7 @@ mips_token* reg_handler::parse_token(parser_context &ctx, string buff){
 			tok = new reg_tok(ctx.get_src_reader()->get_current_row(), 
 				ctx.get_src_reader()->get_current_col());
 		}
+        ctx.get_src_reader()->move_to(-1, STREAM_POS::STREAM_POS_CUR);
 	}
 
 	switch(nextChar){

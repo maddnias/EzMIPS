@@ -27,8 +27,15 @@ private:
     void write_segments(runtime_context &ctx, std::vector<mips_token*> *tokens);
     mips_instr parse_instr(std::vector<mips_token*> *tokens,
                            std::vector<mips_token*>::iterator &tok_it);
-    void read_registers(int count, reg_tok &tok1, reg_tok &tok2, reg_tok &tok3,
+
+    void read_registers(reg_tok &tok1,
                         std::vector<mips_token*>::iterator &tok_it);
+    void read_registers(reg_tok &tok1, reg_tok &tok2,
+                        std::vector<mips_token*>::iterator &tok_it);
+    void read_registers(reg_tok &tok1, reg_tok &tok2, reg_tok &tok3,
+                        std::vector<mips_token*>::iterator &tok_it);
+
+    mips_operand get_reg_operand(reg_tok &tok);
 };
 
 #endif // MIPS_ASSEMBLER_H
