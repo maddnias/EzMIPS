@@ -14,6 +14,9 @@ public:
     bool follows_rule(mips_tok_vector &tokens,
                       mips_tok_vector::iterator &tok_it,
                       parser_context *ctx) override;
+
+private:
+    unsigned int m_req_tok_count;
 };
 
 #endif // R_INSTR_TOK_RULE_H

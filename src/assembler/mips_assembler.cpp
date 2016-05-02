@@ -124,6 +124,15 @@ void mips_assembler::init_assembler(){
     m_reg_map["$fp"] = 30;
     m_reg_map["$ra"] = 31;
 
+    // initiate funct map
+    m_funct_map[INSTRUCTION_CODE::ADD] = 0x20;
+    m_funct_map[INSTRUCTION_CODE::ADDU] = 0x21;
+    m_funct_map[INSTRUCTION_CODE::SUB] = 0x22;
+    m_funct_map[INSTRUCTION_CODE::SUBU] = 0x23;
+    m_funct_map[INSTRUCTION_CODE::MULT] = 0x18;
+    m_funct_map[INSTRUCTION_CODE::MULTU] = 0x19;
+    m_funct_map[INSTRUCTION_CODE::DIV] = 0x1A;
+    m_funct_map[INSTRUCTION_CODE::DIVU] = 0x1B;
 }
 
 void mips_assembler::write_segments(runtime_context &ctx, std::vector<mips_token*> *tokens){
@@ -143,8 +152,9 @@ void mips_assembler::write_segments(runtime_context &ctx, std::vector<mips_token
         switch((*it)->get_tok_type()){
         case TOKEN_TYPE::INSTR_TOK:
         {
-            mips_instr tmpInstr = parse_instr(tokens, it);
-            curSeg->write_word(idxMap[curSegId], tmpInstr.m_dat);
+            mips_instr *tmpInstr = parse_instr(it);
+            curSeg->write_word(idxMap[curSegId], tmpInstr->m_dat);
+            delete tmpInstr;
             idxMap[curSegId] += sizeof(int32_t);
             break;
         }
@@ -169,35 +179,49 @@ void mips_assembler::write_segments(runtime_context &ctx, std::vector<mips_token
     }
 }
 
-mips_instr mips_assembler::parse_instr(vector<mips_token*> *tokens,
-                                       vector<mips_token*>::iterator &tok_it){
+mips_instr* mips_assembler::parse_instr(vector<mips_token*>::iterator &tok_it){
     // We trust that rules have been enforced here
     mips_operand op1, op2, op3;
     reg_tok rTok1, rTok2, rTok3;
     int i;
     instr_base_tok *bTok = static_cast<instr_base_tok*>(*tok_it);
-    mips_instr instr;
+    mips_instr *instr = new mips_instr();
 
     switch(bTok->get_instr_code()){
-        case INSTRUCTION_CODE::ADD:
+    // R-instructions
+    case INSTRUCTION_CODE::ADD:
+    case INSTRUCTION_CODE::ADDU:
+    case INSTRUCTION_CODE::SUB:
+    case INSTRUCTION_CODE::SUBU:
             read_registers(rTok1, rTok2, rTok3, tok_it);
             op1 = get_reg_operand(rTok1);
             op2 = get_reg_operand(rTok2);
             op3 = get_reg_operand(rTok3);
 
-            instr = mips_instr(bTok->get_instr_type(), "Add", "add", 0x0, 0x20,
-                              op1, op2, op3);
-
-            instr.m_dat = op2.m_int_data << 0x15;
-            instr.m_dat |= op3.m_int_data << 0x10;
-            instr.m_dat |= op1.m_int_data << 0xB;
-            instr.m_dat |= 0x20;
+            instr->m_dat = op2.m_int_data << 0x15;
+            instr->m_dat |= op3.m_int_data << 0x10;
+            instr->m_dat |= op1.m_int_data << 0xB;
+            instr->m_dat |= m_funct_map[bTok->get_instr_code()];
 
             tok_it += 4;
+        break;
+    case INSTRUCTION_CODE::MULT:
+    case INSTRUCTION_CODE::MULTU:
+    case INSTRUCTION_CODE::DIV:
+    case INSTRUCTION_CODE::DIVU:
+        read_registers(rTok1, rTok2, tok_it);
+        op1 = get_reg_operand(rTok1);
+        op2 = get_reg_operand(rTok2);
 
-            return instr;
+        instr->m_dat = op1.m_int_data << 0x15;
+        instr->m_dat |= op2.m_int_data << 0x10;
+        instr->m_dat |= m_funct_map[bTok->get_instr_code()];
+
+        tok_it += 3;
         break;
     }
+
+    return instr;
 }
 
 void mips_assembler::read_registers(reg_tok &tok1, vector<mips_token*>::iterator &tok_it)

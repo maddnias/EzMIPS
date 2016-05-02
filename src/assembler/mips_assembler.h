@@ -22,11 +22,11 @@ private:
     source_file *m_file;
     r_instr_tok_rule m_r_instr_tok_rule;
     std::map<std::string, int> m_reg_map;
+    std::map<INSTRUCTION_CODE, char> m_funct_map;
 
     void init_assembler();
     void write_segments(runtime_context &ctx, std::vector<mips_token*> *tokens);
-    mips_instr parse_instr(std::vector<mips_token*> *tokens,
-                           std::vector<mips_token*>::iterator &tok_it);
+    mips_instr* parse_instr(std::vector<mips_token*>::iterator &tok_it);
 
     void read_registers(reg_tok &tok1,
                         std::vector<mips_token*>::iterator &tok_it);

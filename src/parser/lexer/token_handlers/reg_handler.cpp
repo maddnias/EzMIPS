@@ -39,6 +39,7 @@ mips_token* reg_handler::parse_token(parser_context &ctx, string buff){
 			tok = new reg_tok(ctx.get_src_reader()->get_current_row(), 
 				ctx.get_src_reader()->get_current_col());
 		}
+        // TODO: possible error?
         ctx.get_src_reader()->move_to(-1, STREAM_POS::STREAM_POS_CUR);
 	}
 
