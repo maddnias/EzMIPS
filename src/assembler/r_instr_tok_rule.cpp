@@ -25,6 +25,12 @@ bool r_instr_tok_rule::follows_rule(mips_tok_vector &tokens,
     case INSTRUCTION_CODE::ADDU:
     case INSTRUCTION_CODE::SUB:
     case INSTRUCTION_CODE::SUBU:
+    case INSTRUCTION_CODE::SLT:
+    case INSTRUCTION_CODE::SLTU:
+    case INSTRUCTION_CODE::AND:
+    case INSTRUCTION_CODE::OR:
+    case INSTRUCTION_CODE::NOR:
+    case INSTRUCTION_CODE::XOR:
         m_req_tok_count = 3;
         break;
     case INSTRUCTION_CODE::MULT:

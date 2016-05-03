@@ -46,7 +46,7 @@ void mips_assembler::ensure_rules(parser_context *ctx)
         case TOKEN_TYPE::INSTR_TOK:
             switch(static_cast<instr_base_tok*>(*it)->get_instr_type()){
             case INSTRUCTION_I:
-
+                it += 4;
                 break;
             case INSTRUCTION_J:
 
@@ -133,6 +133,18 @@ void mips_assembler::init_assembler(){
     m_funct_map[INSTRUCTION_CODE::MULTU] = 0x19;
     m_funct_map[INSTRUCTION_CODE::DIV] = 0x1A;
     m_funct_map[INSTRUCTION_CODE::DIVU] = 0x1B;
+    m_funct_map[INSTRUCTION_CODE::SLT] = 0x2A;
+    m_funct_map[INSTRUCTION_CODE::SLTU] = 0x2B;
+    m_funct_map[INSTRUCTION_CODE::AND] = 0x24;
+    m_funct_map[INSTRUCTION_CODE::OR] = 0x25;
+    m_funct_map[INSTRUCTION_CODE::XOR] = 0x26;
+    m_funct_map[INSTRUCTION_CODE::NOR] = 0x27;
+
+    // initiate opcode map
+    m_op_map[INSTRUCTION_CODE::ADDI] = 0x8 << 0x1A;
+    m_op_map[INSTRUCTION_CODE::ADDIU] = 0x9 << 0x1A;
+    m_op_map[INSTRUCTION_CODE::SLTI] = 0xA << 0x1A;
+    m_op_map[INSTRUCTION_CODE::SLTIU] = 0xB << 0x1A;
 }
 
 void mips_assembler::write_segments(runtime_context &ctx, std::vector<mips_token*> *tokens){
@@ -179,20 +191,28 @@ void mips_assembler::write_segments(runtime_context &ctx, std::vector<mips_token
     }
 }
 
+//TODO: fix negative number support
+//TODO: maybe just return int32_t instead of mips_instr*
 mips_instr* mips_assembler::parse_instr(vector<mips_token*>::iterator &tok_it){
     // We trust that rules have been enforced here
     mips_operand op1, op2, op3;
     reg_tok rTok1, rTok2, rTok3;
-    int i;
+    short immOp1;
     instr_base_tok *bTok = static_cast<instr_base_tok*>(*tok_it);
     mips_instr *instr = new mips_instr();
 
     switch(bTok->get_instr_code()){
-    // R-instructions
+    // 3 register R-instructions
     case INSTRUCTION_CODE::ADD:
     case INSTRUCTION_CODE::ADDU:
     case INSTRUCTION_CODE::SUB:
     case INSTRUCTION_CODE::SUBU:
+    case INSTRUCTION_CODE::SLT:
+    case INSTRUCTION_CODE::SLTU:
+    case INSTRUCTION_CODE::AND:
+    case INSTRUCTION_CODE::OR:
+    case INSTRUCTION_CODE::NOR:
+    case INSTRUCTION_CODE::XOR:
             read_registers(rTok1, rTok2, rTok3, tok_it);
             op1 = get_reg_operand(rTok1);
             op2 = get_reg_operand(rTok2);
@@ -205,6 +225,7 @@ mips_instr* mips_assembler::parse_instr(vector<mips_token*>::iterator &tok_it){
 
             tok_it += 4;
         break;
+    // 2 register R-instructions
     case INSTRUCTION_CODE::MULT:
     case INSTRUCTION_CODE::MULTU:
     case INSTRUCTION_CODE::DIV:
@@ -218,6 +239,26 @@ mips_instr* mips_assembler::parse_instr(vector<mips_token*>::iterator &tok_it){
         instr->m_dat |= m_funct_map[bTok->get_instr_code()];
 
         tok_it += 3;
+        break;
+
+    // I-instructions
+    case INSTRUCTION_CODE::ADDI:
+    case INSTRUCTION_CODE::ADDIU:
+    case INSTRUCTION_CODE::SLTI:
+    case INSTRUCTION_CODE::SLTIU:
+        read_registers(rTok1, rTok2, tok_it);
+        op1 = get_reg_operand(rTok1);
+        op2 = get_reg_operand(rTok2);
+        //TODO: do it in one line?
+        tok_it += 3;
+        read_imm_operand(immOp1, tok_it);
+
+        instr->m_dat = m_op_map[bTok->get_instr_code()];
+        instr->m_dat |= op2.m_int_data << 0x15;
+        instr->m_dat |= op1.m_int_data << 0x10;
+        instr->m_dat |= immOp1;
+
+        tok_it += 1;
         break;
     }
 
@@ -241,6 +282,11 @@ void mips_assembler::read_registers(reg_tok &tok1, reg_tok &tok2,
     tok1 = *static_cast<reg_tok*>(*(tok_it+1));
     tok2 = *static_cast<reg_tok*>(*(tok_it+2));
     tok3 = *static_cast<reg_tok*>(*(tok_it+3));
+}
+
+void mips_assembler::read_imm_operand(short &dat, vector<mips_token*>::iterator &tok_it){
+    mips_token* test = *tok_it;
+    dat = stoi((*(tok_it))->get_raw_tok());
 }
 
 mips_operand mips_assembler::get_reg_operand(reg_tok &tok)

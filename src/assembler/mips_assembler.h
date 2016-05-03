@@ -23,6 +23,7 @@ private:
     r_instr_tok_rule m_r_instr_tok_rule;
     std::map<std::string, int> m_reg_map;
     std::map<INSTRUCTION_CODE, char> m_funct_map;
+    std::map<INSTRUCTION_CODE, int> m_op_map;
 
     void init_assembler();
     void write_segments(runtime_context &ctx, std::vector<mips_token*> *tokens);
@@ -34,6 +35,7 @@ private:
                         std::vector<mips_token*>::iterator &tok_it);
     void read_registers(reg_tok &tok1, reg_tok &tok2, reg_tok &tok3,
                         std::vector<mips_token*>::iterator &tok_it);
+    void read_imm_operand(short &dat, std::vector<mips_token*>::iterator &tok_it);
 
     mips_operand get_reg_operand(reg_tok &tok);
 };
